@@ -11,7 +11,7 @@ Maintain a clear, professional, and transparent project roadmap inside `docs/tra
 - **`TODO.md`**: Main active roadmap. Tracks current phases, roadmap items, and completed milestones. 
 - **`FeaturesProposal.md`**: Deferred features, ideas, and post-MVP enhancements.
 - **`CodeDebt.md`**: Technical debt, refactoring needs, and known bugs.
-- **`codegapreview.md`**: Architectural implementation gaps, missing logic, and spec discrepancies.
+- **`codegapreview.md`**: Architectural implementation gaps, missing logic, and spec discrepancies. (Audit this using the `code-gap-reviewer` skill).
 
 ## 2. Dual-Roadmap Parity Law
 - **Sync Requirement**: The AI agent manages an internal state (e.g., `task.md` or system artifact). This internal task list MUST be kept in 100% parity with the human-facing `docs/track/TODO.md`.
