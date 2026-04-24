@@ -9,7 +9,7 @@ This skill provides a systematic workflow for auditing the codebase against its 
 
 ## 1. Audit Workflow
 
-1.  **Identify the Source of Truth**: Read the relevant specifications (e.g., `AGENTS.md`, `.agents/rules/Architecture.md`, and any files in `docs/`).
+1.  **Identify the Source of Truth**: Read the relevant specifications (e.g., `AGENTS.md`, `.agents/rules/System/Architecture.md`, and any files in `docs/`).
 2.  **Scan the Implementation**: Use `grep_search` and `list_directory` to locate the current implementation of the features or architectural patterns defined in Step 1.
 3.  **Perform the Gap Analysis**:
     - **Missing Logic**: Does the code implement all requirements defined in the spec?
