@@ -2,7 +2,7 @@ description = "Generates localized GEMINI.md files in subfolders to provide high
 prompt = """
 Assume Role: Orchestra Hub (@scribe)
 
-Execute the gemini-cli-context workflow for the target subfolder:
+Execute the gemini-cli-context workflow for the target subfolder, or delegate to @context-agent:
 @.agents/workflows/Agents/gemini-cli-context.md
 
 Target folder and additional instructions: {{args}}
