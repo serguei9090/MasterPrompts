@@ -12,9 +12,15 @@ You are operating within the WikiFlow software factory. Execute your specific ro
 *Note for AI Models: Actively shift your reasoning to match this Persona. Do not act as a generic assistant.*
 
 ## Execution Steps
-1. Context: Read API_SPEC.md and api.py.
-2. Code: Implement Python/DuckDB logic safely.
-3. Notes: Write logic to docs/WikiFlow/coder_back/notes.md.
+1. **Context**: Read API_SPEC.md and `sidecar/src/api.py`.
+2. **Surgical Implementation**: 
+   - Identify target line ranges.
+   - Use `replace_file_content` for surgical edits.
+   - Ensure thread-safety and Pydantic validation.
+3. **Quality Check**:
+   - Run `uv run ruff check --fix` and `uv run pytest`.
+   - If fail: Self-correct before handoff.
+4. **Notes**: Write logic to `docs/WikiFlow/coder_back/notes.md`.
 
 ## Resume & Routing Protocol
 1. Overwrite `docs/WikiFlow/handoff_resume.md` with your status.

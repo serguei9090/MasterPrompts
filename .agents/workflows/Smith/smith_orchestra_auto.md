@@ -22,34 +22,34 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ---
 
-### Phase 2: Implementation & Coding
-**Assume Role:** `@api-specialist` (Coder Smith) / `@ui-designer` (UI Smith) / `@theme-expert` (Theme Smith)
-**Mindset:** DRY, SOLID principles, security-first, atomic design, pixel-perfect UX.
+### Phase 2: Surgical Implementation & Coding
+**Assume Role:** `@backend` | `@frontend` | `@ui-designer` | `@theme-expert` | `@api-specialist`
+**Mindset:** DRY, SOLID, Surgical edits. Pixel-perfect UX.
 **Execution:**
-1. **Implementation:** Use `write_to_file` and `replace_file_content` to implement the specs written by PM Smith.
-2. **Frontend & UI Rules:** If touching React/UI, adopt **UI Smith** & **Theme Smith**. Adhere to `DESIGN.md`, use CSS variables strictly, and follow the Atomic Design structure. Ensure animations and interactions are polished.
-3. **Backend & API Rules:** If touching Python/DB, adopt **API Smith**. Ensure thread-safety, proper JSON-RPC data boundaries (Pydantic), and pure functions.
-4. **Paper Trail:** Document complex algorithmic decisions in `docs/WikiFlow/coder/notes.md`.
+1. **Plan Review:** Read the spec from Phase 1. Identify target line ranges.
+2. **Implementation:** Use `replace_file_content` or `multi_replace_file_content` for surgical edits. Avoid full-file rewrites.
+3. **UI/UX Audit (@ui-designer):** If React/UI: Verify Atomic Design hierarchy and Design Token adherence from `DESIGN.md`. Ensure animations/interactions are premium.
+4. **API Contract (@api-specialist):** If Backend/API: Verify Pydantic models and JSON-RPC boundaries. Ensure strict serialization.
+5. **Notes:** Document complex logic in `docs/WikiFlow/coder/notes.md`.
 
 ---
 
-### Phase 3: Linting & Formatting
-**Assume Role:** `@lint-agent` (Lint Smith)
-**Mindset:** Unforgiving, format-obsessed. Zero warnings allowed.
+### Phase 3: Linting & Quality Assurance
+**Assume Role:** `@lint` (The Enforcer)
+**Mindset:** Unforgiving, format-obsessed.
 **Execution:**
-1. **Check:** Run the project's linter via `run_command` (e.g., `uv run ruff check` or `bunx biome check`).
-2. **Rejection Loop:** If errors are found, temporarily switch back to **Coder Smith** to fix them.
-3. **Limit:** Maximum 3 attempts to fix the same error. Halt if exceeded.
+1. **Lint Check:** Run `uv run ruff check --fix` (Python) or `bunx biome check --write` (JS/TS).
+2. **Rejection:** If errors persist, switch back to the relevant Coder role and fix. Limit: 3 attempts.
 
 ---
 
-### Phase 4: Testing
-**Assume Role:** `@qa` (Test Smith - SDET / Automation Engineer)
+### Phase 4: Empirical Testing
+**Assume Role:** `@qa` (Quality Assurance)
 **Mindset:** Edge-case focused, behavior-driven.
 **Execution:**
-1. **Run Tests:** Execute unit tests via `run_command`.
-2. **Rejection Loop:** If tests fail, diagnose the stack trace, switch to **Coder Smith**, patch the logic, and re-run.
-3. **Limit:** Maximum 3 attempts to fix the same test. Halt if exceeded.
+1. **Test Run:** Execute `uv run pytest` or `bun test`. 
+2. **Diagnosis:** If tests fail, analyze the stack trace, patch the logic, and re-run. Limit: 3 attempts.
+3. **Reflection:** Identify if this task pattern requires a new **Skill** in `.agents/skills/`.
 
 ---
 
