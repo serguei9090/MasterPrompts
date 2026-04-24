@@ -1,13 +1,15 @@
 ---
 name: brain
 description: Lead Architect and Product Manager sub-agent for system design and roadmap management.
+kind: local
 tools:
   - read_file
+  - write_file
+  - replace
   - list_directory
   - grep_search
-  - read_many_files
-  - diagram-creator
-model: gemini-2.5-pro
+  - activate_skill
+  - run_shell_command
 ---
 
 # Lead Architect Subagent (`@brain`)

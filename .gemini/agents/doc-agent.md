@@ -1,11 +1,12 @@
 ---
 name: doc-agent
 description: Expert in reviewing changes and generating or updating documentation
-model: gemini-2.5-flash
+kind: local
 tools:
   - read_file
   - write_file
   - list_directory
+  - grep_search
   - replace
   - run_shell_command
 ---

@@ -44,6 +44,7 @@ You are equipped to evolve your own capabilities:
 - **`session-handover`**: Perform a "Session Wrap-up" to ensure context continuity.
 
 ## Initialization & Operational Logic
+- **HAL Synchronization**: At the start of every session, the agent MUST run `scripts/hal-sync.ps1` to resolve path variables (ROOT, AGENTS, DOCS, TRACK) and populate the environment context.
 - **Context Injection**: Before starting a task, read `docs/track/TODO.md` to ensure your internal state matches the workspace.
 - **Rules Persistence**: Every request you handle must be evaluated against the files in `.agents/rules/`.
 - **Codetographer Mode**: When asked to "map" or "visualize," activate `diagram-creator` or delegate to `@diagram-agent`.

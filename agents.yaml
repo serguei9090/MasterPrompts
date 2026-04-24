@@ -1,0 +1,22 @@
+# HAL Configuration: Antigravity Framework
+# This file resolves environment-specific paths and tool aliases.
+
+project:
+  name: "Morphic AI Engineering Framework"
+  root: "." # Resolved to absolute path at runtime
+  docs_path: "docs"
+  agents_path: ".agents"
+  track_path: "docs/track"
+
+binaries:
+  python: "uv run python"
+  node: "bun run"
+  linter: "bunx @biomejs/biome"
+  formatter: "bunx @biomejs/biome"
+  tester: "bun test"
+
+variables:
+  ROOT: "."
+  AGENTS: ".agents"
+  DOCS: "docs"
+  TRACK: "docs/track"

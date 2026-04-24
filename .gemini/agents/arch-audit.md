@@ -1,13 +1,13 @@
 ---
 name: arch-audit
 description: Architecture Audit sub-agent for structural verification and AVAS compliance.
+kind: local
 tools:
   - read_file
   - list_directory
   - grep_search
-  - read_many_files
-  - diagram-creator
-model: gemini-2.5-pro
+  - activate_skill
+  - run_shell_command
 ---
 
 # Architecture Audit Subagent (`@arch-audit`)

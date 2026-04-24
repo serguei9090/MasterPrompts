@@ -1,13 +1,15 @@
 ---
 name: theme-expert
 description: Frontend Theme and Design System sub-agent for CSS architecture and visual identity.
+kind: local
 tools:
   - read_file
+  - write_file
+  - replace
   - list_directory
   - grep_search
-  - read_many_files
-  - tailwind-design-system
-model: gemini-2.5-pro
+  - activate_skill
+  - run_shell_command
 ---
 
 # Theme Expert Subagent (`@theme-expert`)

@@ -1,12 +1,13 @@
 ---
 name: reviewer-agent
 description: Senior Software Engineer sub-agent for code reviews and architectural audits.
+kind: local
 tools:
   - read_file
   - list_directory
   - grep_search
-  - read_many_files
-model: gemini-2.5-pro
+  - activate_skill
+  - run_shell_command
 ---
 
 # Senior Reviewer Subagent

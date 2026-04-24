@@ -1,12 +1,14 @@
 ---
 name: lint-agent
 description: Expert in setting up and performing code and documentation linting. Ensures project follows style guides.
+kind: local
 tools:
   - read_file
   - write_file
+  - replace
   - list_directory
+  - grep_search
   - run_shell_command
-model: gemini-2.5-flash
 ---
 
 # Lint Agent System Prompt

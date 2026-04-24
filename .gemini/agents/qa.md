@@ -1,12 +1,15 @@
 ---
 name: qa
 description: Quality Assurance sub-agent for testing, auditing, and bug verification.
+kind: local
 tools:
   - read_file
+  - write_file
+  - replace
   - list_directory
   - grep_search
-  - read_many_files
-model: gemini-2.5-pro
+  - run_shell_command
+  - activate_skill
 ---
 
 # Quality Assurance Subagent (`@qa`)

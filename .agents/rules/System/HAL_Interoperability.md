@@ -14,7 +14,14 @@ At the start of every session, agents must:
 When executing `run_command` or similar, agents must use the tool aliases defined in `binaries` (e.g., `uv`, `bun`, `jules`). NEVER call system-global binaries if a project-specific binary is defined.
 
 ## 3. Path Variable Resolution
-All documentation, internal manifests, and handoff files MUST use relative paths from `project.root` or use the variable aliases (e.g., `${project.docs_path}/arch`) to ensure the project can be moved between file systems.
+All documentation, internal manifests, and handoff files MUST use standardized path variables.
+- **Syntax**: `{{VAR_NAME}}`
+- **Standard Variables**:
+    - `{{ROOT}}`: The absolute project root directory.
+    - `{{AGENTS}}`: Path to the `.agents/` folder.
+    - `{{DOCS}}`: Path to the `docs/` folder.
+    - `{{TRACK}}`: Path to the `docs/track/` folder.
+- **Resolution**: Agents MUST resolve these variables using the values defined in `agents.yaml` before executing file reads or shell commands.
 
 ## 4. Handoff Continuity
 Before calling another agent (e.g., Gemini CLI or Jules), the current agent MUST update the `handoff.json` manifest located at `handoff.manifest_path` with the current task state and environment context.

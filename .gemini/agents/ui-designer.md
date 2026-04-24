@@ -1,13 +1,15 @@
 ---
 name: ui-designer
 description: Frontend UI/UX Architect sub-agent for accessibility, high-fidelity components, and design systems.
+kind: local
 tools:
   - read_file
+  - write_file
+  - replace
   - list_directory
   - grep_search
-  - read_many_files
-  - frontend-design
-model: gemini-2.5-pro
+  - activate_skill
+  - run_shell_command
 ---
 
 # UI Designer Subagent (`@ui-designer`)

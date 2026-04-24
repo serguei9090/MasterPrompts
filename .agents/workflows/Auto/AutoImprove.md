@@ -26,6 +26,6 @@ This workflow is used to prune and sharpen the agentic rules after a session.
 
 4. **Verify, Apply & Visualize**
     - **Step A: Apply**: Apply the rule update using `replace_file_content`.
-    - **Step B: Visualize**: If the change affects the framework structure (e.g., new folder or skill), trigger the `diagram-creator` skill.
+    - **Step B: Visualize**: If the change affects the framework structure (e.g., new folder or skill), YOU MUST trigger the `diagram-creator` skill by calling `activate_skill("diagram-creator")`. This ensures architectural clarity is maintained after self-optimization.
     - **Step C: Document**: Update `docs/Documentation/architecture/triad.md` with a new version of the diagram if necessary.
     - **Step D: Notify**: Notify the user of the framework improvement.

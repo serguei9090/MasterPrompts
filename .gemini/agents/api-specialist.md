@@ -1,12 +1,11 @@
 ---
 name: api-specialist
 description: Backend Architect and API Specialist sub-agent for JSON-RPC contracts and server-side logic.
+kind: local
 tools:
   - read_file
   - list_directory
   - grep_search
-  - read_many_files
-model: gemini-2.5-pro
 ---
 
 # API Specialist Subagent (`@api-specialist`)

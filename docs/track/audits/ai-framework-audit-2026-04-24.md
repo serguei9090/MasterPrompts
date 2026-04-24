@@ -37,3 +37,4 @@
 1. [x] **TODO(ai_fix_001)**: Create `.gemini/agents/qa.md` to finalize persona alignment.
 2. [x] **TODO(ai_fix_002)**: Sweep all remaining workflows for `Assume Role` header compliance.
 3. [x] **TODO(ai_fix_003)**: Relocate `docs/track/AI_WORKFLOW_UPGRADE.md` and `docs/track/codegapreview.md` to `docs/track/audits/`.
+4. [x] **TODO(ai_fix_004)**: Sweep project root for legacy `agent/` directory, migrate unique skills (`codetographer`, `adk-expert`, `caveman`, `chrome-devtools`) to `.agents/skills/`, and delete redundant legacy artifacts.
