@@ -1,0 +1,9 @@
+description = "jules-handoff - Triggers the jules CLI for asynchronous task processing and syncing results."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the JulesHandoff workflow:
+@.agents/workflows/Jules/JulesHandoff.md
+
+Additional context/instructions: {{args}}
+"""

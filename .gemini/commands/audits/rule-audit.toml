@@ -1,0 +1,9 @@
+description = "Systematic Review and Audit of Project Rules"
+prompt = """
+Assume Role: `@arch-audit`
+
+Execute the rule-audit workflow:
+@.agents/workflows/audits/rule-audit.md
+
+Additional context/instructions: {{args}}
+"""

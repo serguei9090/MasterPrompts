@@ -1,0 +1,9 @@
+description = "Check for outdated dependencies and propose updates. Use for maintenance tasks."
+prompt = """
+Assume Role: `@brain`
+
+Execute the DependencyUpdate workflow:
+@.agents/workflows/Ops/DependencyUpdate.md
+
+Additional context/instructions: {{args}}
+"""

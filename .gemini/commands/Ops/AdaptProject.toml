@@ -1,0 +1,9 @@
+description = "Read the current codebase and automatically adapt the personas, skills, and subagents to fit the project's tech stack."
+prompt = """
+Assume Role: `@brain`
+
+Execute the AdaptProject workflow:
+@.agents/workflows/Ops/AdaptProject.md
+
+Additional context/instructions: {{args}}
+"""

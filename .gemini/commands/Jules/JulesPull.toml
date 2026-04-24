@@ -1,0 +1,9 @@
+description = "Pull, apply, sync, and validate a completed Jules session."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the JulesPull workflow:
+@.agents/workflows/Jules/JulesPull.md
+
+Additional context/instructions: {{args}}
+"""

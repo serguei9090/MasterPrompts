@@ -1,0 +1,9 @@
+description = "The Deep Refactor Route - PM plans, Jules CLI handles complex cross-file async engineering."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the JulesDelegate workflow:
+@.agents/workflows/Jules/JulesDelegate.md
+
+Additional context/instructions: {{args}}
+"""

@@ -1,0 +1,9 @@
+description = "Test Coverage Expansion Workflow (Sequential Gap Closing)"
+prompt = """
+Assume Role: `@qa`
+
+Execute the TestCoverageExpansion workflow:
+@.agents/workflows/Quality/TestCoverageExpansion.md
+
+Additional context/instructions: {{args}}
+"""

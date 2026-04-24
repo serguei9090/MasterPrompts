@@ -1,0 +1,9 @@
+description = "DevOps & Scripting Engineer (Manual) - WikiFlow sub-agent workflow."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the wk_coder_script_smith_manual workflow:
+@.agents/workflows/Smith/wk_coder_script_smith_manual.md
+
+Additional context/instructions: {{args}}
+"""

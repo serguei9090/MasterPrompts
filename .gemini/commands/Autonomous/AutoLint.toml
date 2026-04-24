@@ -1,0 +1,9 @@
+description = "Automated Lint & Format Loop (Biome + Ruff)"
+prompt = """
+Assume Role: `@lint-agent`
+
+Execute the AutoLint workflow:
+@.agents/workflows/Autonomous/AutoLint.md
+
+Additional context/instructions: {{args}}
+"""

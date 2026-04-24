@@ -1,0 +1,9 @@
+description = "Architecture Audit (Audit Smith) (Manual) - WikiFlow sub-agent workflow."
+prompt = """
+Assume Role: `@arch-audit`
+
+Execute the wk_audit_smith_manual workflow:
+@.agents/workflows/Smith/wk_audit_smith_manual.md
+
+Additional context/instructions: {{args}}
+"""

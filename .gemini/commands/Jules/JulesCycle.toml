@@ -1,0 +1,9 @@
+description = "Automated Vibe-to-Code Cycle"
+prompt = """
+Assume Role: `@brain`
+
+Execute the JulesCycle workflow:
+@.agents/workflows/Jules/JulesCycle.md
+
+Additional context/instructions: {{args}}
+"""

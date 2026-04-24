@@ -1,0 +1,9 @@
+description = "The orchestrator agent that routes tasks and manages the AutoCode software factory."
+prompt = """
+Assume Role: `@brain`
+
+Execute the Commander workflow:
+@.agents/workflows/Agents/Commander.md
+
+Additional context/instructions: {{args}}
+"""

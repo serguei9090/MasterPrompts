@@ -1,0 +1,9 @@
+description = "Comprehensive audit of the Agentic AI Framework, covering persona alignment, workflow compliance, rule signal-to-noise ratio, and skill health. Output is saved to `docs/track/audits/ai-framework-audit-<DATE>.md`."
+prompt = """
+Assume Role: `@arch-audit`
+
+Execute the ai-framework-audit workflow:
+@.agents/workflows/audits/ai-framework-audit.md
+
+Additional context/instructions: {{args}}
+"""

@@ -1,0 +1,9 @@
+description = "The Flow Architect sequence - Autonomously create new workflows, rules, or personas for the ecosystem."
+prompt = """
+Assume Role: `@brain`
+
+Execute the CreateFlow workflow:
+@.agents/workflows/Development/CreateFlow.md
+
+Additional context/instructions: {{args}}
+"""

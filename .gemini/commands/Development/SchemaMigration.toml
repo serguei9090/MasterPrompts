@@ -1,0 +1,9 @@
+description = "Safely Migrate Database Schema. Use when `schema.prisma` changes."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the SchemaMigration workflow:
+@.agents/workflows/Development/SchemaMigration.md
+
+Additional context/instructions: {{args}}
+"""

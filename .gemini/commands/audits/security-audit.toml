@@ -1,0 +1,9 @@
+description = "Run security scans (npm audit) and generate a risk report. Use when asked to check security or vulnerabilities."
+prompt = """
+Assume Role: Audit Smith (@audit)
+
+Execute the security-audit workflow:
+@.agents/workflows/audits/security-audit.md
+
+Additional context/instructions: {{args}}
+"""

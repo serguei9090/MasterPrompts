@@ -1,0 +1,9 @@
+description = "Product Manager (PM Smith) (Manual) - WikiFlow sub-agent workflow."
+prompt = """
+Assume Role: `@brain`
+
+Execute the wk_pm_smith_manual workflow:
+@.agents/workflows/Smith/wk_pm_smith_manual.md
+
+Additional context/instructions: {{args}}
+"""

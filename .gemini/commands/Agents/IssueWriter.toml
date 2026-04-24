@@ -1,0 +1,9 @@
+description = "Execute the IssueWriter workflow."
+prompt = """
+Assume Role: `@brain`
+
+Execute the IssueWriter workflow:
+@.agents/workflows/Agents/IssueWriter.md
+
+Additional context/instructions: {{args}}
+"""

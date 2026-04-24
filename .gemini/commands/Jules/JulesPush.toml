@@ -1,0 +1,9 @@
+description = "Stage, commit, push, and launch a Jules session with strict mandates."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the JulesPush workflow:
+@.agents/workflows/Jules/JulesPush.md
+
+Additional context/instructions: {{args}}
+"""

@@ -1,0 +1,9 @@
+description = "Surgical Implementation Engine - High-performance edit-lint-test loop for code changes."
+prompt = """
+Assume Role: `@brain`
+
+Execute the AutoCode workflow:
+@.agents/workflows/Autonomous/AutoCode.md
+
+Additional context/instructions: {{args}}
+"""

@@ -1,0 +1,9 @@
+description = "Execute the DisasterRecoveryProtocol workflow."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the DisasterRecoveryProtocol workflow:
+@.agents/workflows/Development/DisasterRecoveryProtocol.md
+
+Additional context/instructions: {{args}}
+"""

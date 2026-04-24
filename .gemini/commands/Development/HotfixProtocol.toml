@@ -1,0 +1,9 @@
+description = "Emergency Release Protocol. Use ONLY when Production is broken."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the HotfixProtocol workflow:
+@.agents/workflows/Development/HotfixProtocol.md
+
+Additional context/instructions: {{args}}
+"""

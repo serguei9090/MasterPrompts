@@ -1,0 +1,9 @@
+description = "Run unit tests and coverage for this repository and write a summary audit to audits/test_audit.md. Use when the user asks to execute tests/coverage and produce or refresh the test audit."
+prompt = """
+Assume Role: QA Smith (@qa)
+
+Execute the test-audit workflow:
+@.agents/workflows/audits/test-audit.md
+
+Additional context/instructions: {{args}}
+"""

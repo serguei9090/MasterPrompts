@@ -1,0 +1,9 @@
+description = "Fast Reversal of bad code. Use when a recent deployment caused an outage."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the RollbackProtocol workflow:
+@.agents/workflows/Development/RollbackProtocol.md
+
+Additional context/instructions: {{args}}
+"""

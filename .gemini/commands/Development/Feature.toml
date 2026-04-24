@@ -1,0 +1,9 @@
+description = "Formal workflow for documentation, description, and implementation of new feature requests."
+prompt = """
+Assume Role: `@brain`
+
+Execute the Feature workflow:
+@.agents/workflows/Development/Feature.md
+
+Additional context/instructions: {{args}}
+"""

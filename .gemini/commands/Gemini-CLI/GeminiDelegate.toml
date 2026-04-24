@@ -1,0 +1,9 @@
+description = "The Surgical Route - PM plans, Gemini CLI executes massive local code generation."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the GeminiDelegate workflow:
+@.agents/workflows/Gemini-CLI/GeminiDelegate.md
+
+Additional context/instructions: {{args}}
+"""

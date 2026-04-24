@@ -1,0 +1,9 @@
+﻿description = "Auto-executing Master Sequence Tracker for batch task processing."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the BatchRunner sequence:
+@.agents/workflows/Autonomous/BatchRunner.md
+
+Instructions: {{args}}
+"""

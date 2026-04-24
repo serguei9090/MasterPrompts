@@ -1,0 +1,9 @@
+description = "Initialize or update folder-level Project Memory (GEMINI.md) for Deep Context."
+prompt = """
+Assume Role: Orchestra Hub (@scribe)
+
+Execute the gemini-cli-context workflow:
+@.agents/workflows/Gemini-CLI/gemini-cli-context.md
+
+Additional context/instructions: {{args}}
+"""

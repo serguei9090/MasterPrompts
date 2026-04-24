@@ -1,0 +1,9 @@
+description = "Standardized project initialization for new Developers or Agents."
+prompt = """
+Assume Role: `@brain`
+
+Execute the OnboardingSetup workflow:
+@.agents/workflows/Ops/OnboardingSetup.md
+
+Additional context/instructions: {{args}}
+"""

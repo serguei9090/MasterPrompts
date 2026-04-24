@@ -1,0 +1,9 @@
+description = "API Specialist (API Smith) (Manual) - WikiFlow sub-agent workflow."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the wk_api_smith_manual workflow:
+@.agents/workflows/Smith/wk_api_smith_manual.md
+
+Additional context/instructions: {{args}}
+"""

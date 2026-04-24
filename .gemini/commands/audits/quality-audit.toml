@@ -1,0 +1,9 @@
+description = "Run Code Quality Checks (Biome/Ruff) for this repository. Writes summary to audits/code_quality_audit.md."
+prompt = """
+Assume Role: QA Smith (@qa)
+
+Execute the quality-audit workflow:
+@.agents/workflows/audits/quality-audit.md
+
+Additional context/instructions: {{args}}
+"""

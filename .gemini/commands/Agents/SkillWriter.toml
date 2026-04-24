@@ -1,0 +1,9 @@
+description = "Execute the SkillWriter workflow."
+prompt = """
+Assume Role: `@brain`
+
+Execute the SkillWriter workflow:
+@.agents/workflows/Agents/SkillWriter.md
+
+Additional context/instructions: {{args}}
+"""

@@ -1,0 +1,9 @@
+description = "Design CI/CD pipelines, Docker networks, or infrastructure-as-code."
+prompt = """
+Assume Role: `@api-specialist`
+
+Execute the CreateCI workflow:
+@.agents/workflows/Ops/CreateCI.md
+
+Additional context/instructions: {{args}}
+"""

@@ -3,12 +3,14 @@ description: Surgical Implementation Engine - High-performance edit-lint-test lo
 ---
 
 # 🛠️ Surgical Implementation Engine
-> **Assume Role:** `@brain` (Lead Architect)
+> **Assume Role:** `@commander` (The Orchestrator)
 
-This engine provides a standardized, high-performance loop for applying code changes, validating them via linting/testing, and ensuring documentation parity. It is optimized for use as the implementation phase within `AutoCycle`, `Feature`, or `FixCycle`.
+This engine is the **canonical implementation factory** for the Morphic framework. It provides a standardized, high-performance loop for applying code changes, validating them, and ensuring documentation parity.
+
+**Usage**: Every workflow that requires source code modification (e.g., `Feature`, `BugFix`, `AutoCycle`) MUST delegate its implementation phase to this engine.
 
 ## Workflow: [AutoCode Engine]
-Execute the following loop for every task until verified perfect. **Mandatory: Minimum 3 Iterations.**
+Execute the following loop for every task until verified perfect.
 
 ### Role Mapping for this Workflow:
 - **Planner**: `@pm` (Planning & Requirement Check)

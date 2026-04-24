@@ -1,0 +1,9 @@
+description = "Frontend Engineer (Coder Smith) (Manual) - WikiFlow sub-agent workflow."
+prompt = """
+Assume Role: `@ui-designer`
+
+Execute the wk_coder_front_smith_manual workflow:
+@.agents/workflows/Smith/wk_coder_front_smith_manual.md
+
+Additional context/instructions: {{args}}
+"""

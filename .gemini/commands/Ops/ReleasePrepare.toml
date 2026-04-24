@@ -1,0 +1,9 @@
+description = "Preparing a new release (Build, Version, Changelog, Tag). Use when the user asks to "Release" or "Tag" a version."
+prompt = """
+Assume Role: `@brain`
+
+Execute the ReleasePrepare workflow:
+@.agents/workflows/Ops/ReleasePrepare.md
+
+Additional context/instructions: {{args}}
+"""

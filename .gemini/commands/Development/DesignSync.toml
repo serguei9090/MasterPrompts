@@ -1,0 +1,9 @@
+description = "Design System Sync - Propagate DESIGN.md changes to the codebase"
+prompt = """
+Assume Role: `@theme-expert`
+
+Execute the DesignSync workflow:
+@.agents/workflows/Development/DesignSync.md
+
+Additional context/instructions: {{args}}
+"""
