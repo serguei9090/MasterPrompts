@@ -1,4 +1,4 @@
-﻿description = "Auto-executing Master Sequence Tracker for batch task processing."
+description = "Auto-executing Master Sequence Tracker for batch task processing."
 prompt = """
 Assume Role: Orchestra Hub (@scribe)
 

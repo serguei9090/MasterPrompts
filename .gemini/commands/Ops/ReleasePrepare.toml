@@ -1,4 +1,4 @@
-description = "Preparing a new release (Build, Version, Changelog, Tag). Use when the user asks to "Release" or "Tag" a version."
+description = "Preparing a new release (Build, Version, Changelog, Tag). Use when the user asks to 'Release' or 'Tag' a version."
 prompt = """
 Assume Role: `@brain`
 

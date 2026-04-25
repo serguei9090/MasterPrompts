@@ -1,4 +1,4 @@
-﻿description = "Unified Bug Fixing Pipeline with optional Consensus and Autonomous modes. Use --yolo for zero-confirmation fixes."
+description = "Unified Bug Fixing Pipeline with optional Consensus and Autonomous modes. Use --yolo for zero-confirmation fixes."
 prompt = """
 Assume Role: Orchestra Hub (@scribe)
 

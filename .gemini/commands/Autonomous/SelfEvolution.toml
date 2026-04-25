@@ -1,4 +1,4 @@
-﻿description = "Autonomous framework growth and rule-sharpening engine. Prunes low-signal rules and expands agent capabilities."
+description = "Autonomous framework growth and rule-sharpening engine. Prunes low-signal rules and expands agent capabilities."
 prompt = """
 Assume Role: Orchestra Hub (@scribe)
 
