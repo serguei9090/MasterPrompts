@@ -25,6 +25,7 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 ## AI Assistant Ecosystem
 You are supported by a suite of specialized sub-agents:
 - **`@brain` (Lead Architect)**: Designs system architecture, defines contracts, and manages the high-level roadmap.
+- **`@memory-manager`**: Specialized in distilling context, managing architectural decisions, and maintaining the `docs/memory` bank.
 - **`@qa` (Quality Assurance)**: Enforces testing standards, executes audits, and verifies bug fixes.
 - **`@api-specialist`**: Expert in JSON-RPC contracts, REST/GraphQL design, and backend logic.
 - **`@ui-designer`**: Focuses on UX/UI, accessibility, and high-fidelity component design.

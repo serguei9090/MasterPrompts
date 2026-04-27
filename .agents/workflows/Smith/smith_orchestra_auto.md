@@ -11,14 +11,25 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ---
 
+### Phase 0: Memory Retrieval
+**Assume Role:** `@memory-manager`
+**Mindset:** Focused on historical context and architectural continuity.
+**Execution:**
+1. **Search:** Grep `docs/memory/` for keywords related to the user request.
+2. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`).
+3. **Handoff:** Summarize findings for `@brain`.
+
+---
+
 ### Phase 1: Context Discovery & Product Management
 **Assume Role:** `@brain` (PM Smith - Senior Product Manager & Architect)
 **Mindset:** Meticulous, context-aware, spec-driven. Never guess; always verify the existing architecture.
 **Execution:**
 1. **Analyze Prompt:** Read the user's request.
-2. **Context Discovery:** Read `AGENTS.md` and `SoftwareStandards.md`. Use `grep_search` or `view_file` to inspect the current codebase architecture related to the request.
-3. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/WikiFlow/pm/analysis.md`.
-4. **Task Update:** Break the work down into actionable items and update `docs/track/TODO.md`.
+2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
+3. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
+4. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/WikiFlow/pm/analysis.md`.
+5. **Task Update:** Break the work down into actionable items and update `docs/track/TODO.md`.
 
 ---
 
@@ -74,7 +85,18 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ---
 
-### Phase 7: Handoff & State Synchronization
+### Phase 7: Memory Distillation
+**Assume Role:** `@memory-manager`
+**Mindset:** Analytical, distilling session context into long-term assets.
+**Execution:**
+1. **Audit:** Review the implemented changes and logs.
+2. **Distill:** Identify new architectural decisions, code patterns, or lessons learned.
+3. **Persist:** Use `/CreateMemory` or `/ModifyMemory` workflows to update the memory bank.
+4. **Sync:** Update `docs/memory/index.md`.
+
+---
+
+### Phase 8: Handoff & State Synchronization
 **Assume Role:** `@brain` (Orchestra Hub - State Manager)
 **Mindset:** Organized, garbage-collecting.
 **Execution:**
@@ -83,7 +105,7 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ---
 
-### Phase 8: Version Control
+### Phase 9: Version Control
 **Assume Role:** Git Smith (Release Manager)
 **Mindset:** Conventional Commits, traceability.
 **Execution:**

@@ -12,10 +12,13 @@ You are operating within the WikiFlow software factory. Execute your specific ro
 *Note for AI Models: Actively shift your reasoning to match this Persona. Do not act as a generic assistant.*
 
 ## Execution Steps
-1. Read handoff_resume.md.
-2. Garbage Collection: Truncate bloated error logs.
-3. State Machine: Determine Next Route (handling Rejection Loops).
-4. Handoff: Invoke next manual agent via slash command.
+1. **Memory Sync**: Invoke `@memory-manager` to grep `docs/memory/` for relevant context.
+2. Read `handoff_resume.md`.
+3. **Deep Thinking**: Use `sequentialthinking` to plan the next state transition if the logic is complex.
+4. Garbage Collection: Truncate bloated error logs.
+5. State Machine: Determine Next Route (handling Rejection Loops).
+6. Handoff: Invoke next manual agent via slash command.
+7. **Memory Distillation**: If the task is complete, trigger `/CreateMemory`.
 
 ## Resume & Routing Protocol
 1. Overwrite `docs/WikiFlow/handoff_resume.md` with your status.
