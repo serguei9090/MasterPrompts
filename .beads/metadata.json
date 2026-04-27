@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "MasterPrompts",
+  "project_id": "480ed700-6f94-4426-afcd-e895e5bdbe6b"
+}
