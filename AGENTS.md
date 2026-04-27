@@ -4,7 +4,7 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 
 ## 🗺️ Rule-Map (The Laws of Physics)
 - **Architecture**: `.agents/rules/System/Architecture.md` (Hexagonal + Ports/Adapters)
-- **Tracking**: `.agents/rules/System/ProjectTracking.md` (Session Sync + Roadmap Parity)
+- **Tracking**: `.agents/rules/System/ProjectTracking.md` (Session Sync)
 - **Software Standards**: `.agents/rules/System/SoftwareStandards.md` (DRY, KISS, SOLID)
 - **Quality/TODO**: `.agents/rules/System/CodeQuality.md` (TODO(ID) + Atomic Design)
 - **Automation**: `.agents/rules/Automation/AutonomousExecution.md` (Sprint Mode + Loop Protocol)
@@ -14,9 +14,11 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 ## Core Mandates
 
 1. **Spec-Driven Development**: Always define contracts and interfaces before writing implementations. Follow the Ports & Adapters (Hexagonal) architecture to ensure Separation of Concerns.
-2. **Dual-Roadmap Parity**: Ensure that your internal task execution perfectly aligns with the project's human-facing `docs/track/TODO.md`. Keep statuses continuously synced.
+2. **Hybrid Memory Architecture**: This project uses **Beads (bd)** exclusively for all active task management and atomic memory indexing. Long-form specs (ADRs, complex architectures) are stored in `docs/memory/` and indexed via Beads. Every turn MUST start with `bd ready` and `bd prime`.
+
 3. **Software Excellence**: Strictly adhere to **DRY, KISS, YAGNI, and SOLID** principles. Favor composition over inheritance and pure functions where possible.
-4. **TODO(ID) Protocol**: Track every piece of technical debt or missing implementation with a uniquely identified TODO and a dedicated detail file in `docs/track/specs/`.
+4. **TODO(ID) Protocol**: Every technical debt or feature request MUST be registered as a `bead`. Use `bd create` to initialize new tasks and reference the `bead ID` in code comments.
+
 5. **UI Atomic Design**: Structure frontend components strictly by Atoms, Molecules, Organisms, Templates, and Pages.
 6. **Visual Architecture Law**: All architectural representations MUST follow the **AVAS** (Agentic Visual Architecture Standard).
    - **Passive Law**: Diagrams must always use subgraphs and labeled connections.
@@ -25,7 +27,7 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 ## AI Assistant Ecosystem
 You are supported by a suite of specialized sub-agents:
 - **`@brain` (Lead Architect)**: Designs system architecture, defines contracts, and manages the high-level roadmap.
-- **`@memory-manager`**: Specialized in distilling context, managing architectural decisions, and maintaining the `docs/memory` bank.
+- **`@memory-manager`**: Specialized in distilling context, managing architectural decisions, and maintaining the Beads memory.
 - **`@qa` (Quality Assurance)**: Enforces testing standards, executes audits, and verifies bug fixes.
 - **`@api-specialist`**: Expert in JSON-RPC contracts, REST/GraphQL design, and backend logic.
 - **`@ui-designer`**: Focuses on UX/UI, accessibility, and high-fidelity component design.
@@ -46,14 +48,14 @@ You are equipped to evolve your own capabilities:
 
 ## Initialization & Operational Logic
 - **HAL Synchronization**: At the start of every session, the agent MUST run `scripts/hal-sync.ps1` to resolve path variables (ROOT, AGENTS, DOCS, TRACK) and populate the environment context.
-- **Context Injection**: Before starting a task, read `docs/track/TODO.md` to ensure your internal state matches the workspace.
+- **Context Injection**: Before starting a task, run `bd list --status open` or `bd ready` to ensure your internal state matches the workspace.
 - **Rules Persistence**: Every request you handle must be evaluated against the files in `.agents/rules/`.
 - **Codetographer Mode**: When asked to "map" or "visualize," activate `diagram-creator` or delegate to `@diagram-agent`.
 
 ## Golden Standards
 - **Contract -> Interface -> Mock -> Impl**: Never write logic without defining the boundary first.
 - **Abstractions over Concretes**: Never hardcode infrastructure inside domain files.
-- **100% Transparency**: Never leave silent placeholders. If it's missing, it gets a `TODO(ID)`.
+- **100% Transparency**: Never leave silent placeholders. If it's missing, it gets a bead (`bd create`).
 
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:ca08a54f -->
 ## Beads Issue Tracker

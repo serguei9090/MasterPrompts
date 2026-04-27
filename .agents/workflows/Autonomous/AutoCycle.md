@@ -15,8 +15,8 @@ Triggered by `/autocycle <mission>`. This workflow orchestrates a complete Softw
 - **Goal**: Define the "What" and "Why".
 - **Tasks**:
   - Scan the codebase to understand the current implementation.
-  - Create a technical specification in `docs/track/specs/PLAN-[TASK_ID].md`.
-  - Update `docs/track/TODO.md` with prioritized tasks.
+  - Update a technical specification in `docs/track/specs/PLAN-[TASK_ID].md`.
+  - Run `bd create` with prioritized tasks.
 - **Verification**: Ensure the plan aligns with user intent and project constraints.
 
 ### 2. 🏗️ Architecture & Contracts (@brain)
@@ -53,7 +53,7 @@ Triggered by `/autocycle <mission>`. This workflow orchestrates a complete Softw
 - **Tasks**:
   - Update `docs/track/LessonsLearned.md` with technical insights.
   - Summarize changes in `docs/WikiFlow/handoff_resume.md`.
-  - Close completed tasks in `docs/track/TODO.md`.
+  - Close completed tasks using `bd close <ID>`.
 - **Final Report**: Output a professional summary of the mission results.
 
 ---

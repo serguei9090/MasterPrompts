@@ -57,3 +57,12 @@ Push the changes to the active branch on the remote repository.
 ```bash
 git push origin HEAD
 ```
+
+## Step 6: Beads Sync (MANDATORY)
+Ensure the roadmap and memory database are synchronized with the remote.
+
+// turbo
+1. Push the Dolt database:
+```bash
+bd dolt push
+```

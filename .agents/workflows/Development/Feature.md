@@ -24,8 +24,8 @@ This workflow standardizes how new capabilities are added to LogLensAi.
 4. **Finalize**: Update `AGENTS.md` if the core contract changes.
 
 ## Phase 3: The Plan (Ticketing)
-1. **Index**: Add sub-tasks to `docs/track/TODO.md` with unique IDs (e.g., `FEAT-001`).
-2. **Memory**: Create `docs/track/specs/<task_id>.md` for implementation details.
+1. **Index**: Run `bd create` to initialize the task and roadmap entry.
+2. **Memory**: Create implementation details in `docs/track/specs/<task_id>.md` and index in `bd`.
 
 ## Phase 4: Execution Choice
 Select the appropriate execution engine:

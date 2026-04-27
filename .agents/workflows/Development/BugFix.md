@@ -25,7 +25,7 @@ This workflow provides a standardized procedure for identifying, specifying, and
 ## Phase 2: Specification & Tracking
 **Assume Role:** `@pm` (Product Manager)
 1. **Spec**: Assign a Unique ID (e.g., `FIX-001`) and create `docs/track/specs/FIX-001.md`.
-2. **Index**: Update `docs/track/TODO.md` under the "Bug Fixes" section.
+2. **Index**: Run `bd create --title "Fix: [Bug Description]" --label "bug"`.
 3. **Rules**: Identify any architectural rules (`Architecture.md`) that were violated.
 
 ---
@@ -51,5 +51,5 @@ This workflow provides a standardized procedure for identifying, specifying, and
 ## Phase 5: Handoff & Evolution
 **Assume Role:** `@docs` (Technical Writer)
 1. **Lessons**: Update `docs/track/LessonsLearned.md` with the root cause and preventative measures.
-2. **Close**: Mark the `TODO(ID)` as complete.
+2. **Close**: Run `bd close <ID>` and `bd dolt push`.
 3. **Report**: Provide a final summary of the fix and the impact.

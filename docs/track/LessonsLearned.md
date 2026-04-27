@@ -1,5 +1,23 @@
 # Lessons Learned
 
+## 2026-04-27 - Beads-First & Hybrid Memory Transition
+
+### 1. Architectural Shift
+- **Tasks**: 100% migrated to **Beads (bd)**. All roadmaps and issues are now managed via the Dolt database. `TODO.md` is deprecated.
+- **Memory**: Implemented a **Hybrid Model**. 
+    - Atomic facts (coding rules, file logic) are stored in Beads via `bd remember`.
+    - Long-form specifications (ADRs, Diagrams) are stored in `docs/memory/` but **indexed** in Beads with pointers.
+
+### 2. Workflow Consolidation
+- **Legacy Removal**: Deleted `AdaptProject.md`, `OnboardingSetup.md`, and `BeadsOnboarding.md`.
+- **The `/init` Command**: Created a unified `InitProject.md` that handles infrastructure setup, stack analysis, agent adaptation, and memory population in a single turn.
+
+### 3. Best Practices
+- **Never Passive**: Do not use passive markdown mirrors for tasks. If it's not in Beads, it doesn't exist.
+- **Index Everything**: Any file created in `docs/memory/` must have a corresponding entry in Beads so future agents can find it via keyword search.
+
+---
+
 ## 2026-04-26 - Memory Management & Framework Self-Audit
 
 ### 1. Root Cause Analysis

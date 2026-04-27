@@ -25,10 +25,10 @@ Execute the following loop for every task until verified perfect.
 
 ### 1. [PLAN] - Range Discovery (@pm)
 - **Role**: `@pm`
-- Scan `.agents/rules/` and `AGENTS.md` for context.
+- Scan `bd search` and `.agents/rules/` for context.
 - Identify exact line ranges for change in the target files.
 - Propose necessary skills or tools for the task.
-- Produce an implementation plan in `docs/track/specs/AUTOC-[TASK_ID].md`.
+- Produce an implementation plan in `docs/track/specs/AUTOC-[TASK_ID].md` and index it in `bd`.
 
 ### 2. [PLAN-REVIEW] - Critique & Skill Check (@critique)
 - **Role**: `@critique`
@@ -65,13 +65,14 @@ Execute the following loop for every task until verified perfect.
 
 ### 8. [REFLECT] - Knowledge Distillation (@scribe)
 - **Role**: `@scribe`
-- **Skill Creation Thinking**: Decide if a new Skill or context script should be created for next time a similar topic/problem arises (context/script reuse).
-- **Lessons Learned**: Update `docs/track/LessonsLearned.md` with technical insights gained during this iteration.
+- **Lessons Learned**: Update `docs/track/LessonsLearned.md` and `bd remember` with technical insights gained.
+- **Hybrid Distillation**: Store atomic facts in `bd` and long-form specs in `docs/memory/`.
 
 ### 9. [GIT] - Atomic Commit (@devops)
 - **Role**: `@devops`
 - Run `git add .`.
 - Commit using: `feat(autocode): [task] surgical update & validation`.
+- **Beads Update**: Run `bd update <id> --status` and `bd dolt push`.
 
 ### 10. [CRITIQUE-FINAL] - Task Double-Check (@critique)
 - **Role**: `@critique`

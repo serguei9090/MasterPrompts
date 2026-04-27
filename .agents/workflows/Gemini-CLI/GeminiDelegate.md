@@ -11,7 +11,7 @@ Triggered by `/gemini-delegate <idea>`. This workflow uses the external Gemini C
 ### 1. 📋 Planning (@pm)
 - **Role**: `Product Manager (@pm)`
 - **Task**: Use the `shape` skill to define the mission architecture and requirements.
-- **Artifacts**: `docs/track/specs/PLAN-[TASK_ID].md` and `docs/track/TODO.md`.
+- **Artifacts**: `docs/track/specs/PLAN-[TASK_ID].md` and `bd create`.
 - *(PAUSE for user approval of the plan before continuing.)*
 
 ### 2. ⚡ Delegation (@devops)

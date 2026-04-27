@@ -15,9 +15,10 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Assume Role:** `@memory-manager`
 **Mindset:** Focused on historical context and architectural continuity.
 **Execution:**
-1. **Search:** Grep `docs/memory/` for keywords related to the user request.
-2. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`).
-3. **Handoff:** Summarize findings for `@brain`.
+1. **Search Beads:** `bd search <keywords>` or `bd prime` to load active context.
+2. **Search Archive:** Grep `docs/memory/` for architectural depth.
+3. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`).
+4. **Handoff:** Summarize findings for `@brain`.
 
 ---
 
@@ -28,8 +29,8 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
-4. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/WikiFlow/pm/analysis.md`.
-5. **Task Update:** Break the work down into actionable items and update `docs/track/TODO.md`.
+4. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
+5. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
 
 ---
 
@@ -85,14 +86,14 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ---
 
-### Phase 7: Memory Distillation
-**Assume Role:** `@memory-manager`
-**Mindset:** Analytical, distilling session context into long-term assets.
-**Execution:**
-1. **Audit:** Review the implemented changes and logs.
-2. **Distill:** Identify new architectural decisions, code patterns, or lessons learned.
-3. **Persist:** Use `/CreateMemory` or `/ModifyMemory` workflows to update the memory bank.
-4. **Sync:** Update `docs/memory/index.md`.
+### Phase 7: Memory Distillation & Handoff Preparation
+**Role:** `@memory-manager`
+**Objective:** Store technical decisions and lessons learned for future sessions using the Hybrid Memory Architecture.
+**Actions:**
+1.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered (e.g., "Use `globalThis` over `window`"), run `bd remember "RULE [Feature]: [Fact]"`.
+2.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
+3.  **Cross-Linking:** If a long-form spec was written, you MUST index it in Beads: `bd remember "ARCHITECTURE [Feature]: The full spec is located at docs/memory/specs/feature_x.md"`.
+4.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
 
 ---
 
@@ -100,14 +101,15 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Assume Role:** `@brain` (Orchestra Hub - State Manager)
 **Mindset:** Organized, garbage-collecting.
 **Execution:**
-1. **Resume Update:** Overwrite `docs/WikiFlow/handoff_resume.md`. Set Status to `Success`. List EXACT file paths under `Actionable Artifacts`.
-2. **Audit Trail:** Append a success entry to `docs/WikiFlow/orchestra/route_history.log`.
+1. **State Update:** Update bead statuses using `bd update <id> --status completed`.
+2. **Resume Update:** Overwrite `docs/track/handoff.md`. Set Status to `Success`. List EXACT file paths under `Actionable Artifacts`.
 
 ---
 
-### Phase 9: Version Control
+### Phase 9: Version Control & Sync
 **Assume Role:** Git Smith (Release Manager)
 **Mindset:** Conventional Commits, traceability.
 **Execution:**
 1. **Stage & Commit:** Run `git add .` and `git commit -m "feat/fix: <descriptive message>"` via `run_command`.
-2. **Final Report:** Halt tool-calling and print a professional success report to the user summarizing the entire factory run.
+2. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
+3. **Final Report:** Halt tool-calling and print a professional success report to the user.
