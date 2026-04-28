@@ -26,6 +26,7 @@ Execute the following loop for every task until verified perfect.
 ### 1. [PLAN] - Range Discovery (@pm)
 - **Role**: `@pm`
 - Scan `bd search` and `.agents/rules/` for context.
+- **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
 - Identify exact line ranges for change in the target files.
 - Propose necessary skills or tools for the task.
 - Produce an implementation plan in `docs/track/specs/AUTOC-[TASK_ID].md` and index it in `bd`.

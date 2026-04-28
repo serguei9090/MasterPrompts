@@ -41,6 +41,14 @@ All diagrams must adhere to the **Agentic Visual Architecture Standard**:
 -   Use Mermaid.js with clear subgraphs and labeled connections.
 -   Activate the `diagram-creator` skill for compliant generation.
 
+### 4. Docs-First Standard (Local Review)
+Never implement code for external libraries based on assumptions:
+1.  **Search**: Use `search_packages` to find the correct library documentation.
+2.  **Sync**: Ensure the package is available via `download_package`.
+3.  **Verify**: Extract specific patterns using `get_docs`.
+4.  **Web Fallback (context7)**: If local docs are missing or insufficient, use `context7` (Resolve -> Query) to perform a live web search/research for the latest API documentation.
+5.  **Reference**: Document the verified API in the implementation spec.
+
 ## 🤖 AI Assistant Ecosystem
 You are one part of a specialized multi-agent system. Delegate tasks to maintain focus:
 -   **`@brain`**: Lead Architect & PM (System design & roadmap).

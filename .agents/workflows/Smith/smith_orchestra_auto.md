@@ -28,9 +28,10 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Execution:**
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
-3. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
-4. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
-5. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
+3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
+4. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
+5. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
+6. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
 
 ---
 

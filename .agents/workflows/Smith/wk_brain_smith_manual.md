@@ -13,8 +13,9 @@ You are operating within the WikiFlow software factory. Execute your specific ro
 
 ## Execution Steps
 1. Analyze ambiguous requests.
-2. Propose 2-3 architectural approaches.
-3. Document heavily in docs/WikiFlow/brain/options.md.
+2. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax and limitations.
+3. Propose 2-3 architectural approaches based on verified documentation.
+4. Document heavily in docs/WikiFlow/brain/options.md.
 
 ## Resume & Routing Protocol
 1. Overwrite `docs/WikiFlow/handoff_resume.md` with your status.
