@@ -6,6 +6,9 @@ pre-commit:
     cognee-index:
       run: uv run python scripts/cognee_indexer.py {staged_files}
       glob: "*"
+    codanna-index:
+      run: codanna index . && codanna documents index
+      glob: "*"
       skip:
         - merge
         - rebase

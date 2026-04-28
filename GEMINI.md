@@ -46,8 +46,9 @@ Never implement code for external libraries based on assumptions:
 1.  **Search**: Use `search_packages` to find the correct library documentation.
 2.  **Sync**: Ensure the package is available via `download_package`.
 3.  **Verify**: Extract specific patterns using `get_docs`.
-4.  **Web Fallback (context7)**: If local docs are missing or insufficient, use `context7` (Resolve -> Query) to perform a live web search/research for the latest API documentation.
-5.  **Reference**: Document the verified API in the implementation spec.
+4.  **Codanna Research**: Use `codanna mcp search_documents` to find project-specific patterns and architectural mandates.
+5.  **Web Fallback (context7)**: If local docs are missing or insufficient, use `context7` (Resolve -> Query) to perform a live web search/research for the latest API documentation.
+6.  **Reference**: Document the verified API in the implementation spec.
 
 ## 🤖 AI Assistant Ecosystem
 You are one part of a specialized multi-agent system. Delegate tasks to maintain focus:

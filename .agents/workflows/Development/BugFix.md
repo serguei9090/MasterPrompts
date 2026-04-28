@@ -14,7 +14,9 @@ This workflow provides a standardized procedure for identifying, specifying, and
 ## Phase 1: Investigation & Root Cause
 **Assume Role:** `@critique` (Investigative Auditor)
 1. **Analyze**: Identify the reported issue or regression.
-2. **Research**: Perform deep-dive research into the codebase (sidecar, frontend, DB queries).
+2. **Research**: 
+   - **Semantic Search**: Run `codanna mcp search_documents --args '{"query": "[error message or symptom]"}' --json` to find related patterns or documentation.
+   - **Impact Analysis**: Use `codanna mcp analyze_impact --args '{"name": "[Suspected Symbol]"}' --json` to identify dependencies.
 3. **Reproduction**: (Mandatory) Write a failing unit test or script that demonstrates the bug.
 4. **Propose**: 
    - If **Autonomous**: State the solution and proceed to Phase 2.

@@ -14,18 +14,20 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 ## Core Mandates
 
 1. **Spec-Driven Development**: Always define contracts and interfaces before writing implementations. Follow the Ports & Adapters (Hexagonal) architecture to ensure Separation of Concerns.
-2. **Hybrid Memory Architecture**: This project uses a multi-layered intelligence stack:
-   - **Codanna (Physical)**: Primary engine for deep code analysis (symbols, call graphs, impact).
-   - **Cognee (Semantic)**: Graph-based memory for rationale, architectural decisions, and lessons learned.
-   - **context7 (External)**: Real-time source of truth for third-party library documentation.
-   - **Beads (Operational)**: Authoritative state and task tracker (bd).
-   - **Native (Empirical)**: Final verification via `grep_search` and manual file reading.
+2. **Multi-Layer Memory Architecture**: This project uses a 4-layered intelligence stack for maximum context density:
+   - **Layer 1: Codanna (Physical)**: Authoritative source for deep code analysis (symbols, call graphs, impact) and internal documentation RAG.
+   - **Layer 2: Cognee (Semantic)**: Graph-based memory for conceptual rationale, architectural decisions, and cross-project technical lessons.
+   - **Layer 3: context7 (External)**: Real-time source of truth for 3rd-party library documentation and API syntax.
+   - **Layer 4: Beads (Operational)**: Authoritative state for active tasks, roadmap, and session-to-session handoffs.
 
-3. **Software Excellence**: Strictly adhere to **DRY, KISS, YAGNI, and SOLID** principles. Favor composition over inheritance and pure functions where possible.
-4. **Beads Protocol**: Every technical debt or feature request MUST be registered as a `bead`. Use `bd create` to initialize new tasks and reference the `bead ID` in code comments. Use `bd search` to retrieve context.
+3. **Auto-Indexing Mandate**: To ensure zero-stale context, the `codanna-index` and `cognee-index` tasks are triggered automatically via Git hooks (`lefthook`). Always verify the index status if a large refactor has occurred.
+4. **Codanna CLI-First Protocol**: To ensure reliability and avoid connection friction, always prefer the `codanna mcp` CLI interface over the persistent server. 
+   - **Command Pattern**: `codanna mcp <tool> --args '<json>' --json`.
+   - **Mandatory Refresh**: Run `codanna index .` and `codanna documents index` after any significant structural changes.
+5. **Beads Protocol**: Every technical debt or feature request MUST be registered as a `bead`. Use `bd create` to initialize new tasks and reference the `bead ID` in code comments. Use `bd search` to retrieve context.
 
-5. **UI Atomic Design**: Structure frontend components strictly by Atoms, Molecules, Organisms, Templates, and Pages.
-6. **Visual Architecture Law**: All architectural representations MUST follow the **AVAS** (Agentic Visual Architecture Standard).
+6. **UI Atomic Design**: Structure frontend components strictly by Atoms, Molecules, Organisms, Templates, and Pages.
+7. **Visual Architecture Law**: All architectural representations MUST follow the **AVAS** (Agentic Visual Architecture Standard).
    - **Passive Law**: Diagrams must always use subgraphs and labeled connections.
    - **Active Capability**: For diagram generation, use the `diagram-creator` skill.
 

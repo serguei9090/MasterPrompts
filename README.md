@@ -36,6 +36,30 @@ This project is a **Logic & Metadata Engine** and does not contain application s
 | **Automation** | PowerShell (.ps1) | Environment synchronization and path resolution. |
 | **Tooling (Aliases)** | Bun / UV | Standardized runtime managers for the ecosystem. |
 
+## 🧠 Multi-Layer Memory Architecture
+
+This framework employs a state-of-the-art 4-layer memory stack to provide agents with unprecedented context density and reasoning reliability.
+
+### 1. Codanna (Physical Layer)
+*   **Role**: Codebase Intelligence & RAG.
+*   **Function**: Performs deep symbol analysis, impact mapping, and provides semantic search over internal documentation and code comments.
+*   **Tool**: `codanna mcp` CLI.
+
+### 2. Cognee (Semantic Layer)
+*   **Role**: Conceptual Memory.
+*   **Function**: Stores architectural rationale, technical decisions (ADRs), and distills "Lessons Learned" into a persistent knowledge graph.
+*   **Tool**: `cognee_memory.py`.
+
+### 3. context7 (External Layer)
+*   **Role**: Living Documentation.
+*   **Function**: Retrieves up-to-date API syntax and patterns for third-party libraries directly from the web.
+*   **Tool**: `context7` MCP.
+
+### 4. Beads (Operational Layer)
+*   **Role**: Task & Roadmap State.
+*   **Function**: Authoritative source for issue tracking, session handoffs, and operational history using a graph-based versioned database (Dolt).
+*   **Tool**: `bd` (Beads).
+
 ## 🚀 Usage for Developers
 
 ### 1. Synchronize Environment

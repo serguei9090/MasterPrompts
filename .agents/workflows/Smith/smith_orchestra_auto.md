@@ -15,7 +15,7 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 ### Phase 0: Memory Retrieval
 **Assume Role:** `@memory-manager`
 1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **Codanna (Physical)**: Use `analyze_impact` or `get_calls` to map physical dependencies and affected symbols.
+   - **Codanna (Physical)**: Use `codanna mcp analyze_impact --args '{"name": "SymbolName"}' --json` to map physical dependencies and affected symbols.
    - **Cognee (Semantic)**: Use `uv run python scripts/cognee_memory.py recall` to retrieve rationale and historical context.
    - **context7 (External)**: Use `/DocsReview` to verify syntax for any external libraries involved.
    - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
@@ -34,7 +34,9 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-4. **Graph Impact Analysis:** `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [Function/Module X]?"` to identify cross-module impacts.
+4. **Graph Impact Analysis**: 
+   - `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [Function/Module X]?"`
+   - `codanna mcp search_documents --args '{"query": "architectural pattern for [X]"}' --json` to retrieve project-specific documentation and patterns.
 5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
 6. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
 7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 

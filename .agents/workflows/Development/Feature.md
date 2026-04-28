@@ -8,8 +8,11 @@ This workflow standardizes how new capabilities are added to LogLensAi.
 
 ## Phase 1: The Spec (Vibe → Research)
 1. **Understand**: Antigravity (Chat) analyzes the raw request against `AGENTS.md` and `PRD.md`.
-2. **Draft**: Create a specific feature spec in `docs/features/<feature_id>.md`.
-3. **Standards**: Ensure the spec includes:
+2. **Research (Intelligence Stack)**: 
+   - **Pattern Search**: Run `codanna mcp search_documents --args '{"query": "existing patterns for [feature type]"}' --json` to ensure consistency.
+   - **API Inventory**: Use `codanna mcp get_calls` or `find_symbol` to identify existing hooks/utilities to reuse.
+3. **Draft**: Create a specific feature spec in `docs/features/<feature_id>.md`.
+4. **Standards**: Ensure the spec includes:
     - **UI Designer (@ui-designer)**: Component logic, interactions, and accessibility (Frontend).
     - **Theme Expert (@theme-expert)**: Design tokens, layout primitives, and visual identity.
     - **API Specialist (@api-specialist)**: Data contracts, RPC boundary definition, and backend logic.

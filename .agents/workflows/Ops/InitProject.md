@@ -33,6 +33,7 @@ This workflow is the absolute starting point for any project. It replaces all le
     codanna init
     codanna index .
     codanna documents add-collection docs docs/
+    codanna documents index
     
     # 2. Setup Cognee ignore and pre-commit logic
     Execute `/cognee-init` workflow or run manually:
@@ -41,6 +42,9 @@ This workflow is the absolute starting point for any project. It replaces all le
     
     # 3. Build Knowledge Graph (Cognee)
     uv run python scripts/cognee_indexer.py --full
+
+    # 4. Enforce Protocol
+    bd remember "PROTOCOL: Use 'codanna mcp <tool> --args \"<json>\" --json' for all codebase analysis."
 
 ## 🧠 Phase 3: Population of Beads Memory
 1.  **Populate Stack**: Feed the analyzed stack into the Beads memory system.
