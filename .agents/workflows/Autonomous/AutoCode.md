@@ -27,6 +27,7 @@ Execute the following loop for every task until verified perfect.
 - **Role**: `@pm`
 - Scan `bd search` and `.agents/rules/` for context.
 - **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
+- **Impact Analysis**: Run `grep_search` to map dependencies and identify call sites affected by the refactor/feature.
 - Identify exact line ranges for change in the target files.
 - Propose necessary skills or tools for the task.
 - Produce an implementation plan in `docs/track/specs/AUTOC-[TASK_ID].md` and index it in `bd`.

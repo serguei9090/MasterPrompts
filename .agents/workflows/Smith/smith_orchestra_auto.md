@@ -29,9 +29,10 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-4. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
-5. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
-6. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
+4. **Impact Analysis:** Perform a `grep_search` to identify all call sites and dependencies (e.g., Function Y) impacted by changes to Function X. Map the dependency tree.
+5. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
+6. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
+7. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
 
 ---
 
@@ -113,4 +114,5 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Execution:**
 1. **Stage & Commit:** Run `git add .` and `git commit -m "feat/fix: <descriptive message>"` via `run_command`.
 2. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
-3. **Final Report:** Halt tool-calling and print a professional success report to the user.
+3. **Remote Sync:** Run `git push` to deliver the code.
+4. **Final Report:** Halt tool-calling and print a professional success report to the user.

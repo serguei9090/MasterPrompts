@@ -14,8 +14,9 @@ You are operating within the WikiFlow software factory. Execute your specific ro
 ## Execution Steps
 1. **Context Discovery**: Read `AGENTS.md`, `SoftwareStandards.md`, and research the current codebase architecture.
 2. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-3. **Spec Creation**: Write a detailed architectural plan and implementation spec to `docs/WikiFlow/pm/analysis.md`.
-4. **Task Tracking**: Update `docs/track/TODO.md` with uniquely identified tasks (e.g., `FEAT-001`).
+3. **Impact Analysis**: Use `grep_search` to find all call sites and dependencies (e.g., Function Y) impacted by changes to Function X. Map the dependency tree.
+4. **Spec Creation**: Write a detailed architectural plan and implementation spec to `docs/WikiFlow/pm/analysis.md`.
+5. **Task Tracking**: Update `docs/track/TODO.md` with uniquely identified tasks (e.g., `FEAT-001`).
 
 ## Resume & Routing Protocol
 1. Overwrite `docs/WikiFlow/handoff_resume.md` with your status.
