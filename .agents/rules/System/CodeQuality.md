@@ -25,23 +25,23 @@ Well-written code should be largely self-documenting. Comments should explain co
 - **Variables/Fields**: Every variable declaration (especially state and configuration) MUST have an inline comment explaining its intent and how it is used.
 - **Complex Logic**: If a block of logic is highly algorithmic or non-trivial, write a multi-line comment above it mapping out the steps in plain English before the code begins.
 
-## 2. TODO(ID) Protocol (The "Task Memory")
-Any incomplete interface, bypassed error, or missing feature MUST NOT be left as a silent placeholder. It MUST use the `TODO` keyword accompanied by a unique identifier.
+## 2. Beads Protocol (The "Task Memory")
+Any incomplete interface, bypassed error, or missing feature MUST NOT be left as a silent placeholder. It MUST use the `TODO` keyword accompanied by a unique Beads ID.
 
-### 2.1 The Formal TODO Syntax
-`// TODO(sync_001): [WHAT] Need to add debounce to this input. [WHY] API rate limits are being hit during fast typing. [EXPECTATION] Implement a 300ms debounce using lodash or a custom hook to batch requests. [CONTEXT] See specs/rate_limit_001.md.`
+### 2.1 The Formal Beads Syntax
+`// TODO(bead_id): [WHAT] Need to add debounce to this input. [WHY] API rate limits are being hit. [EXPECTATION] Implement 300ms debounce. [CONTEXT] See specs/task-xxx.md.`
 
 ### 2.2 Creation Protocol (The "Detail File")
-When a `TODO` is introduced:
-1. **Assign a Unique ID**: (e.g., `api_gateway_001`).
-2. **Create the Brain**: Create a markdown file in `docs/track/specs/<unique_id>.md`. This is the **Active Task Memory**—include architectural choices, chosen libraries, logic snippets, and why we made those decisions.
-3. **Index the Task**: Add the high-level task to `docs/track/TODO.md`, linking to the detail file.
+When a new task or tech debt is identified:
+1. **Assign a Beads ID**: Run `bd create "<description>"`.
+2. **Create the Brain**: Create a markdown file in `docs/track/specs/task-<id>.md`.
+3. **Index the Task**: Link the Beads ID in the code and update the spec file.
 
-### 2.3 Completing TODOs
-When the logic for a `TODO` is implemented:
-1. **Replace Comment**: Remove the `TODO(...)` comment and replace it with a proper standard doc-comment.
-2. **Mark as Done**: Update the status in `docs/track/TODO.md`.
-3. **Archive/Update Detail**: The detail file in `docs/track/specs/` should be updated to reflect the implementation details or archived if no longer relevant.
+### 2.3 Completing Tasks
+When the logic is implemented:
+1. **Replace Comment**: Remove the `TODO(bead_id)` comment and replace it with a proper standard doc-comment.
+2. **Close Bead**: Run `bd update <id> --status done`.
+3. **Archive Spec**: The detail file in `docs/track/specs/` should be updated to reflect the implementation details.
 
 ## 3. Pure TDD & Architectural BDD (Hybrid)
 We distinguish between **Architectural Guidance** and **Implementation Speed**:

@@ -9,23 +9,24 @@ Maintain a clear, professional, and transparent project roadmap and session cont
 
 ## 1. Mandatory Session "Boot Sequence"
 At the start of every new session (detected via `model_decision` or the first user prompt), you MUST perform the following actions before writing a single line of code:
-1.  **Read the Roadmap**: Open `docs/track/TODO.md`.
+1.  **Read the Tracker**: Run `bd ready` or `bd list --status open`.
 2.  **Read the Handoff**: Open `docs/track/handoff.md` to understand the last session's exit state and blockers.
-3.  **Calibrate Internal Plan**: Update your internal "builtin plan task" to match the `TODO.md` exactly.
+3.  **Calibrate Internal Plan**: Update your internal "builtin plan task" to match the active Bead(s) exactly.
 4.  **Confirm Readiness**: Briefly acknowledge the current state and the "Next Atomic Step" you are about to execute.
 
 ## 2. Tracking Files (Index vs. Detail)
-- **`TODO.md` (The Index)**: High-level active roadmap. Tracks phases, status (`Backlog`, `In Progress`, `Done`), and high-level milestones. **Avoid massive walls of text here.**
-- **`docs/track/specs/task-xxx.md` (The Brain)**: Each complex task in `TODO.md` must have a dedicated detail file. This is where the actual "memory" lives—technical specs, chosen libraries, logic snippets, and implementation constraints.
+- **Beads (bd) (The Index & Tracker)**: The absolute Source of Truth for task execution. Use `bd list` to view the roadmap and `bd ready` for available work. **Use Beads for status and metadata; avoid long text here.**
+- **`docs/track/specs/task-<id>.md` (The Brain)**: Each complex task in Beads must have a dedicated detail file. **This is the primary location for long-form specifications**, technical rationale, and the full dependency map. The Bead description should simply reference this file.
+- **`docs/track/TODO.md` (Visual Mirror)**: A non-authoritative, high-level visual summary for humans. This file is secondary to Beads and should not be used by the Agent for state management.
 - **`docs/track/audits/` (The Auditor)**: Central folder for all project health reports, architecture audits, security scans, and quality reviews.
 - **`FeaturesProposal.md`**: Deferred ideas and post-MVP enhancements.
 - **`CodeDebt.md`**: Technical debt, refactoring needs, and known bugs.
 - **`codegapreview.md`**: Architectural implementation gaps (Audit this using the `code-gap-reviewer` skill).
 
-## 3. Dual-Roadmap Parity Law
-- **Sync Requirement**: Your internal execution state MUST be kept in 100% parity with the project's `docs/track/TODO.md`.
-- **Status Updates**: After completing any task, update both the internal state and `docs/track/TODO.md` by marking the item as `[x]`. 
-- **External Agents (Jules)**: When delegating to external agents, the instruction set MUST explicitly command the agent to update `docs/track/TODO.md` upon completion.
+## 3. Beads-First Protocol
+- **Source of Truth**: The `bd` system (powered by Dolt) is the sole authoritative source for task status, assignments, and dependencies.
+- **Planning Parity**: Every major task MUST begin with a `sequentialthinking` pass. The output of this pass (impacted files, ripple effects, architectural risks) MUST be recorded in the task's spec file and broken down into **sub-beads** using `bd create`.
+- **Status Updates**: After completing any task, update the `bd` tracker immediately using `bd update <id> --status completed` and run `bd dolt push` to sync.
 - **Session Wrap-up**: At the end of a session, you MUST execute the `session-handover` skill to generate the next `handoff.md`.
 
 ## 3. Directory Integrity

@@ -4,9 +4,9 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 
 ## 🗺️ Rule-Map (The Laws of Physics)
 - **Architecture**: `.agents/rules/System/Architecture.md` (Hexagonal + Ports/Adapters)
-- **Tracking**: `.agents/rules/System/ProjectTracking.md` (Session Sync)
+- **Tracking**: `.agents/rules/System/ProjectTracking.md` (Beads-First Protocol)
 - **Software Standards**: `.agents/rules/System/SoftwareStandards.md` (DRY, KISS, SOLID)
-- **Quality/TODO**: `.agents/rules/System/CodeQuality.md` (TODO(ID) + Atomic Design)
+- **Quality/Beads**: `.agents/rules/System/CodeQuality.md` (Beads Protocol + Atomic Design)
 - **Automation**: `.agents/rules/Automation/AutonomousExecution.md` (Sprint Mode + Loop Protocol)
 - **Expert Practices**: `.agents/rules/Specialized/AIExpertPractices.md` (Mnemonic Anchors + Verification)
 - **Visual Law**: `.agents/rules/Specialized/VisualArchitecture.md` (AVAS Visualization)
@@ -17,7 +17,7 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 2. **Hybrid Memory Architecture**: This project uses **Beads (bd)** exclusively for all active task management and atomic memory indexing. Long-form specs (ADRs, complex architectures) are stored in `docs/memory/` and indexed via Beads. Every turn MUST start with `bd ready` and `bd prime`.
 
 3. **Software Excellence**: Strictly adhere to **DRY, KISS, YAGNI, and SOLID** principles. Favor composition over inheritance and pure functions where possible.
-4. **TODO(ID) Protocol**: Every technical debt or feature request MUST be registered as a `bead`. Use `bd create` to initialize new tasks and reference the `bead ID` in code comments.
+4. **Beads Protocol**: Every technical debt or feature request MUST be registered as a `bead`. Use `bd create` to initialize new tasks and reference the `bead ID` in code comments. Use `bd search` to retrieve context.
 
 5. **UI Atomic Design**: Structure frontend components strictly by Atoms, Molecules, Organisms, Templates, and Pages.
 6. **Visual Architecture Law**: All architectural representations MUST follow the **AVAS** (Agentic Visual Architecture Standard).
@@ -48,7 +48,7 @@ You are equipped to evolve your own capabilities:
 
 ## Initialization & Operational Logic
 - **HAL Synchronization**: At the start of every session, the agent MUST run `scripts/hal-sync.ps1` to resolve path variables (ROOT, AGENTS, DOCS, TRACK) and populate the environment context.
-- **Context Injection**: Before starting a task, run `bd list --status open` or `bd ready` to ensure your internal state matches the workspace.
+- **Context Injection**: Before starting a task, run `bd ready` or `bd list --status open` to ensure your internal state matches the workspace.
 - **Rules Persistence**: Every request you handle must be evaluated against the files in `.agents/rules/`.
 - **Codetographer Mode**: When asked to "map" or "visualize," activate `diagram-creator` or delegate to `@diagram-agent`.
 

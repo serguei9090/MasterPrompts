@@ -31,10 +31,10 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
 4. **Graph Impact Analysis:** `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [Function/Module X]?"` to identify cross-module impacts.
-5. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
-5. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
-6. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
-7. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
+5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
+6. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
+7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 
+8. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`, including the full dependency map and subtask list.
 
 ---
 
@@ -95,7 +95,7 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Objective:** Store technical decisions and lessons learned for future sessions using the Hybrid Memory Architecture.
 **Actions:**
 1.  **Cognify Lessons:** `uv run python scripts/cognee_memory.py remember "Learned [Lesson] regarding [X] implementation."` to distill atomic lessons into the graph.
-2.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered (e.g., "Use `globalThis` over `window`"), run `bd remember "RULE [Feature]: [Fact]"`.
+2.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered, run `bd remember "RULE [Feature]: [Fact]"`. Also, update `docs/track/LessonsLearned.md` with the detailed technical summary.
 3.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
 4.  **Index Specs:** Run `uv run python scripts/cognee_indexer.py docs/memory/specs/` to index the new architectural decisions.
 5.  **Self-Improvement:** `uv run python scripts/cognee_memory.py improve` pass to refine graph structures.

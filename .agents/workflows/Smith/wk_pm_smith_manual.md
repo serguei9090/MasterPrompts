@@ -16,8 +16,8 @@ You are operating within the WikiFlow software factory. Execute your specific ro
 2. **Recall Impact**: `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [X]?"` to identify cross-module impacts.
 3. **Grep Verification**: Complement graph recall with `grep_search` to verify physical call sites and identify affected line ranges.
 4. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-5. **Implementation Plan**: Map out the change ranges and dependencies. Write a detailed architectural plan and implementation spec to `docs/WikiFlow/pm/analysis.md`.
-6. **Task Tracking**: Update `docs/track/TODO.md` with uniquely identified tasks (e.g., `FEAT-001`).
+5. **Implementation Plan**: Map out the change ranges and dependencies. Write a detailed architectural plan and implementation spec to `docs/track/specs/task-<bead_id>.md`.
+6. **Task Tracking**: Register all tasks in **Beads (bd)**. Use `bd create` for the main feature and `bd create --parent <id>` for subtasks.
 
 ## Resume & Routing Protocol
 1. Overwrite `docs/WikiFlow/handoff_resume.md` with your status.

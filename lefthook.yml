@@ -1,5 +1,8 @@
 pre-commit:
   commands:
+    lint-check:
+      run: uv run ruff check {staged_files} && bunx biome check {staged_files}
+      glob: "*.{py,js,ts,tsx}"
     cognee-index:
       run: uv run python scripts/cognee_indexer.py {staged_files}
       glob: "*"

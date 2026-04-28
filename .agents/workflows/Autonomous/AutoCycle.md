@@ -14,8 +14,9 @@ Triggered by `/autocycle <mission>`. This workflow orchestrates a complete Softw
 - **Role**: `Lead Architect (@brain)`
 - **Goal**: Define the "What" and "Why".
 - **Tasks**:
-  - Scan the codebase to understand the current implementation.
-  - Update a technical specification in `docs/track/specs/PLAN-[TASK_ID].md`.
+  - **Recall Context**: `uv run python scripts/cognee_memory.py recall` to retrieve architectural patterns and historical pitfalls.
+  - **Sequential Thinking**: Execute a deep impact analysis to identify ripple effects.
+  - Update a technical specification in `docs/track/specs/task-<ID>.md`.
   - Run `bd create` with prioritized tasks.
 - **Verification**: Ensure the plan aligns with user intent and project constraints.
 
@@ -51,6 +52,7 @@ Triggered by `/autocycle <mission>`. This workflow orchestrates a complete Softw
 - **Role**: `Documentarian (@doc-agent)`
 - **Goal**: Preserve knowledge and clean up.
 - **Tasks**:
+  - **Distill Memory**: `uv run python scripts/cognee_memory.py remember` to capture new architectural insights.
   - Update `docs/track/LessonsLearned.md` with technical insights.
   - Summarize changes in `docs/WikiFlow/handoff_resume.md`.
   - Close completed tasks using `bd close <ID>`.

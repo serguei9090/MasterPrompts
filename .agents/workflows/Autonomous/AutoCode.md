@@ -24,13 +24,13 @@ Execute the following loop for every task until verified perfect.
 ---
 
 ### 1. [PLAN] - Range Discovery (@pm)
-- **Role**: `@pm`
-- Scan `bd search` and `.agents/rules/` for context.
-- **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-- **Graph Impact Analysis**: `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [X]?"` to identify cross-module impacts.
-- **Grep Verification**: Complement graph recall with `grep_search` to verify physical call sites and identify affected line ranges.
-- **Recall Context**: `uv run python scripts/cognee_memory.py recall "What is the architectural rationale for [X]?"`.
-- Produce an implementation plan in `docs/track/specs/AUTOC-[TASK_ID].md` and index it in `bd`.
+1. **Scan Context**: Scan `bd search` and `.agents/rules/` for context.
+2. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
+3. **Graph Impact Analysis**: `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [X]?"` to identify cross-module impacts.
+4. **Impact Analysis (Deep Thought)**: Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
+5. **Grep Verification**: Complement graph recall with `grep_search` to verify physical call sites and identify affected line ranges.
+6. **Task Breakdown**: Break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`.
+7. **Spec Creation**: Produce a detailed implementation spec in `docs/track/specs/AUTOC-[TASK_ID].md` including the dependency map and subtask list.
 
 ### 2. [PLAN-REVIEW] - Critique & Skill Check (@critique)
 - **Role**: `@critique`

@@ -13,8 +13,11 @@ This workflow is the absolute starting point for any project. It replaces all le
 1.  **Install Database**: Run `winget install DoltHub.Dolt --accept-package-agreements --accept-source-agreements`
 2.  **Install Beads Tracker**: Run `npm install -g @beads/bd`
 3.  **Initialize Tracker**: Run `bd init`
-4.  **Install Dependencies**: Run `[PKG_MANAGER] install` based on the detected lockfile (e.g., `npm`, `bun`, `uv`).
-5.  **Install Cognee Intelligence**: 
+4.  **Install Sequential Thinking MCP**: 
+    - Check if the `sequentialthinking` tool is available in your AI context.
+    - If missing, ask the user to install the **Sequential Thinking MCP** from the official registry.
+5.  **Install Dependencies**: Run `[PKG_MANAGER] install` based on the detected lockfile (e.g., `npm`, `bun`, `uv`).
+6.  **Install Cognee Intelligence**: 
     - Run `uv venv` to create a local environment.
     - Run `uv pip install cognee` or `uv add cognee` to install the intelligence layer.
     - Refer to `docs/cognee_install.md` for detailed environment setup.
