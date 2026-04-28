@@ -12,7 +12,8 @@ __pycache__/
 # Tool Metadata
 .agent/
 .agents/
-.claude/
+.beads/
+.dolt/
 .codanna/
 .codex/
 .gitnexus/

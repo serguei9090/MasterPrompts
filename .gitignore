@@ -16,6 +16,11 @@ env/
 # Cognee
 .cognee/
 .cognee_cache/
+.fastembed_cache
+
+# Codanna
+.codanna/
+.codannaignore
 
 # Python
 __pycache__/

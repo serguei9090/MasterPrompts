@@ -16,26 +16,31 @@ This workflow is the absolute starting point for any project. It replaces all le
 4.  **Install Sequential Thinking MCP**: 
     - Check if the `sequentialthinking` tool is available in your AI context.
     - If missing, ask the user to install the **Sequential Thinking MCP** from the official registry.
-5.  **Install Dependencies**: Run `[PKG_MANAGER] install` based on the detected lockfile (e.g., `npm`, `bun`, `uv`).
-6.  **Install Cognee Intelligence**: 
+5.  **Install Codanna (Physical Analysis)**:
+    - Check if `codanna` is installed. 
+    - If not, refer user to: `https://docs.codanna.sh/installation`
+6.  **Install Cognee Intelligence (Semantic Memory)**: 
     - Run `uv venv` to create a local environment.
     - Run `uv pip install cognee` or `uv add cognee` to install the intelligence layer.
     - Refer to `docs/cognee_install.md` for detailed environment setup.
+7.  **Install Dependencies**: Run `[PKG_MANAGER] install` based on the detected lockfile (e.g., `npm`, `bun`, `uv`).
 
 ## 🔍 Phase 2: Codebase Adaptation & Scanning
 1.  **Scan Codebase**: Scrutinize the file system (e.g., `package.json`, `pyproject.toml`, `pubspec.yaml`) to identify the project's "Technical DNA".
 2.  **Skill & Agent Adaptation**: Automatically adjust `.gemini/agents/` and `.agents/skills/` to match the local stack (e.g., swapping "React" profiles for "Flutter", or `npm` for `bun`).
-3.  **Initial Cognification (Memory Build)**: # Cognee Intelligence Setup: Codebase Cognification
-    # 1. Setup ignore and pre-commit logic
+3.  **Intelligence Scaffolding (Codanna & Cognee)**:
+    # 1. Initialize Codanna (Physical Truth)
+    codanna init
+    codanna index .
+    codanna documents add-collection docs docs/
+    
+    # 2. Setup Cognee ignore and pre-commit logic
     Execute `/cognee-init` workflow or run manually:
     - Create `.cogneeignore` and copy `scripts/cognee_indexer.py`
     - Setup `lefthook` (run `lefthook install`)
     
-    # 2. Index Documentation and Codebase (Build the Knowledge Graph)
+    # 3. Build Knowledge Graph (Cognee)
     uv run python scripts/cognee_indexer.py --full
-
-    # 3. Initial Intelligence Recall (Verification)
-    uv run cognee-cli recall "What is the primary architecture of this project?" -d <project_name>
 
 ## 🧠 Phase 3: Population of Beads Memory
 1.  **Populate Stack**: Feed the analyzed stack into the Beads memory system.

@@ -24,11 +24,14 @@ Execute the following loop for every task until verified perfect.
 ---
 
 ### 1. [PLAN] - Range Discovery (@pm)
-1. **Scan Context**: Scan `bd search` and `.agents/rules/` for context.
-2. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-3. **Graph Impact Analysis**: `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [X]?"` to identify cross-module impacts.
-4. **Impact Analysis (Deep Thought)**: Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
-5. **Grep Verification**: Complement graph recall with `grep_search` to verify physical call sites and identify affected line ranges.
+1. **Deep Impact Analysis (The Intelligence Stack)**:
+   - **Codanna (Physical)**: Use `analyze_impact` or `get_calls` to map physical dependencies and affected symbols.
+   - **Cognee (Semantic)**: Use `uv run python scripts/cognee_memory.py recall` to retrieve rationale and historical context.
+   - **context7 (External)**: Use `/DocsReview` to verify syntax for any external libraries involved.
+   - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
+2. **Task Registration**:
+   - Create a technical specification in `docs/track/specs/task-<id>.md`.
+   - Use `bd create` to register the main task and `bd create --parent <id>` for granular sub-tasks identified in the thinking process.
 6. **Task Breakdown**: Break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`.
 7. **Spec Creation**: Produce a detailed implementation spec in `docs/track/specs/AUTOC-[TASK_ID].md` including the dependency map and subtask list.
 

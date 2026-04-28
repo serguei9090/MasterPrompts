@@ -14,7 +14,12 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 ## Core Mandates
 
 1. **Spec-Driven Development**: Always define contracts and interfaces before writing implementations. Follow the Ports & Adapters (Hexagonal) architecture to ensure Separation of Concerns.
-2. **Hybrid Memory Architecture**: This project uses **Beads (bd)** exclusively for all active task management and atomic memory indexing. Long-form specs (ADRs, complex architectures) are stored in `docs/memory/` and indexed via Beads. Every turn MUST start with `bd ready` and `bd prime`.
+2. **Hybrid Memory Architecture**: This project uses a multi-layered intelligence stack:
+   - **Codanna (Physical)**: Primary engine for deep code analysis (symbols, call graphs, impact).
+   - **Cognee (Semantic)**: Graph-based memory for rationale, architectural decisions, and lessons learned.
+   - **context7 (External)**: Real-time source of truth for third-party library documentation.
+   - **Beads (Operational)**: Authoritative state and task tracker (bd).
+   - **Native (Empirical)**: Final verification via `grep_search` and manual file reading.
 
 3. **Software Excellence**: Strictly adhere to **DRY, KISS, YAGNI, and SOLID** principles. Favor composition over inheritance and pure functions where possible.
 4. **Beads Protocol**: Every technical debt or feature request MUST be registered as a `bead`. Use `bd create` to initialize new tasks and reference the `bead ID` in code comments. Use `bd search` to retrieve context.
@@ -48,6 +53,7 @@ You are equipped to evolve your own capabilities:
 
 ## Initialization & Operational Logic
 - **HAL Synchronization**: At the start of every session, the agent MUST run `scripts/hal-sync.ps1` to resolve path variables (ROOT, AGENTS, DOCS, TRACK) and populate the environment context.
+- **Intelligence Sync**: Verify that **Codanna** and **Cognee** are indexed. Run `codanna index .` and `scripts/cognee_indexer.py` if code has changed significantly outside of the AI session.
 - **Context Injection**: Before starting a task, run `bd ready` or `bd list --status open` to ensure your internal state matches the workspace.
 - **Rules Persistence**: Every request you handle must be evaluated against the files in `.agents/rules/`.
 - **Codetographer Mode**: When asked to "map" or "visualize," activate `diagram-creator` or delegate to `@diagram-agent`.

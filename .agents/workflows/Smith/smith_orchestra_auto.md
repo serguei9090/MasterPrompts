@@ -14,10 +14,14 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ### Phase 0: Memory Retrieval
 **Assume Role:** `@memory-manager`
-**Mindset:** Focused on historical context and architectural continuity.
-**Execution:**
-1. **Recall Graph:** `uv run python scripts/cognee_memory.py recall "What is the recent context for [Task Keywords]?"` to load architectural insights.
-2. **Search Beads:** `bd search <keywords>` or `bd prime` to load task-state context.
+1. **Deep Impact Analysis (The Intelligence Stack)**:
+   - **Codanna (Physical)**: Use `analyze_impact` or `get_calls` to map physical dependencies and affected symbols.
+   - **Cognee (Semantic)**: Use `uv run python scripts/cognee_memory.py recall` to retrieve rationale and historical context.
+   - **context7 (External)**: Use `/DocsReview` to verify syntax for any external libraries involved.
+   - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
+2. **Task Registration**:
+   - Create a technical specification in `docs/track/specs/task-<id>.md`.
+   - Use `bd create` to register the main task and `bd create --parent <id>` for granular sub-tasks identified in the thinking process.
 3. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`) in `docs/memory/`.
 4. **Handoff:** Summarize findings for `@brain`.
 
