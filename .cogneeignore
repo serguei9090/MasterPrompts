@@ -1,0 +1,25 @@
+# Cognee and Cache
+.cognee/
+.fastembed_cache/
+.cortex/
+.gemini/
+
+# Environments and Dependencies
+.venv/
+node_modules/
+__pycache__/
+
+# Tool Metadata
+.agent/
+.agents/
+.claude/
+.codanna/
+.codex/
+.gitnexus/
+.vscode/
+
+# Build artifacts
+dist/
+build/
+.env
+.env.example

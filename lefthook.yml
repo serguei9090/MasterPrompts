@@ -1,0 +1,8 @@
+pre-commit:
+  commands:
+    cognee-index:
+      run: uv run python scripts/cognee_indexer.py {staged_files}
+      glob: "*"
+      skip:
+        - merge
+        - rebase

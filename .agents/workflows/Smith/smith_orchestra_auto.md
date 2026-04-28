@@ -1,6 +1,7 @@
 ---
 description: "SmithOrchestra (Auto) - True Autonomous Software Factory. Executes the entire SDLC in a single uninterrupted turn."
 ---
+
 # SmithOrchestra (Auto) - True Autonomous Software Factory
 // turbo-all
 
@@ -15,9 +16,9 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Assume Role:** `@memory-manager`
 **Mindset:** Focused on historical context and architectural continuity.
 **Execution:**
-1. **Search Beads:** `bd search <keywords>` or `bd prime` to load active context.
-2. **Search Archive:** Grep `docs/memory/` for architectural depth.
-3. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`).
+1. **Recall Graph:** `uv run python scripts/cognee_memory.py recall "What is the recent context for [Task Keywords]?"` to load architectural insights.
+2. **Search Beads:** `bd search <keywords>` or `bd prime` to load task-state context.
+3. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`) in `docs/memory/`.
 4. **Handoff:** Summarize findings for `@brain`.
 
 ---
@@ -29,7 +30,8 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-4. **Impact Analysis:** Perform a `grep_search` to identify all call sites and dependencies (e.g., Function Y) impacted by changes to Function X. Map the dependency tree.
+4. **Graph Impact Analysis:** `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [Function/Module X]?"` to identify cross-module impacts.
+5. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
 5. **Deep Thinking:** Invoke `sequentialthinking` to analyze requirements, identify potential pitfalls, and design the solution architecture.
 6. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
 7. **Task Update:** Break the work down into actionable beads using `bd create`. Link them to the main task.
@@ -92,10 +94,12 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Role:** `@memory-manager`
 **Objective:** Store technical decisions and lessons learned for future sessions using the Hybrid Memory Architecture.
 **Actions:**
-1.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered (e.g., "Use `globalThis` over `window`"), run `bd remember "RULE [Feature]: [Fact]"`.
-2.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
-3.  **Cross-Linking:** If a long-form spec was written, you MUST index it in Beads: `bd remember "ARCHITECTURE [Feature]: The full spec is located at docs/memory/specs/feature_x.md"`.
-4.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
+1.  **Cognify Lessons:** `uv run python scripts/cognee_memory.py remember "Learned [Lesson] regarding [X] implementation."` to distill atomic lessons into the graph.
+2.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered (e.g., "Use `globalThis` over `window`"), run `bd remember "RULE [Feature]: [Fact]"`.
+3.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
+4.  **Index Specs:** Run `uv run python scripts/cognee_indexer.py docs/memory/specs/` to index the new architectural decisions.
+5.  **Self-Improvement:** `uv run python scripts/cognee_memory.py improve` pass to refine graph structures.
+6.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
 
 ---
 
@@ -113,6 +117,7 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Mindset:** Conventional Commits, traceability.
 **Execution:**
 1. **Stage & Commit:** Run `git add .` and `git commit -m "feat/fix: <descriptive message>"` via `run_command`.
-2. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
-3. **Remote Sync:** Run `git push` to deliver the code.
+2. **Re-Cognify Code:** The Lefthook pre-commit automatically triggers `cognee-index` for staged files. If bypassed, run `uv run python scripts/cognee_indexer.py <files>` manually.
+3. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
+4. **Remote Sync:** Run `git push` to deliver the code.
 4. **Final Report:** Halt tool-calling and print a professional success report to the user.

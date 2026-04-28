@@ -27,9 +27,9 @@ Execute the following loop for every task until verified perfect.
 - **Role**: `@pm`
 - Scan `bd search` and `.agents/rules/` for context.
 - **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-- **Impact Analysis**: Run `grep_search` to map dependencies and identify call sites affected by the refactor/feature.
-- Identify exact line ranges for change in the target files.
-- Propose necessary skills or tools for the task.
+- **Graph Impact Analysis**: `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [X]?"` to identify cross-module impacts.
+- **Grep Verification**: Complement graph recall with `grep_search` to verify physical call sites and identify affected line ranges.
+- **Recall Context**: `uv run python scripts/cognee_memory.py recall "What is the architectural rationale for [X]?"`.
 - Produce an implementation plan in `docs/track/specs/AUTOC-[TASK_ID].md` and index it in `bd`.
 
 ### 2. [PLAN-REVIEW] - Critique & Skill Check (@critique)
@@ -68,12 +68,16 @@ Execute the following loop for every task until verified perfect.
 ### 8. [REFLECT] - Knowledge Distillation (@scribe)
 - **Role**: `@scribe`
 - **Lessons Learned**: Update `docs/track/LessonsLearned.md` and `bd remember` with technical insights gained.
+- **Memory Update**: `uv run python scripts/cognee_memory.py remember "Fixed [BUG] by changing [X] in [Y]."` to record the fix rationale.
 - **Hybrid Distillation**: Store atomic facts in `bd` and long-form specs in `docs/memory/`.
+- **Index Specs**: Run `uv run python scripts/cognee_indexer.py docs/track/specs/AUTOC-[TASK_ID].md` to selectively index the new architectural decisions.
+- **Self-Improvement**: `uv run python scripts/cognee_memory.py improve()` to refine graph structures.
 
 ### 9. [GIT] - Atomic Commit (@devops)
 - **Role**: `@devops`
 - Run `git add .`.
 - Commit using: `feat(autocode): [task] surgical update & validation`.
+- **Re-Cognify Code**: The pre-commit lefthook will automatically trigger `cognee-index` for staged files. If bypassed, run `uv run python scripts/cognee_indexer.py <files>` manually.
 - **Beads Update**: Run `bd update <id> --status` and `bd dolt push`.
 
 ### 10. [CRITIQUE-FINAL] - Task Double-Check (@critique)

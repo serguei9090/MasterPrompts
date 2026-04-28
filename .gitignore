@@ -1,7 +1,38 @@
-
-# Beads / Dolt files (added by bd init)
+# Beads / Dolt files
 .dolt/
+.beads/
 *.db
 .beads-credential-key
+
+# Environment & Virtual Envs
 .env
+.env.*
+!.env.example
 .venv/
+venv/
+ENV/
+env/
+
+# Cognee
+.cognee/
+.cognee_cache/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Node
+node_modules/
+.npm
+.eslintcache
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db

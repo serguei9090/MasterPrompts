@@ -12,11 +12,12 @@ You are operating within the WikiFlow software factory. Execute your specific ro
 *Note for AI Models: Actively shift your reasoning to match this Persona. Do not act as a generic assistant.*
 
 ## Execution Steps
-1. Analyze ambiguous requests.
-2. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax and limitations.
-3. **Impact Analysis**: Use `grep_search` to find all call sites and dependencies impacted by proposed architectural changes.
-4. Propose 2-3 architectural approaches based on verified documentation and impact results.
-5. Document heavily in docs/WikiFlow/brain/options.md.
+1. **Recall Impact**: `uv run python scripts/cognee_memory.py recall "What are the dependencies and call sites for [X]?"` to identify architectural risks and cross-module impacts.
+2. **Grep Verification**: Complement graph recall with `grep_search` to verify physical call sites and identify affected line ranges.
+3. **Docs Sync**: If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
+4. **Implementation Plan**: Map out the change ranges and dependencies.
+5. Propose 2-3 architectural approaches based on verified documentation and impact results.
+6. Document heavily in docs/WikiFlow/brain/options.md.
 
 ## Resume & Routing Protocol
 1. Overwrite `docs/WikiFlow/handoff_resume.md` with your status.
