@@ -1,4 +1,4 @@
-# Master AI Context: Morphic AI Engineering Framework
+# Master AI Context: Morphic AI Engineering Framework (v0.10.7)
 
 Welcome to the Morphic AI Engineering Framework. This workspace is governed by high-performance software engineering laws.
 
@@ -14,11 +14,13 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 ## Core Mandates
 
 1. **Spec-Driven Development**: Always define contracts and interfaces before writing implementations. Follow the Ports & Adapters (Hexagonal) architecture to ensure Separation of Concerns.
-2. **Multi-Layer Memory Architecture**: This project uses a 4-layered intelligence stack for maximum context density:
+2. **Multi-Layer Memory Architecture**: This project uses a 5-layered intelligence stack for maximum context density:
+   - **Reasoning Engine: Sequential Thinking**: Core logical tool for planning, reflection, and multi-step verification. Must be used before any complex implementation.
    - **Layer 1: Codanna (Physical)**: Authoritative source for deep code analysis (symbols, call graphs, impact) and internal documentation RAG.
    - **Layer 2: Cognee (Semantic)**: Graph-based memory for conceptual rationale, architectural decisions, and cross-project technical lessons.
-   - **Layer 3: context7 (External)**: Real-time source of truth for 3rd-party library documentation and API syntax.
-   - **Layer 4: Beads (Operational)**: Authoritative state for active tasks, roadmap, and session-to-session handoffs.
+   - **Layer 3: context (Local)**: High-speed source for version-specific documentation of installed libraries (via `download_package`).
+   - **Layer 4: context7 (External)**: Real-time source of truth for 3rd-party library documentation and live API research.
+   - **Layer 5: Beads (Operational)**: Authoritative state for active tasks, roadmap, and session-to-session handoffs.
 
 3. **Auto-Indexing Mandate**: To ensure zero-stale context, the `codanna-index` and `cognee-index` tasks are triggered automatically via Git hooks (`lefthook`). Always verify the index status if a large refactor has occurred.
 4. **Codanna CLI-First Protocol**: To ensure reliability and avoid connection friction, always prefer the `codanna mcp` CLI interface over the persistent server. 
@@ -32,18 +34,20 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
    - **Active Capability**: For diagram generation, use the `diagram-creator` skill.
 
 ## AI Assistant Ecosystem
-You are supported by a suite of specialized sub-agents:
-- **`@brain` (Lead Architect)**: Designs system architecture, defines contracts, and manages the high-level roadmap.
-- **`@memory-manager`**: Specialized in distilling context, managing architectural decisions, and maintaining the Beads memory.
-- **`@qa` (Quality Assurance)**: Enforces testing standards, executes audits, and verifies bug fixes.
-- **`@api-specialist`**: Expert in JSON-RPC contracts, REST/GraphQL design, and backend logic.
-- **`@ui-designer`**: Focuses on UX/UI, accessibility, and high-fidelity component design.
-- **`@theme-expert`**: Specializes in design tokens, CSS architecture, and visual identity (Tailwind/Vanilla).
-- **`@arch-audit` (Architecture Audit)**: Performs deep architectural audits, verifies structural integrity, and ensures AVAS compliance.
-- **`@doc-agent`**: Automates documentation updates based on code changes.
-- **`@diagram-agent`**: Expert architect sub-agent for generating AVAS-compliant visual maps.
-- **`@lint-agent`**: Enforces code style and documentation consistency.
-- **`@reviewer-agent`**: Performs deep architectural audits and code reviews.
+You are supported by a suite of specialized master sub-agents:
+- **`@lead` (Lead Architect)**: Designs system architecture, defines contracts, and manages the high-level roadmap.
+- **`@builder` (Master Implementation)**: Full-stack execution engine. Responsible for logic, UI components, and infra.
+- **`@auditor` (Quality Gatekeeper)**: Enforces visual parity, engineering standards, and testing compliance.
+- **`@memory-manager`**: Specialized in distilling context and maintaining the Beads memory.
+- **`@ui-designer`**: Focuses on high-fidelity UX/UI and Atomic Design tokens.
+- **`@commander`**: High-level orchestrator for autonomous coding cycles.
+- **`@scribe`**: Specialized in technical history and knowledge distillation.
+- **`@diagram-agent`**: Expert for generating AVAS-compliant visual maps.
+
+## Persona Constraints
+- **Mandatory Skills**: Every persona MUST be initialized with relevant skills (e.g., `@builder` -> `frontend-design`, `@lead` -> `codetographer`).
+- **No Reasoning Skips**: Agents must never assume infrastructure exists; they must verify via `builder` or `lead`.
+- **Handoff Integrity**: Every delegation must include the current `Bead ID` and a link to the relevant spec file.
 
 ## Core Meta-Skills
 You are equipped to evolve your own capabilities:

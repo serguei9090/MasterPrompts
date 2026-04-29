@@ -1,50 +1,51 @@
-# Morphic Roadmap Sync Architecture
+# Morphic AVAS Architecture: Intelligence Sync
+Assume Role: @diagram-agent
 
-This diagram maps the relationship between the human-facing `TODO.md` and the AI-facing internal state in Gemini CLI, ensuring the "Parity Law" is strictly enforced.
+This diagram maps the relationship between the human-facing **Beads (bd)** state and the AI-facing **Intelligence Stack**, ensuring the "Parity Law" is strictly enforced via the AVAS standard.
 
 ```mermaid
 graph TD
-    subgraph UserSpace [Human Workspace]
-        H_TODO["docs/track/TODO.md<br/>(Master Source of Truth)"]
-        H_DEBT["docs/track/CodeDebt.md"]
-        H_TODOC["docs/TODOC/<unique_id>.md"]
+    subgraph OperationalLayer [Human / Operational Space]
+        BD_TODO["Beads (bd)<br/>(Master Task State)"]
+        BD_REM["bd remember<br/>(Atomic Rationale)"]
+        H_DESIGN["DESIGN.md<br/>(UI/UX Source of Truth)"]
     end
 
-    subgraph AgentRuntime [Gemini CLI Environment]
-        A_TASK["Internal task.md<br/>(Ephemeral Execution State)"]
-        A_RULES[".agents/rules/*.md<br/>(System Constraints)"]
-        A_CONTEXT["AGENTS.md<br/>(System Prompt Injector)"]
+    subgraph IntelligenceLayer [AI Intelligence Stack]
+        L1_COD["Codanna (Physical)<br/>(Impact & Symbol Mapping)"]
+        L2_COG["Cognee (Semantic)<br/>(Graph-based Memory)"]
+        L0_ST["Sequential Thinking<br/>(Logic & Planning)"]
     end
 
-    subgraph ExecutionCycle [Plan-Act-Validate Loop]
-        P1[Plan: Read TODO.md]
-        P2[Act: Update internal task.md]
-        P3[Validate: Verify Sync]
-        P4[Finalize: Commit [x] to TODO.md]
+    subgraph ExecutionFactory [Smith Auto Cycle]
+        F1[Research: Recall & Analyze]
+        F2[Plan: Spec Update]
+        F3[Act: Surgical Coding]
+        F4[Audit: Quality & Visual]
     end
 
     %% Sync Relationships
-    H_TODO -- "1. Context Load" --> P1
-    A_RULES -- "2. Constraints Enforcement" --> P1
-    A_CONTEXT -- "3. Initialization" --> A_TASK
-    P1 -- "4. Logic Parity" --> A_TASK
-    A_TASK -- "5. Execution" --> P2
-    P2 -- "6. Report Status" --> P3
-    P3 -- "7. Close Loop [x]" --> H_TODO
-    
-    %% Debt & Detail Logic
-    P2 -- "If New Debt" --> H_DEBT
-    P2 -- "If Missing Logic" --> H_TODOC
-    H_TODOC -- "Reference" --> H_TODO
+    BD_TODO -- "1. Context Injection" --> F1
+    L1_COD -- "2. Impact Mapping" --> F1
+    L2_COG -- "3. Rationale Retrieval" --> F1
+    L0_ST -- "4. Orchestration" --> F2
+    F2 -- "5. DESIGN.md Update" --> H_DESIGN
+    F3 -- "6. Atomic Implementation" --> F4
+    F4 -- "7. Close Loop [x]" --> BD_TODO
+    F4 -- "8. Lessons Learned" --> L2_COG
 
-    %% Behavioral Notes
-    style UserSpace fill:#f9f,stroke:#333,stroke-width:2px
-    style AgentRuntime fill:#bbf,stroke:#333,stroke-width:2px
-    style ExecutionCycle fill:#dfd,stroke:#333,stroke-width:2px
+    %% Visual Standards (AVAS)
+    style OperationalLayer fill:#f9f,stroke:#333,stroke-width:2px
+    style IntelligenceLayer fill:#bbf,stroke:#333,stroke-width:2px
+    style ExecutionFactory fill:#dfd,stroke:#333,stroke-width:2px
 ```
 
-## How Sync works in Gemini CLI
-1.  **Rule Ingestion**: Because the rules are in `.agents/rules/`, Gemini CLI automatically triggers them based on their `trigger` property (e.g., `always_on` or `glob`).
-2.  **Parity Enforcement**: The `ProjectTracking.md` rule mandates that the agent check `docs/track/TODO.md` before starting any task. This forces the agent's internal `task.md` to be an exact copy of the active sprint in the `TODO.md`.
-3.  **The "Act" behavioral pattern**: When Gemini CLI executes a sub-task, it uses the "Morphic" rules to ensure the code follows **DRY/SOLID** and the documentation follows the **TODO(ID)** protocol.
-4.  **Automatic Rules Application**: Yes, when using Gemini CLI, any file in `.agents/rules/` or `.agents/workflows/` is treated as a foundational instruction. By placing these in the root of your project, you ensure the AI remains within the "Morphic" architectural guardrails throughout the entire session.
+## AVAS (Agentic Visual Architecture Standard) Protocol
+To ensure architectural clarity, all system diagrams MUST follow these rules:
+1. **Mandatory Subgraphs**: Group logical layers (Operational, Domain, Infrastructure, AI).
+2. **Labeled Connections**: Every arrow MUST describe the action or data flow (e.g., "Recall", "Inject", "Audit").
+3. **Double-Line Sync**: Use distinct arrow styles for synchronous vs asynchronous data flows.
+4. **Color Coding**: 
+   - **Pink/Purple**: Human/Operational state.
+   - **Blue/Indigo**: AI Intelligence & Memory.
+   - **Green**: Execution & Implementation.

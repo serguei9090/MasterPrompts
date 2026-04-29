@@ -38,7 +38,11 @@ This project is a **Logic & Metadata Engine** and does not contain application s
 
 ## 🧠 Multi-Layer Memory Architecture
 
-This framework employs a state-of-the-art 4-layer memory stack to provide agents with unprecedented context density and reasoning reliability.
+This framework employs a state-of-the-art 5-layer memory stack to provide agents with unprecedented context density and reasoning reliability.
+
+### 0. Reasoning Engine (Sequential Thinking)
+*   **Role**: Internal Planning & Verification.
+*   **Function**: A dynamic thought process that allows the agent to branch, backtrack, and verify hypotheses before executing terminal commands.
 
 ### 1. Codanna (Physical Layer)
 *   **Role**: Codebase Intelligence & RAG.
@@ -50,12 +54,17 @@ This framework employs a state-of-the-art 4-layer memory stack to provide agents
 *   **Function**: Stores architectural rationale, technical decisions (ADRs), and distills "Lessons Learned" into a persistent knowledge graph.
 *   **Tool**: `cognee_memory.py`.
 
-### 3. context7 (External Layer)
+### 3. context (Local Layer)
+*   **Role**: Installed Library Documentation.
+*   **Function**: Provides instant, offline access to version-specific documentation for packages installed via `download_package`.
+*   **Tool**: `context` MCP.
+
+### 4. context7 (External Layer)
 *   **Role**: Living Documentation.
 *   **Function**: Retrieves up-to-date API syntax and patterns for third-party libraries directly from the web.
 *   **Tool**: `context7` MCP.
 
-### 4. Beads (Operational Layer)
+### 5. Beads (Operational Layer)
 *   **Role**: Task & Roadmap State.
 *   **Function**: Authoritative source for issue tracking, session handoffs, and operational history using a graph-based versioned database (Dolt).
 *   **Tool**: `bd` (Beads).

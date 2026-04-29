@@ -9,8 +9,10 @@ This workflow standardizes how new capabilities are added to LogLensAi.
 ## Phase 1: The Spec (Vibe → Research)
 1. **Understand**: Antigravity (Chat) analyzes the raw request against `AGENTS.md` and `PRD.md`.
 2. **Research (Intelligence Stack)**: 
-   - **Pattern Search**: Run `codanna mcp search_documents --args '{"query": "existing patterns for [feature type]"}' --json` to ensure consistency.
-   - **API Inventory**: Use `codanna mcp get_calls` or `find_symbol` to identify existing hooks/utilities to reuse.
+   - **Codanna (Physical - L1)**: Run `codanna mcp analyze_impact` or `search_documents` to map physical dependencies.
+   - **Cognee (Semantic - L2)**: Run `uv run python scripts/cognee_memory.py recall "[feature type]"` to retrieve historical rationale.
+   - **API Inventory**: Use `codanna mcp get_calls` to identify existing hooks/utilities.
+   - **Sequential Thinking (L0)**: Synthesize findings into a multi-step execution plan identify "ripple effects".
 3. **Draft**: Create a specific feature spec in `docs/features/<feature_id>.md`.
 4. **Standards**: Ensure the spec includes:
     - **UI Designer (@ui-designer)**: Component logic, interactions, and accessibility (Frontend).

@@ -1,4 +1,4 @@
-# Project Instructions for AI Agents
+# Morphic Framework: AI Engineering Mandate (v0.10.7)
 
 This file provides instructions and context for AI coding agents working on this project.
 
@@ -49,21 +49,23 @@ bd close <id>         # Complete work
 - If push fails, resolve and retry until it succeeds
 <!-- END BEADS INTEGRATION -->
 
+## 🛠️ Build & Test commands
 
-## Build & Test
+| Stack | Build / Install | Test / Lint |
+| :--- | :--- | :--- |
+| **Python** | `uv sync` | `uv run pytest` / `uv run ruff check` |
+| **JS / TS** | `bun install` | `bun test` / `bunx biome check` |
+| **Framework** | `python scripts/build_morphic.py` | `scripts/hal-check.ps1` |
 
-_Add your build and test commands here_
+## 🏗️ Architecture Overview
+- **Hexagonal (Ports & Adapters)**: Domain logic is isolated from infrastructure.
+- **Sidecar Standard**: Pure Python JSON-RPC 2.0 backend (`sidecar/src/api.py`).
+- **Atomic UI**: Component hierarchy (Atoms -> Molecules -> Organisms).
+- **Bridge**: React-to-Sidecar communication via `callSidecar`.
 
-```bash
-# Example:
-# npm install
-# npm test
-```
-
-## Architecture Overview
-
-_Add a brief overview of your project architecture_
-
-## Conventions & Patterns
-
-_Add your project-specific conventions here_
+## 📜 Conventions & Patterns
+1. **Spec-First**: Define contracts (Pydantic/TS) before implementation.
+2. **Design-First**: Update `DESIGN.md` before UI changes. Use Tokens only.
+3. **5-Layer Memory**: ST -> Codanna -> Cognee -> context -> Beads.
+4. **Assume Role**: Every file must start with `Assume Role: <Persona> (@handle)`.
+5. **AVAS Law**: Diagrams must use Mermaid.js with labeled connections and subgraphs.

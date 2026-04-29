@@ -1,58 +1,48 @@
 ---
 trigger: always_on
-description: Mandatory standards for code quality, documentation, commenting, and TODO management.
+description: Mandatory standards for implementation hygiene, documentation, and session continuity.
 ---
 
-# Code Quality & Documentation Standards
+# Code Quality & Operational Hygiene (v0.11.0)
 
-To ensure maximum clarity, maintainability, and consistent UI, all code must adhere to the following standards.
+## 1. MANDATORY: The Skill Trigger Matrix
+Use these elite skills at specific SDLC phases without exception:
+| Phase | Mandatory Skill | Trigger |
+| :--- | :--- | :--- |
+| **Discovery** | `codanna`, `cognee` | Use `codanna` for impact analysis; `cognee` for rationale retrieval. |
+| **Planning** | `beads`, `diagram-creator` | Use `bd` for tasking; `diagram-creator` for AVAS maps. |
+| **Styling** | `design-taste-frontend` | Initialize EVERY new UI component with this foundation. |
+| **Motion** | `animate`, `overdrive` | Use for interactive states, transitions, and scroll reveals. |
+| **Final Pass** | `polish`, `audit` | MANDATORY before any `bd close`. Fix alignment/a11y/perf. |
 
-## 1. Zero-Guesswork Documentation Standard
-To maintain context for subagents across sessions, all files and structures must be thoroughly self-documenting.
+## 2. Session Boot Sequence (Imperative)
+1. **Sync Roadmap**: Run `bd ready` immediately. No exceptions.
+2. **Review Handoff**: Read `docs/track/handoff.md` to identify the last active state.
+3. **Calibrate**: Synthesize all research into a `sequentialthinking` plan before typing code.
 
-### 1.1 Philosophy
-Well-written code should be largely self-documenting. Comments should explain complex algorithms, non-obvious business logic, or the rationale behind a particular implementation choice—the things the code cannot express on its own. **Explain the Why, Not the What.** Avoid comments that merely restate what the code does.
+## 3. Zero-Guesswork Documentation
+- **Rationale Law**: Comments MUST explain the "Why," not the "What."
+- **Document-on-Change**: Any structural modification REQUIRES an update to `docs/Documentation/architecture/` in the same turn.
+- **Contract Mandate**: Mandatory JSDoc (TS/JS) and Google-style Docstrings (Python) for all public members.
 
-### 1.2 General Commenting Rules
-- **Functions/Classes (The Contract)**:
-  - **JS/TS**: Every exported function, interface, or class MUST have a full `JSDoc` block (`/** ... */`).
-  - **Python**: Every public function or class MUST have a full `Google-style Docstring` (`""" ... """`).
-  - Every docstring must explicitly define:
-    - **Purpose**: What it does and why it exists.
-    - **Context**: Reference any relevant spec files (e.g., `docs/track/specs/api_001.md`) or documentation that provides the rationale for the implementation.
-    - **Args/Returns**: Inputs and outputs with explicit types.
-    - **Raises/Throws**: Expected errors.
-- **Variables/Fields**: Every variable declaration (especially state and configuration) MUST have an inline comment explaining its intent and how it is used.
-- **Complex Logic**: If a block of logic is highly algorithmic or non-trivial, write a multi-line comment above it mapping out the steps in plain English before the code begins.
+## 4. Beads Protocol (Task Memory)
+- **Authority**: `bd` is the exclusive source of truth for task status.
+- **Syntax**: `// TODO(bead_id): [WHAT] ... [WHY] ... [EXPECTATION]`
+- **Lifecycle**: Create via `bd create`. Start implementation ONLY with a spec in `docs/track/specs/`. Close via `bd close`.
 
-## 2. Beads Protocol (The "Task Memory")
-Any incomplete interface, bypassed error, or missing feature MUST NOT be left as a silent placeholder. It MUST use the `TODO` keyword accompanied by a unique Beads ID.
+## 5. UI/UX & Atomic Governance
+- **Source of Truth**: `DESIGN.md` tokens are absolute. Hardcoded hex/px values trigger a REJECT.
+- **Atomic Hierarchy**: 
+  - **Atoms**: Pure, stateless UI (Buttons, Inputs).
+  - **Molecules**: Combined atoms (SearchField).
+  - **Organisms**: Data-bound blocks (Sidebar, Header).
+- **Technical Constraints**:
+  - **Hooks**: Pure UI logic only in shared hooks. Business logic MUST stay in the app layer.
+  - **Motion**: Standard durations: `fast` (100ms), `normal` (200ms), `slow` (300ms).
+  - **Accessibility**: Mandatory focus rings and `aria-label` for all interactive elements.
+- **Visual Parity Audit**: `@auditor` MUST scan for token compliance and motion semantic alignment. Only 100% parity allows a PASS.
 
-### 2.1 The Formal Beads Syntax
-`// TODO(bead_id): [WHAT] Need to add debounce to this input. [WHY] API rate limits are being hit. [EXPECTATION] Implement 300ms debounce. [CONTEXT] See specs/task-xxx.md.`
-
-### 2.2 Creation Protocol (The "Detail File")
-When a new task or tech debt is identified:
-1. **Assign a Beads ID**: Run `bd create "<description>"`.
-2. **Create the Brain**: Create a markdown file in `docs/track/specs/task-<id>.md`.
-3. **Index the Task**: Link the Beads ID in the code and update the spec file.
-
-### 2.3 Completing Tasks
-When the logic is implemented:
-1. **Replace Comment**: Remove the `TODO(bead_id)` comment and replace it with a proper standard doc-comment.
-2. **Close Bead**: Run `bd update <id> --status done`.
-3. **Archive Spec**: The detail file in `docs/track/specs/` should be updated to reflect the implementation details.
-
-## 3. Pure TDD & Architectural BDD (Hybrid)
-We distinguish between **Architectural Guidance** and **Implementation Speed**:
-- **BDD (Gherkin)**: Use `.feature` files ONLY for high-level architectural contracts and user flows. This provides the "Living Spec" that mirrors your requirements.
-- **Pure TDD**: During the intense implementation phase, we skip the Gherkin layer for specific unit logic. AI is faster with pure code definitions than English abstraction parsing.
-- **The Flow**: Define Interface -> (Optional) Write Gherkin Feature for high-level flow -> Write isolated failing TDD spec -> Invoke `@jules-agent` -> Pass.
-
-## 4. Atomic Design / Modular Structure
-For any structured content or frontend components, the modular hierarchy must be strictly enforced:
-- **Atoms**: Smallest functional units (e.g., base MD snippets, singular icons).
-- **Molecules**: Groups of atoms functioning together (e.g., specific rules, combined snippets).
-- **Organisms**: Complex sections (e.g., full workflow descriptions, headers).
-- **Templates**: Page-level layouts focusing on content structure.
-- **Pages**: Specific instances of templates populated with real data and state.
+## 6. Distillation & Intelligence Sync
+- **Intelligence Stack**: Utilize the 5-layer stack (Thinking, Codanna, Cognee, Context, Beads).
+- **Distillation Mandate**: Run `python scripts/cognee_memory.py remember` upon task completion.
+- **Physical Sync**: Run `codanna index .` after any structural refactor.
