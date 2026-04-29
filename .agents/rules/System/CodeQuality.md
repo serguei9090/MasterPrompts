@@ -44,5 +44,5 @@ Use these elite skills at specific SDLC phases without exception:
 
 ## 6. Distillation & Intelligence Sync
 - **Intelligence Stack**: Utilize the 5-layer stack (Thinking, Codanna, Cognee, Context, Beads).
-- **Distillation Mandate**: Run `python scripts/cognee_memory.py remember` upon task completion.
-- **Physical Sync**: Run `codanna index .` after any structural refactor.
+- **Distillation Mandate**: Run the `/cognee:trace` workflow upon task completion to record lessons.
+- **Physical Sync**: Run `codanna index .` and the `/cognee:index` workflow after any structural refactor.

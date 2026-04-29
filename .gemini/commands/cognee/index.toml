@@ -1,0 +1,7 @@
+description = "Run full workspace indexing into Cognee Knowledge Graph"
+prompt = """
+I will now run the full workspace indexing for this project.
+This uses Cognee's temporal engine to track changes and build a persistent memory of the codebase.
+
+Executing: uv run python scripts/cognee/indexer.py
+"""

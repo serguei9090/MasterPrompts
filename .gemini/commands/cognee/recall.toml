@@ -1,0 +1,7 @@
+description = "Query Cognee memory with auto-routing and session-awareness"
+prompt = """
+Searching Cognee memory for: {{args}}
+Session ID: {{session_id}} (if applicable)
+
+Executing: uv run python scripts/cognee/recall.py "{{args}}" --session "{{session_id}}"
+"""

@@ -12,7 +12,7 @@ Execute a complete, end-to-end software development cycle autonomously. Do not h
 **Assume Role:** `@lead`
 1. **Intelligence Sync**: Run `bd ready` and `bd prime` to load active roadmap context.
 2. **Impact Analysis (Physical)**: Run `codanna mcp analyze_impact` to map symbols and call sites.
-3. **Semantic Recall (Semantic)**: Run `uv run python scripts/cognee_memory.py recall` to retrieve rationale.
+3. **Semantic Recall (Semantic)**: Run `uv run python scripts/cognee/recall.py` to retrieve rationale.
 4. **Planning**: Use `sequentialthinking` to synthesize research into a multi-step execution plan, identifying "ripple effects" and risks.
 5. **Register**: Use `bd create` to register the roadmap and sub-tasks.
 
@@ -35,9 +35,10 @@ Execute a complete, end-to-end software development cycle autonomously. Do not h
 
 ### Phase 4: Knowledge Distillation
 **Assume Role:** `@lead` | `@scribe`
-1. **Cognify**: Run `uv run python scripts/cognee_memory.py remember` to distill atomic lessons.
-2. **Atomic Facts**: Run `bd remember` for high-signal rules or environment gotchas.
-3. **Architecture Update**: Update `Architecture.md` boundaries if boundaries changed.
+1. **Distill**: Run `uv run python scripts/cognee/trace.py` to distill technical lessons into the graph.
+2. **Sync**: Run `uv run python scripts/cognee/indexer.py` to update the codebase Knowledge Graph.
+3. **Atomic Facts**: Run `bd remember` for high-signal rules or environment gotchas.
+4. **Architecture Update**: Update `Architecture.md` boundaries if boundaries changed.
 
 ### Phase 5: Handoff & Version Control
 **Assume Role:** `@lead`

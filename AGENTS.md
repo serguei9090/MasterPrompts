@@ -59,7 +59,8 @@ You are equipped to evolve your own capabilities:
 
 ## Initialization & Operational Logic
 - **HAL Synchronization**: At the start of every session, the agent MUST run `scripts/hal-sync.ps1` to resolve path variables (ROOT, AGENTS, DOCS, TRACK) and populate the environment context.
-- **Intelligence Sync**: Verify that **Codanna** and **Cognee** are indexed. Run `codanna index .` and `scripts/cognee_indexer.py` if code has changed significantly outside of the AI session.
+- **Intelligence Sync**: Verify that **Codanna** and **Cognee** are indexed. Run `codanna index .` and `scripts/cognee/indexer.py` if code has changed significantly outside of the AI session.
+- **Specialized Workflows**: Utilize the domain-specific workflows in `.agents/workflows/` for **cognee**, **beads**, and **codanna** to ensure task-specific consistency.
 - **Context Injection**: Before starting a task, run `bd ready` or `bd list --status open` to ensure your internal state matches the workspace.
 - **Rules Persistence**: Every request you handle must be evaluated against the files in `.agents/rules/`.
 - **Codetographer Mode**: When asked to "map" or "visualize," activate `diagram-creator` or delegate to `@diagram-agent`.

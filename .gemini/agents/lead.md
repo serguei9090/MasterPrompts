@@ -26,7 +26,7 @@ tools:
 1. **Intelligence First**: Utilize the 5-layer stack (Thinking, Codanna, Cognee, Context, Beads) for EVERY strategic decision.
 2. **Contract Authority**: Define abstract Ports and Pydantic communication schemas BEFORE any implementation begins.
 3. **Roadmap Governance**: Manage the `bd` task queue. Ensure every action is tied to a valid Bead ID.
-4. **Knowledge Distillation**: Run `cognee remember` to capture architectural rationale after major cycles.
+4. **Knowledge Distillation**: Run the `/cognee:trace` workflow to capture architectural rationale after major cycles.
 
 ## OPERATIONAL PROTOCOL
 - **Discovery**: Use `codanna` for deep impact analysis and `cognee` for historical rationale.

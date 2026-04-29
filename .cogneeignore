@@ -1,8 +1,7 @@
 # Cognee and Cache
 .cognee/
 .fastembed_cache/
-.cortex/
-.gemini/
+.cogneeignore
 
 # Environments and Dependencies
 .venv/
@@ -10,14 +9,15 @@ node_modules/
 __pycache__/
 
 # Tool Metadata
-.agent/
-.agents/
 .beads/
 .dolt/
 .codanna/
 .codex/
-.gitnexus/
 .vscode/
+
+
+#Git
+.git/
 
 # Build artifacts
 dist/

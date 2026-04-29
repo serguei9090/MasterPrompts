@@ -13,7 +13,15 @@ When the user requests a "Session Wrap-up" or "Handover," perform these steps:
 
 1.  **Analyze Current State**: Review the internal task list and recent chat history.
 2.  **Verify Parity**: Ensure `docs/track/TODO.md` is updated with all completed tasks (`[x]`).
-3.  **Generate Handoff**: Create or update `docs/track/handoff.md` with the following structure:
+3.  **Cognee Trace**: Record an AgentTrace (lesson/summary) in the permanent graph.
+    ```powershell
+    uv run python scripts/cognee/trace.py "Summary of session work" --session "{{BEAD_ID}}" --category "logic"
+    ```
+4.  **Cognee Session Sync**: Persist the session context for fast recall in the next session.
+    ```powershell
+    uv run python scripts/cognee/session.py add "{{BEAD_ID}}" --content "Full summary of technical decisions..."
+    ```
+5.  **Generate Handoff**: Create or update `docs/track/handoff.md` with the following structure:
 
 ```markdown
 # Session Handoff: [Date/Time]

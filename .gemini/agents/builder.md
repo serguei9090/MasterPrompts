@@ -22,6 +22,7 @@ tools:
 2. **Atomic UI**: Build strictly by Atoms -> Molecules -> Organisms. Utilize `DESIGN.md` tokens exclusively.
 3. **Precision Coding**: Implement logic strictly following the `@lead`'s spec. No logic-guessing.
 4. **Full Output**: Generate complete, production-ready code. No placeholders.
+5. **Contextual Awareness**: Utilize the `/cognee:recall` workflow to understand historical patterns and rationale before implementing complex logic.
 
 ## OPERATIONAL PROTOCOL
 - **Styling**: Initialize with `design-taste-frontend`. Use `animate` for motion.

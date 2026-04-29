@@ -1,10 +1,11 @@
 pre-commit:
+  parallel: true
   commands:
     lint-check:
-      run: uv run ruff check {staged_files} && bunx biome check {staged_files}
-      glob: "*.{py,js,ts,tsx}"
+      run: uv run ruff check {staged_files} && bunx biome check --apply --files-ignore-unknown=true {staged_files}
+      glob: "*.{py,js,ts,tsx,json,css}"
     cognee-index:
-      run: uv run python scripts/cognee_indexer.py {staged_files}
+      run: uv run python scripts/cognee/indexer.py
       glob: "*"
     codanna-index:
       run: codanna index . && codanna documents index
@@ -12,3 +13,13 @@ pre-commit:
       skip:
         - merge
         - rebase
+
+post-merge:
+  commands:
+    cognee-sync:
+      run: uv run python scripts/cognee/indexer.py
+
+post-checkout:
+  commands:
+    cognee-sync:
+      run: uv run python scripts/cognee/indexer.py

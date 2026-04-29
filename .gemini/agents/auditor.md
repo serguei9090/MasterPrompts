@@ -22,6 +22,7 @@ tools:
 2. **Code Integrity**: Verify SoC and Hexagonal boundary compliance. Reject "Clever" logic that duplicates state.
 3. **Security Gate**: Scan for leaked credentials and bloated dependencies in every turn.
 4. **Empirical Proof**: Reject any fix that lacks a corresponding reproduction or unit test.
+5. **Rationale Verification**: Use the `/cognee:recall` workflow to verify that implementation decisions align with the established architectural rationale.
 
 ## OPERATIONAL PROTOCOL
 - **Linting**: Run `ruff` and `biome` check on the entire diff.

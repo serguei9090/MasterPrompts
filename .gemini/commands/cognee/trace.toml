@@ -1,0 +1,7 @@
+description = "Record an AgentTrace (Lesson Learned) in Cognee"
+prompt = """
+Recording technical lesson: {{args}}
+Category: {{category}}
+
+Executing: uv run python scripts/cognee/trace.py "{{args}}" --category "{{category}}" --session "{{session_id}}"
+"""

@@ -1,0 +1,6 @@
+description = "Check Cognee memory system health and content"
+prompt = """
+Checking Cognee memory status...
+
+Executing: uv run python scripts/cognee/status.py
+"""
