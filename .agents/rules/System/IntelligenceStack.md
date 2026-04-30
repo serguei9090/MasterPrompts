@@ -30,11 +30,13 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 
 ### L1 — Codanna (Physical Truth)
 - **Purpose**: Map real, physical code dependencies, call graphs, and symbol locations.
-- **Commands**:
-  - Impact: `codanna mcp analyze_impact --args '{"name": "SymbolName"}' --json`
-  - Search: `codanna mcp search_documents --args '{"query": "pattern"}' --json`
-  - Calls: `codanna mcp get_calls --args '{"name": "FunctionName"}' --json`
-  - Index: `codanna index .` (after structural changes)
+- **Commands** (always use proxy scripts — never raw `--args JSON` directly):
+  - Impact: `uv run python scripts/codanna/impact.py <SymbolName>`
+  - Search: `uv run python scripts/codanna/search.py "query" [--context] [--lang X]`
+  - Calls: `uv run python scripts/codanna/calls.py <SymbolName>`
+  - Callers: `uv run python scripts/codanna/callers.py <SymbolName>`
+  - Doc RAG: `uv run python scripts/codanna/docs_search.py "query"`
+  - Index: `uv run python scripts/codanna/index.py` (after structural changes)
 - **Trigger**: Before changing any shared function, module, or API boundary.
 
 ### L2 — Cognee (Semantic Memory)

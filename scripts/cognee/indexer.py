@@ -125,21 +125,24 @@ def _ignore_spec(root: Path) -> pathspec.PathSpec:
     return pathspec.PathSpec.from_lines("gitwildmatch", patterns)
 
 def _collect_files(root: Path) -> list[str]:
-    spec = _ignore_spec(PROJECT_ROOT) # Always use project root for ignore rules
+    spec = _ignore_spec(PROJECT_ROOT)
     root_str = str(root.resolve())
     results = []
     for walk_root, dirs, files in os.walk(root_str):
-        rel_root = os.path.relpath(walk_root, str(PROJECT_ROOT))
-        if rel_root == ".": rel_root = ""
+        # Calculate path relative to project root for accurate ignore matching
+        rel_walk_root = os.path.relpath(walk_root, str(PROJECT_ROOT))
+        if rel_walk_root == ".":
+            rel_walk_root = ""
         
-        # Filter directories in-place to prevent walking ignored ones
-        dirs[:] = [d for d in dirs if not spec.match_file(os.path.join(rel_root, d) + "/")]
+        # Filter directories in-place
+        dirs[:] = [d for d in dirs if not spec.match_file(os.path.join(rel_walk_root, d) + "/")]
         
         for fname in files:
-            rel = os.path.join(rel_root, fname)
-            if not spec.match_file(rel):
+            rel_path = os.path.normpath(os.path.join(rel_walk_root, fname))
+            # Some pathspecs require a leading slash or specific formatting for root files
+            if not spec.match_file(rel_path) and not spec.match_file("/" + rel_path):
                 results.append(os.path.join(walk_root, fname))
-    return results
+    return sorted(results)
 
 async def run_index(target_dir: Path, dataset_name: str, batch_size: int, script_log_level: str):
     import cognee # MUST be after bootstrap
