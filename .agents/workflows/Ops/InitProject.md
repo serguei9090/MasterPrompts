@@ -41,7 +41,7 @@ This workflow is the absolute starting point for any project. It replaces all le
     - Setup `lefthook` (run `lefthook install`)
     
     # 3. Build Knowledge Graph (Cognee)
-    uv run python scripts/cognee_indexer.py --full
+    uv run python scripts/cognee/indexer.py --full
 
     # 4. Enforce Protocol
     bd remember "PROTOCOL: Use 'codanna mcp <tool> --args \"<json>\" --json' for all codebase analysis."

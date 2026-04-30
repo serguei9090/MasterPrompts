@@ -37,7 +37,7 @@ async def sync_project_rules():
         # Ingest the rules folder for testing
         print(f"Testing ingestion for: {TARGET_FOLDER}")
         result = await cognee.remember(
-            TARGET_FOLDER,
+            str(TARGET_FOLDER.resolve()),
             dataset_name = DATASET_NAME,
             incremental_loading = True
         )

@@ -12,7 +12,7 @@ This workflow establishes the **Cognee Intelligence Layer** for the project. It 
 
 ### 1. [CHECK] - Prerequisites
 - Verify that `cognee-cli` is installed via `uv` or pip.
-- Verify that `scripts/cognee_indexer.py` exists in the repository. If not, use the `cognee-indexer` skill to generate it.
+- Verify that `scripts/cognee/indexer.py` exists in the repository. If not, use the `cognee-indexer` skill to generate it.
 - Verify that `.cogneeignore` exists in the project root. If not, create a default one (ignoring `.venv`, `node_modules`, `dist`, `.cognee`, etc.).
 
 ### 2. [CONFIG] - Environment Setup
@@ -30,7 +30,7 @@ This workflow establishes the **Cognee Intelligence Layer** for the project. It 
   pre-commit:
     commands:
       cognee-index:
-        run: uv run python scripts/cognee_indexer.py {staged_files}
+        run: uv run python scripts/cognee/indexer.py {staged_files}
         glob: "*"
         skip: [merge, rebase]
   ```
@@ -39,7 +39,7 @@ This workflow establishes the **Cognee Intelligence Layer** for the project. It 
 // turbo
 - Execute the initial graph population (this will automatically create a dataset named after the project folder):
   ```bash
-  uv run python scripts/cognee_indexer.py --full
+  uv run python scripts/cognee/indexer.py --full
   ```
 
 ### 5. [VERIFY] - Status Check

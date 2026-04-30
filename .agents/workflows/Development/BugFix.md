@@ -16,7 +16,8 @@ This workflow provides a standardized procedure for identifying, specifying, and
 1. **Analyze**: Identify the reported issue or regression.
 2. **Research (Intelligence Stack)**: 
    - **Codanna (Physical - L1)**: Run `codanna mcp analyze_impact` and `search_documents` to find related patterns and map dependencies.
-   - **Cognee (Semantic - L2)**: Run `uv run python scripts/cognee_memory.py recall "[error message or symptom]"` to retrieve rationale for existing logic.
+   - **Cognee (Semantic - L2)**: Run `uv run python scripts/cognee/recall.py "[error message or symptom]"` to retrieve rationale for existing logic.
+   - **context7 (External - L3)**: Execute `/DocsReview` to verify syntax if the bug involves external libraries.
    - **Sequential Thinking (L0)**: Perform a deep root-cause analysis step-by-step before proposing a fix.
 3. **Reproduction**: (Mandatory) Write a failing unit test or script that demonstrates the bug.
 4. **Propose**: 
@@ -35,7 +36,7 @@ This workflow provides a standardized procedure for identifying, specifying, and
 
 ## Phase 3: Implementation Engine
 **Assume Role:** `@backend` | `@frontend` | `@ui-designer`
-**Action**: Execute the **[AutoCode Engine](file:///i:/01-Master_Code/General/MasterPrompts/.agents/workflows/Autonomous/AutoCode.md)** for surgical implementation of the fix.
+**Action**: Execute the **[SmithEngineAuto](file:///i:/01-Master_Code/General/MasterPrompts/.agents/workflows/Smith/SmithEngineAuto.md)** for surgical implementation of the fix.
 
 > [!IMPORTANT]
 > Every modification MUST be linked to the `FIX(ID)` in comments. NO silent changes.
@@ -54,5 +55,7 @@ This workflow provides a standardized procedure for identifying, specifying, and
 ## Phase 5: Handoff & Evolution
 **Assume Role:** `@docs` (Technical Writer)
 1. **Lessons**: Update `docs/track/LessonsLearned.md` with the root cause and preventative measures.
-2. **Close**: Run `bd close <ID>` and `bd dolt push`.
-3. **Report**: Provide a final summary of the fix and the impact.
+2. **Cognify**: Run `uv run python scripts/cognee/trace.py` to distill the fix rationale into the graph.
+3. **Sync**: Run `uv run python scripts/cognee/indexer.py` to update the codebase Knowledge Graph.
+4. **Close**: Run `bd close <ID>` and `bd dolt push`.
+5. **Report**: Provide a final summary of the fix and the impact.

@@ -18,35 +18,33 @@ This skill provides the standard operating procedure for indexing a project's co
 1.  **The `.cogneeignore` File**:
     - Always ensure a `.cogneeignore` file exists in the root.
     - It must include standard noisy directories: `node_modules/`, `.venv/`, `__pycache__/`, `dist/`, `build/`.
-2.  **The `cognee_indexer.py` Script**:
-    - Located at `scripts/cognee_indexer.py`.
+2.  **The `indexer.py` Script**:
+    - Located at `scripts/cognee/indexer.py`.
     - This script automatically uses the **Project Root Folder Name** as the dataset name.
-    - It invokes `uv run cognee-cli remember <file> -d <project_name>`.
+    - It supports a progress bar and error logging controlled by environment variables.
 
 ## 🚀 Execution Commands
 
-### 1. Full Workspace Index (First Time / Rebuild)
-Run this command to walk the entire workspace and index it into a project-specific dataset:
+### 1. Workspace Index
+Run this command to walk the workspace and index it into a project-specific dataset:
 ```bash
-uv run python scripts/cognee_indexer.py --full
+uv run python scripts/cognee/indexer.py
 ```
 
-### 2. Incremental Index (Specific Files)
-Run this command to index specific files (e.g., after an AutoCode surgical edit):
-```bash
-uv run python scripts/cognee_indexer.py path/to/file1.py path/to/file2.ts
-```
+### 2. Control Log Verbosity
+Set `COGNEE_INDEX_LOG_LEVEL` in your `.env` to control the script's output:
+- `INFO`: Shows a progress bar based on total files.
+- `DEBUG`: Shows progress bar + lists each file being processed.
+- `ERROR` (Default): Minimal output, logs errors to file.
 
-### 3. Recall Context (Search)
-When searching Cognee, always specify the dataset (the project folder name):
-```bash
-uv run cognee-cli recall "Your query" -d <project_name>
-```
+## 📂 Error Logging
+If any files fail to index, they are listed in:
+`scripts/cognee/logs/errors.log`
 
 ## 🪝 Continuous Integration (Lefthook)
-The repository uses `lefthook` to automatically index staged files before committing.
-- **Action**: It runs `uv run python scripts/cognee_indexer.py {staged_files}`, ensuring the knowledge graph stays isolated per project.
+The repository can use `lefthook` to automatically index staged files.
+- **Action**: It runs `uv run python scripts/cognee/indexer.py`, ensuring the knowledge graph stays isolated per project.
 
 ## ⚠️ Important Rules
-- **NEVER** use `uv run cognee-cli remember .` directly. It bypasses the ignore logic and will crash the framework.
-- Always use the `cognee_indexer.py` script as the safe proxy to Cognee.
+- **NEVER** use `uv run cognee-cli remember .` directly. It bypasses the ignore logic.
+- Always use the `scripts/cognee/indexer.py` script as the safe proxy to Cognee.

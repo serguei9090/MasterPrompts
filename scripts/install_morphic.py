@@ -22,9 +22,6 @@ def install():
         print("  [!] Please run this script from inside the 'Morphic-Framework' folder.")
         return
 
-    with open(MANIFEST_NAME, "r"):
-        pass # Just verifying it exists and is readable
-
     # All files inside the bundle/ directory should be deployed to the project root
     bundle_path = os.path.abspath(BUNDLE_DIR)
     conflicts = []

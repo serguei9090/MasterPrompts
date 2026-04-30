@@ -52,10 +52,13 @@ async def main():
                 await cognee.forget()
                 print("Global wipe complete.")
         elif choice == "P":
-            confirm = await asyncio.to_thread(input, "!!! WARNING: Destructive system prune. Continue? (y/n): ")
+            confirm = await asyncio.to_thread(input, "!!! WARNING: Destructive system prune. This will wipe ALL graph and vector data. Continue? (y/n): ")
             if confirm.lower() == 'y':
-                await cognee.prune()
-                print("System pruned.")
+                print("Pruning raw data files...")
+                await cognee.prune.prune_data()
+                print("Pruning system databases (graph, vector, metadata)...")
+                await cognee.prune.prune_system(metadata = True)
+                print("System successfully pruned.")
         else:
             try:
                 idx = int(choice) - 1

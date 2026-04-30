@@ -3,10 +3,12 @@
 .fastembed_cache/
 .cogneeignore
 
-# Environments and Dependencies
-.venv/
-node_modules/
-__pycache__/
+# Environments and Dependencies (Global)
+**/node_modules/
+.agents/skills/**/node_modules/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
 
 # Tool Metadata
 .beads/
@@ -15,12 +17,25 @@ __pycache__/
 .codex/
 .vscode/
 
-
-#Git
+# Git
 .git/
+.agents/skills/chrome-devtools/scripts/node_modules/
 
 # Build artifacts
 dist/
 build/
+*.pyc
 .env
+
+# Media files
+*.mp3
+*.wav
+*.aac
+*.m4a
+*.flac
+*.mp4
+*.mov
+*.avi
+*.svg
+*.ico
 .env.example

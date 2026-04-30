@@ -10,9 +10,10 @@ This workflow standardizes how new capabilities are added to LogLensAi.
 1. **Understand**: Antigravity (Chat) analyzes the raw request against `AGENTS.md` and `PRD.md`.
 2. **Research (Intelligence Stack)**: 
    - **Codanna (Physical - L1)**: Run `codanna mcp analyze_impact` or `search_documents` to map physical dependencies.
-   - **Cognee (Semantic - L2)**: Run `uv run python scripts/cognee_memory.py recall "[feature type]"` to retrieve historical rationale.
+   - **Cognee (Semantic - L2)**: Run `uv run python scripts/cognee/recall.py "[feature type]"` to retrieve historical rationale.
+   - **context7 (External - L3)**: Execute `/DocsReview` to verify syntax for any external libraries or frameworks.
    - **API Inventory**: Use `codanna mcp get_calls` to identify existing hooks/utilities.
-   - **Sequential Thinking (L0)**: Synthesize findings into a multi-step execution plan identify "ripple effects".
+   - **Sequential Thinking (L0)**: Synthesize findings into a multi-step execution plan; identify "ripple effects".
 3. **Draft**: Create a specific feature spec in `docs/features/<feature_id>.md`.
 4. **Standards**: Ensure the spec includes:
     - **UI Designer (@ui-designer)**: Component logic, interactions, and accessibility (Frontend).
@@ -49,10 +50,10 @@ Select the appropriate execution engine:
    ```
 3. **Sync**: Once Jules finishes, Antigravity documents the session ID and pulls results via `jules pull`.
 
-### Engine C: AutoCode (Autonomous Implementation Engine)
+### Engine C: SmithEngineAuto (Autonomous Software Factory)
 // turbo
-1. **Mission**: Run `gemini -y -p "Execute /autocode for <feature_id>"`
-2. **Loop**: The engine performs the 3-iteration surgical edit loop autonomously.
+1. **Mission**: Run `gemini -y -p "Execute /SmithEngineAuto for <feature_id>"`
+2. **Loop**: The engine executes the end-to-end SDLC autonomously.
 3. **Merge**: Review and merge results into the main branch.
 
 ## Phase 5: Architecture & Quality Audit (@arch-audit)
@@ -63,3 +64,6 @@ Select the appropriate execution engine:
 ## Phase 6: Verification & Lessons Learned
 1. **E2E Check**: Verify the feature works in the Tauri desktop environment.
 2. **Retrospective**: Update `docs/track/Session_Retrospective.md` and `docs/track/LessonsLearned.md`.
+3. **Cognify**: Run `uv run python scripts/cognee/trace.py` to distill atomic lessons into the graph.
+4. **Sync**: Run `uv run python scripts/cognee/indexer.py` to update the codebase Knowledge Graph.
+5. **Close**: Run `bd update <id> --status completed` and `bd dolt push`.
