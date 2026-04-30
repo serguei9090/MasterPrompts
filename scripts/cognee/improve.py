@@ -9,6 +9,15 @@ logging.getLogger("cognee").setLevel(logging.ERROR)
 os.environ["LOG_LEVEL"] = "ERROR"
 os.environ["LITELLM_LOG"] = "ERROR"
 
+def _find_project_root() -> Path:
+    current = Path(__file__).resolve()
+    for parent in current.parents:
+        if (parent / ".cogneeignore").exists() or (parent / ".git").exists():
+            return parent
+    return Path.cwd()
+
+PROJECT_ROOT = _find_project_root()
+
 async def improve_memory(dataset_name: str):
     """
     Runs the Cognee Improve pipeline on an existing dataset.
@@ -25,20 +34,12 @@ async def improve_memory(dataset_name: str):
         print(f">>> IMPROVE ERROR: {e}")
 
 async def main():
-    def get_project_name():
-        """Look upward from this script's location for the project root (.git or .cogneeignore)"""
-        current = Path(__file__).resolve()
-        for parent in current.parents:
-            if (parent / ".cogneeignore").exists() or (parent / ".git").exists():
-                return parent.name
-        return Path.cwd().name
-
     print("\n" + "=" * 60)
     print("--- COGNEE v1.0 MEMORY IMPROVEMENT CONSOLE ---")
     print("=" * 60)
     
     datasets = await cognee.datasets.list_datasets()
-    default_name = get_project_name()
+    default_name = os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
     
     if not datasets:
         print("No datasets found to improve.")

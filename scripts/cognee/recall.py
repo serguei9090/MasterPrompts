@@ -10,13 +10,14 @@ logging.getLogger("cognee").setLevel(logging.ERROR)
 os.environ["LOG_LEVEL"] = "ERROR"
 os.environ["LITELLM_LOG"] = "ERROR"
 
-def get_project_name():
-    """Resolves the current project name for dataset scoping."""
+def _find_project_root() -> Path:
     current = Path(__file__).resolve()
     for parent in current.parents:
         if (parent / ".cogneeignore").exists() or (parent / ".git").exists():
-            return parent.name
-    return Path.cwd().name
+            return parent
+    return Path.cwd()
+
+PROJECT_ROOT = _find_project_root()
 
 async def recall_memory(query: str, dataset: str = None, session_id: str = None, context_only: bool = False):
     """
@@ -24,14 +25,14 @@ async def recall_memory(query: str, dataset: str = None, session_id: str = None,
     
     Args:
         query (str): The natural language question to ask memory.
-        dataset (str, optional): Target a specific dataset. Defaults to current project name.
+        dataset (str, optional): Target a specific dataset. Defaults to COGNEE_DATASET env or current project name.
         session_id (str, optional): Include session-aware memory for agentic context.
         context_only (bool): If True, returns raw context. If False, returns synthesized AI answer.
         
     Returns:
         The result of the recall operation.
     """
-    target_dataset = dataset or get_project_name()
+    target_dataset = dataset or os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
     
     # Auto-routing is enabled by default to pick the best strategy (Summary, Graph, Code, etc.)
     result = await cognee.recall(
@@ -51,9 +52,11 @@ async def main():
     
     args = parser.parse_args()
     
+    target_dataset = args.dataset or os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
+    
     # Header for CLI visibility
     if not args.context:
-        print(f"\n--- COGNEE RECALL: {get_project_name()} ---")
+        print(f"\n--- COGNEE RECALL: {target_dataset} ---")
     
     try:
         result = await recall_memory(args.query, args.dataset, args.session, args.context)

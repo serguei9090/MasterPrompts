@@ -11,56 +11,50 @@ import cognee
 logging.getLogger("cognee").setLevel(logging.ERROR)
 os.environ["LOG_LEVEL"] = "ERROR"
 
-def get_project_name():
-    """Look upward from this script's location for the project root (.git or .cogneeignore)"""
+def _find_project_root() -> Path:
     current = Path(__file__).resolve()
     for parent in current.parents:
         if (parent / ".cogneeignore").exists() or (parent / ".git").exists():
-            return parent.name
-    return Path.cwd().name
+            return parent
+    return Path.cwd()
 
-DATASET_NAME = os.getenv("COGNEE_DATASET", get_project_name())
+PROJECT_ROOT = _find_project_root()
 
-async def record_trace(lesson: str, session_id: str = None, category: str = "general"):
+async def record_trace(lesson: str, dataset: str = None, session_id: str = None, category: str = "general"):
     """
     Commits a technical lesson or 'AgentTrace' to Cognee memory.
-    This acts as a mirror to the LessonsLearned.md file but in the graph.
     
     Args:
         lesson (str): The lesson or insight to record.
-        session_id (str): Optional session ID (e.g. BEAD_ID) for context.
-        category (str): The category of the lesson (e.g. 'architecture', 'bug', 'setup').
+        dataset (str): Target dataset name.
+        session_id (str): Optional session ID (e.g. BEAD_ID).
+        category (str): The category of the lesson.
     """
-    print(f"\n--- COGNEE TRACE: {DATASET_NAME} ---")
+    target_dataset = dataset or os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
+    print(f"\n--- COGNEE TRACE: {target_dataset} ---")
     
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted_lesson = f"[{timestamp}] [{category.upper()}] {lesson}"
     
     try:
-        # Use remember for high-level ingestion
-        # If session_id is provided, it goes to session memory first
         result = await cognee.remember(
             formatted_lesson,
-            dataset_name = DATASET_NAME,
+            dataset_name = target_dataset,
             session_id = session_id
         )
-        
         print(f">>> LESSON RECORDED: {category}")
-        if session_id:
-            print(f"Session: {session_id}")
-            
         return result
-
     except Exception as e:
         print(f"\n>>> TRACE ERROR: {e}")
         return None
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Record an AgentTrace (Lesson Learned) in Cognee memory.")
+    parser = argparse.ArgumentParser(description="Record an AgentTrace in Cognee memory.")
     parser.add_argument("lesson", help="The lesson or insight to record.")
+    parser.add_argument("--dataset", help="Optional: Specific dataset name.")
     parser.add_argument("--session", help="Optional session/Bead ID.")
     parser.add_argument("--category", default="general", help="Category of the lesson.")
     
     args = parser.parse_args()
     
-    asyncio.run(record_trace(args.lesson, args.session, args.category))
+    asyncio.run(record_trace(args.lesson, args.dataset, args.session, args.category))

@@ -12,15 +12,15 @@ os.environ["LITELLM_LOG"] = "ERROR"
 # TARGET CONFIGURATION
 TARGET_FOLDER = Path(".agents/rules")
 
-def get_project_name():
-    """Look upward from this script's location for the project root (.git or .cogneeignore)"""
+def _find_project_root() -> Path:
     current = Path(__file__).resolve()
     for parent in current.parents:
         if (parent / ".cogneeignore").exists() or (parent / ".git").exists():
-            return parent.name
-    return Path.cwd().name
+            return parent
+    return Path.cwd()
 
-DATASET_NAME = os.getenv("COGNEE_DATASET", f"{get_project_name()}_Rules_v1")
+PROJECT_ROOT = _find_project_root()
+DATASET_NAME = os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
 
 async def sync_project_rules():
     """
