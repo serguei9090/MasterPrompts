@@ -9,6 +9,7 @@ Welcome to the Morphic AI Engineering Framework. This workspace is governed by h
 - **Quality/Beads**: `.agents/rules/System/CodeQuality.md` (Beads Protocol + Skill Trigger Matrix)
 - **Intelligence Stack**: `.agents/rules/System/IntelligenceStack.md` (**CRITICAL**: L0-L5 usage protocol — Sequential Thinking, Codanna, Cognee, Context, Context7, Beads)
 - **No-Guesswork Law**: `.agents/rules/System/NoGuesswork.md` (**CRITICAL**: When the AI must use tools vs. when inference is allowed)
+- **Skill Matrix**: `.agents/rules/System/SkillMatrix.md` (**CRITICAL**: Canonical skill-to-persona bindings for every SDLC phase)
 - **Automation**: `.agents/rules/Automation/AutonomousExecution.md` (Sprint Mode + Loop Protocol)
 - **Expert Practices**: `.agents/rules/Specialized/AIExpertPractices.md` (Mnemonic Anchors + Verification)
 - **Visual Law**: `.agents/rules/Specialized/VisualArchitecture.md` (AVAS Visualization)

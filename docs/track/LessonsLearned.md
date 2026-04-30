@@ -1,5 +1,23 @@
 # Lessons Learned
 
+## 2026-04-30 - Cognee Indexer: "Nuclear Silence" & Terminal Stability
+
+### 1. The "Nuclear Silence" Protocol
+- **Problem**: Third-party libraries (Cognee, Instructor, LiteLLM) leaked initialization, networking, and warning logs to the console even with `LOG_LEVEL=ERROR`, cluttering the user interface and burying progress bars.
+- **Solution**: Implemented a **Global Bootstrap** that hijacks `sys.stdout` and `sys.stderr` to a dedicated log file *before* any library imports occur.
+- **Key Technique**: Preserve the original terminal streams as `TERM_OUT` and `TERM_ERR` to allow explicit, clean user feedback (progress bars, headers) while suppressing all background noise.
+
+### 2. Windows Terminal Encoding (CP1252 vs. UTF-8)
+- **Problem**: Using Unicode box-drawing characters (`┌`, `─`, `·`, `→`) caused `UnicodeEncodeError: 'charmap' codec can't encode...` on default Windows terminal configurations (CP1252).
+- **Solution**: Strictly enforce **ASCII-Only Terminal Output** for all decorations (`-`, `|`, `*`, `->`). This ensures the tool is robust across all environments without requiring users to change system locales.
+
+### 3. Graceful Asynchronous Teardown
+- **Problem**: Interrupting the indexer (Ctrl+C) left un-awaited coroutines and database locks, causing messy tracebacks.
+- **Solution**: Wrapped the main entry point in a standard `try/except KeyboardInterrupt` and used `warnings.filterwarnings` to suppress inevitable library-level teardown warnings that occur during an abrupt exit.
+
+---
+
+
 ## 2026-04-27 - Beads-First & Hybrid Memory Transition
 
 ### 1. Architectural Shift

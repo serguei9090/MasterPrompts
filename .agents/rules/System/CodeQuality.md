@@ -6,14 +6,18 @@ description: Mandatory standards for implementation hygiene, documentation, and 
 # Code Quality & Operational Hygiene (v0.11.0)
 
 ## 1. MANDATORY: The Skill Trigger Matrix
-Use these elite skills at specific SDLC phases without exception:
-| Phase | Mandatory Skill | Trigger |
-| :--- | :--- | :--- |
-| **Discovery** | `codanna`, `cognee` | Use `codanna` for impact analysis; `cognee` for rationale retrieval. |
-| **Planning** | `beads`, `diagram-creator` | Use `bd` for tasking; `diagram-creator` for AVAS maps. |
-| **Styling** | `design-taste-frontend` | Initialize EVERY new UI component with this foundation. |
-| **Motion** | `animate`, `overdrive` | Use for interactive states, transitions, and scroll reveals. |
-| **Final Pass** | `polish`, `audit` | MANDATORY before any `bd close`. Fix alignment/a11y/perf. |
+> **See** `.agents/rules/System/SkillMatrix.md` for the **canonical, complete** skill-to-persona binding table. That file is the single source of truth.
+
+**Quick Reference (SDLC phases):**
+| Phase | Mandatory Skills |
+| :--- | :--- |
+| **Boot** | `beads` (`bd ready`), `codanna` |
+| **Discovery** | `clarify`, `shape`, `codanna`, `cognee-indexer` |
+| **Planning** | `beads` (`bd create`), `diagram-creator` |
+| **Design** | `stitch-design-taste`, `ui-ux-pro-max`, `design-taste-frontend` |
+| **Implementation** | `code-quality` (backend), `react` + `animate` (frontend) |
+| **Final Pass** | `audit`, `polish`, `critique` — MANDATORY before any `bd close`. |
+| **Session End** | `session-handover`, `beads` (`bd dolt push`) |
 
 ## 2. Session Boot Sequence (Imperative)
 1. **Sync Roadmap**: Run `bd ready` immediately. No exceptions.
