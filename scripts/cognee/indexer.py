@@ -175,7 +175,7 @@ async def run_index(target_dir: Path, dataset_name: str, batch_size: int, script
             pbar.set_description(f"Indexing: {current_file_name}")
 
             if script_log_level == "DEBUG":
-                _tprint(f"  → processing: {[Path(p).name for p in batch]}")
+                _tprint(f"  -> processing: {[Path(p).name for p in batch]}")
 
             try:
                 await cognee.remember(data=batch, dataset_name=dataset_name)

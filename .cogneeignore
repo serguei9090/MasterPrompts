@@ -19,15 +19,18 @@
 
 # Git
 .git/
-.agents/skills/chrome-devtools/scripts/node_modules/
 
-# Build artifacts
+# Build and Transient Noise
 dist/
 build/
+scratch/
+docs/track/
+.agents/skills/
 *.pyc
 .env
+.env.example
 
-# Media files
+# Media and Heavy Assets (Excluded)
 *.mp3
 *.wav
 *.aac
@@ -36,6 +39,9 @@ build/
 *.mp4
 *.mov
 *.avi
-*.svg
 *.ico
-.env.example
+*.png
+*.jpg
+*.jpeg
+*.webp
+# Note: *.svg is ALLOWED as it is text-based XML and indexable by text models.
