@@ -1,12 +1,5 @@
 ---
-name: init
-description: >
-  Full project initialization. Runs the install script to deploy the intelligence stack
-  (Beads/bd, Codanna, Cognee, Lefthook), then guides the user through all architecture
-  init-selector files to produce a fully configured, AI-ready project.
-triggers:
-  - manual
-  - "When a repo is cloned or a new project is created from scratch"
+description: Init Project Workflow
 ---
 
 # Init Project Workflow
@@ -24,32 +17,25 @@ file until every checkbox is resolved. No implementation starts before this work
 
 > The bootstrap scripts handle dependency detection automatically and are idempotent (safe to re-run).
 
-### 1.1 Run the Platform Installer
+### 1.1 Run the Unified Installer
 
-**Windows (PowerShell):**
-```powershell
-# Run from the project root — installs all missing tools automatically
-./scripts/install.ps1
-```
-
-**Linux / macOS (Bash):**
+**Cross-Platform (Python):**
 ```bash
 # Run from the project root — installs all missing tools automatically
-bash ./scripts/install.sh
+python install.py
 ```
 
 The script installs (if not already present):
-- **Dolt** (Beads database engine) via `winget` / `brew` / system package manager
-- **Node.js / npm** (for `bd` CLI) via `winget` / `nvm` / package manager
+- **Dolt** (Beads database engine) via system checks
+- **Node.js / npm** (for `bd` CLI) check
 - **Beads (`bd`)** via `npm install -g @beads/bd`
-- **uv** (Python package manager) via `pip` or `curl` installer
+- **uv** (Python package manager) via `pip`
 - **Lefthook** via `npm install -g @arkweid/lefthook`
-- **Codanna** — attempts `pip install codanna`; prompts user if not on PyPI yet
-- **Cognee** via `uv add cognee` (inside project `.venv`)
-- Creates and activates `.venv`, installs `pyproject.toml` deps
+- **Codanna** & **Cognee** via `uv add / uv pip install`
+- Creates and activates `.venv`, sets up Git Hooks
 
 > [!IMPORTANT]
-> After the script completes, verify the output shows all green ✅ checks.
+> The user typically runs `install.py` *before* invoking this workflow. Ensure it has been completed.
 > If any tool shows ❌ MISSING, follow the manual fallback instructions printed by the script.
 
 ### 1.2 Sync HAL Environment Variables
@@ -64,37 +50,20 @@ source ./scripts/hal-sync.sh
 
 Resolves `agents.yaml` variables (`ROOT`, `AGENTS`, `DOCS`, `TRACK`) into the current shell session.
 
-### 1.3 Initialize Beads
+### 1.3 Verify Cognee Initialization
 
-```bash
-# Only needed first time — safe to skip if .beads/ already exists
-bd init
-```
+Check if Cognee has been initialized by the user:
 
-### 1.4 Initialize Codanna
-
-```bash
-codanna init
-codanna index .
-codanna documents add-collection docs docs/
-codanna documents index
-```
-
-### 1.5 Initialize Cognee (via CogneeInit workflow)
-
-Execute the `/cognee-init` workflow, or run manually:
-
-```bash
-# Full initial knowledge graph build
-uv run python scripts/cognee/indexer.py --full
-```
-
-Verify with:
 ```bash
 uv run python scripts/cognee/status.py
 ```
 
-### 1.6 Install Git Hooks
+If the status shows that the graph is empty or not initialized, **DO NOT run the indexer yourself**. Instead, instruct the user:
+> "Please run `uv run python scripts/cognee/indexer.py --full` in your terminal to build the initial knowledge graph. Let me know when it is complete."
+
+Pause the workflow until the user confirms.
+
+### 1.4 Install Git Hooks
 
 ```bash
 lefthook install
@@ -104,22 +73,10 @@ lefthook install
 
 ## 🔍 Phase 2 — Codebase Scan & Stack Detection
 
-1. **Scan for Technical DNA** — Check for the presence of these files to auto-detect stack:
-   - `package.json` / `bun.lockb` → JavaScript / TypeScript
-   - `pyproject.toml` / `uv.lock` → Python
-   - `pubspec.yaml` → Flutter / Dart
-   - `src-tauri/` → Tauri desktop app
-   - `next.config.*` → Next.js
-   - `Dockerfile` → Containerized service
+*(This phase is now handled automatically by the `install.py` script. If it detects a framework (e.g. `package.json`, `pyproject.toml`), it will automatically seed the `bd` memory with the runtime details).*
 
-2. **Auto-adapt Agents** — Update `.gemini/agents/` profiles to match detected stack (e.g., activate Flutter agent if `pubspec.yaml` found, activate Python sidecar agent if `pyproject.toml` found).
-
-3. **Seed Beads Memory** with detected context:
-   ```bash
-   bd remember "STACK: [detected tech]"
-   bd remember "RUNTIME: [detected package manager]"
-   bd remember "PROTOCOL: Use 'codanna mcp <tool> --args \"<json>\" --json' for all codebase analysis."
-   ```
+**Action Required**:
+Review the terminal output from the installer. If it printed `Stack detected and seeded to Beads memory`, you can skip directly to Phase 3. If it printed `No existing stack detected`, continue to Phase 3 normally.
 
 ---
 
@@ -275,18 +232,7 @@ bd remember "ARCHITECTURE: Init selectors complete. All docs/architecture/*.md f
 1. **Layers Init** — If backend: add first row to `docs/architecture/layers/backend.md` (module table).
    If frontend: add Atom rows to `docs/architecture/layers/frontend.md` (component table).
 
-2. **Scaffold Memory Hierarchy** — Ensure the `docs/memory/` sub-directories exist:
-   ```bash
-   mkdir -p docs/memory/specs docs/memory/architecture docs/memory/lessons
-   ```
-
-3. **Generate Initial Codanna Index** (if not done in Phase 1):
-   ```bash
-   codanna index .
-   codanna documents index
-   ```
-
-4. **Distill Init Findings to Cognee**:
+2. **Distill Init Findings to Cognee**:
    ```bash
    uv run python scripts/cognee/trace.py
    ```

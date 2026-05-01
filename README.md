@@ -69,20 +69,39 @@ This framework employs a state-of-the-art 5-layer memory stack to provide agents
 *   **Function**: Authoritative source for issue tracking, session handoffs, and operational history using a graph-based versioned database (Dolt).
 *   **Tool**: `bd` (Beads).
 
-## 🚀 Usage for Developers
+## 📦 Installing the Framework into a Project
 
-### 1. Synchronize Environment
-Before contributing to the rules or workflows, run the synchronization script:
+When you download the Morphic Framework bundle (`morphic_v0.10.7.tar.gz`), extract it into your target project directory and run the single Python installer. 
 
-```powershell
-./scripts/hal-sync.ps1
+*(Note: This README is bundled as `MorphicReadme.md` to avoid overwriting your project's existing README).*
+
+```bash
+# 1. Run the unified installer
+python install.py
+
+# The installer handles both:
+# - Phase 1: Deploying framework files to your project
+# - Phase 2: Bootstrapping tools (Dolt, Node, Bun, Python uv, Beads, Codanna, Cognee)
+
+# 2. Fill in your API keys in the generated .env file
+# 3. Open your AI assistant and run the /init workflow to finish setup
 ```
 
-### 2. Testing Workflows
-You can test the workflows contained here by invoking them via the Gemini CLI:
+## 🚀 Usage for Developers (Framework Maintainers)
 
+### 1. Build the Framework Bundle
+To package the framework for distribution:
 ```powershell
-gemini -y -p "@/readme-gen"
+uv run .\BuildScripts\build_morphic.py
+```
+
+### 2. Synchronize Environment (HAL)
+Before contributing to rules or workflows, run the sync script:
+```powershell
+# Windows
+.\scripts\hal-sync.ps1
+# Linux/macOS
+bash ./scripts/hal-sync.sh
 ```
 
 ## 📜 Repository Standards
