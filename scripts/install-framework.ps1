@@ -1,39 +1,27 @@
-# Morphic Framework: Safe Installer
-# Usage: ./scripts/install-framework.ps1
+#!/usr/bin/env pwsh
+# =============================================================================
+# DEPRECATED: This script has been superseded by scripts/install.ps1
+# =============================================================================
+# This file is kept for backward compatibility only.
+# The new installer handles Dolt, Node, Beads, uv, Cognee, Codanna, and 
+# Lefthook automatically with platform detection and idempotent behavior.
+#
+# Please use:  ./scripts/install.ps1
+# =============================================================================
 
-$governanceFiles = @(
-    @{ template = "shipping/AGENTS.template.md"; target = "AGENTS.md" },
-    @{ template = "shipping/GEMINI.template.md"; target = "GEMINI.md" },
-    @{ template = "shipping/lefthook.template.yml"; target = "lefthook.yml" },
-    @{ template = "shipping/README.template.md"; target = "README.md" },
-    @{ template = "shipping/.env.template.example"; target = ".env.example" }
-)
+Write-Host ""
+Write-Host "  ⚠️  NOTICE: install-framework.ps1 is deprecated." -ForegroundColor Yellow
+Write-Host "  Please use the new unified installer instead:" -ForegroundColor Yellow
+Write-Host ""
+Write-Host "     ./scripts/install.ps1" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "  The new installer handles all tools (Dolt, Beads, uv, Cognee," -ForegroundColor Gray
+Write-Host "  Codanna, Lefthook) with full idempotency and platform detection." -ForegroundColor Gray
+Write-Host ""
 
-Write-Host "🚀 Initializing Morphic AI Engineering Framework..." -ForegroundColor Cyan
-
-# 1. Create Core Directory Structure
-$dirs = @(".agents/rules", ".agents/workflows", ".gemini/agents", "docs/track/specs", "docs/memory")
-foreach ($dir in $dirs) {
-    if (-not (Test-Path $dir)) {
-        New-Item -ItemType Directory -Path $dir -Force | Out-Null
-        Write-Host "  [+] Created $dir" -ForegroundColor Gray
-    }
+$confirm = Read-Host "  Run ./scripts/install.ps1 now? (Y/n)"
+if ($confirm -ne "n" -and $confirm -ne "N") {
+    & "$PSScriptRoot/install.ps1" @args
+} else {
+    Write-Host "  Exiting. Run ./scripts/install.ps1 when ready." -ForegroundColor Gray
 }
-
-# 2. Deploy Governance Files (Safe Mode)
-foreach ($file in $governanceFiles) {
-    $template = $file.template
-    $target = $file.target
-
-    if (Test-Path $target) {
-        $newTarget = "$target.new"
-        Copy-Item -Path $template -Destination $newTarget -Force
-        Write-Host "  [!] WARNING: $target already exists. Created $newTarget for manual review." -ForegroundColor Yellow
-    } else {
-        Copy-Item -Path $template -Destination $target -Force
-        Write-Host "  [+] Installed $target" -ForegroundColor Green
-    }
-}
-
-Write-Host "`n✅ Framework core initialized. Please review any .new files and merge manually." -ForegroundColor Cyan
-Write-Host "Next steps: Run 'codanna init' and 'bd init' to activate the intelligence stack." -ForegroundColor Gray

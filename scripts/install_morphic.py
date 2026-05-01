@@ -3,7 +3,7 @@ import shutil
 import json
 
 # Configuration
-VERSION = "0.10.6"
+VERSION = "0.10.7"
 MANIFEST_NAME = "morphic_manifest.json"
 BUNDLE_DIR = "bundle"
 MERGE_REPORT = "MERGE_REQUIRED.md"
@@ -49,6 +49,7 @@ def install():
         print(f"Please review {MERGE_REPORT} in your project root for merge instructions.")
     else:
         print("\nINSTALLATION COMPLETE: Framework successfully deployed.")
+        print_next_steps()
 
 def merge_directories(src_dir, dst_dir, conflicts):
     for root, dirs, files in os.walk(src_dir):
@@ -89,7 +90,7 @@ def generate_report(conflicts):
         f.write("## AI Resolution Prompt\n")
         f.write("Copy and paste this prompt to your AI assistant to resolve the conflicts:\n\n")
         f.write("```markdown\n")
-        f.write("I am integrating the Morphic AI Engineering Framework v0.10.6. ")
+        f.write(f"I am integrating the Morphic AI Engineering Framework v{VERSION}. ")
         f.write("I have existing configurations that conflict with the framework mandates. ")
         f.write("Please perform a surgical merge of the following files. ")
         f.write("Preserve my project-specific identity (name, specific rules) but ensure ")
@@ -97,7 +98,26 @@ def generate_report(conflicts):
         f.write("Conflicts to resolve:\n")
         for c in sorted(set(conflicts)):
             f.write(f"- {c}\n")
-        f.write("\n```\n")
+        f.write("\n```\n\n")
+        f.write("## Post-Merge Next Steps\n")
+        f.write("After resolving conflicts, run the bootstrap installer:\n")
+        f.write("- **Windows**: `./scripts/install.ps1`\n")
+        f.write("- **Linux/macOS**: `bash ./scripts/install.sh`\n")
+        f.write("\nThen run the `/init` workflow in your AI assistant to complete setup.\n")
+
+def print_next_steps():
+    print("\n" + "─" * 50)
+    print("✅  Morphic Framework deployed successfully!")
+    print("─" * 50)
+    print("Next steps:")
+    print("  1. Run the bootstrap installer:")
+    print("       Windows : .\\scripts\\install.ps1")
+    print("       Linux   : bash ./scripts/install.sh")
+    print("  2. Run: bd init          (first time only)")
+    print("  3. Run: codanna init && codanna index .")
+    print("  4. Run: uv run python scripts/cognee/indexer.py --full")
+    print("  5. Open your AI assistant and run the /init workflow")
+    print("─" * 50)
 
 if __name__ == "__main__":
     install()

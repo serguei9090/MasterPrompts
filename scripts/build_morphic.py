@@ -32,11 +32,22 @@ INCLUSION_LIST = [
     ".env.example",
     ".gitignore",
     "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
     "agents.yaml",
     "GEMINI.md",
     "lefthook.yml",
-    "skills-lock.json"
+    "skills-lock.json",
 ]
+
+# Special rename map: source_filename -> bundle_filename
+# DESIGN.md → template so consumers can customize without overwriting source.
+# install scripts → root level with clear platform labels.
+RENAME_MAP = {
+    "DESIGN.md":        "DESIGN.template.md",
+    "scripts/install.ps1": "install-windows.ps1",
+    "scripts/install.sh":  "install-linux.sh",
+}
 
 def setup_build_dir():
     """Create temp build structure"""
@@ -65,17 +76,25 @@ def get_ignore_list(path, names):
     return ignored
 
 def package_framework(bundle_path):
-    """Copy framework files to /bundle"""
-    for item in INCLUSION_LIST:
-        if os.path.exists(item):
-            print(f"  [+] Packaging {item} -> {BUNDLE_SUBDIR}/")
-            target_path = os.path.join(bundle_path, item)
-            if os.path.isdir(item):
-                shutil.copytree(item, target_path, ignore=get_ignore_list)
-            else:
-                shutil.copy2(item, target_path)
-        else:
+    """Copy framework files to /bundle, honouring the RENAME_MAP."""
+    all_items = list(INCLUSION_LIST) + list(RENAME_MAP.keys())
+    for item in all_items:
+        if not os.path.exists(item):
             print(f"  [!] Missing {item}")
+            continue
+
+        # Determine destination name (apply rename if mapped)
+        dest_name = RENAME_MAP.get(item, item)
+        target_path = os.path.join(bundle_path, dest_name)
+        label = f"{item} -> {dest_name}" if dest_name != item else item
+        print(f"  [+] Packaging {label} -> {BUNDLE_SUBDIR}/")
+
+        if os.path.isdir(item):
+            shutil.copytree(item, target_path, ignore=get_ignore_list)
+        else:
+            # Ensure parent dirs exist (e.g. nested renames)
+            os.makedirs(os.path.dirname(target_path), exist_ok=True) if os.path.dirname(target_path) else None
+            shutil.copy2(item, target_path)
 
 def package_installer(master_path):
     """Copy installer to Master Root"""
