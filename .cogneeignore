@@ -24,11 +24,18 @@
 dist/
 build/
 scratch/
-docs/track/
-.agents/skills/
+morphic_**.tar.gz
 *.pyc
 .env
 .env.example
+
+# --- Morphic Framework Governance ---
+# Index the 'Laws' and 'Actors', but ignore volatile tracking and tool noise.
+docs/track/      # Volatile (Beads handle this)
+.agents/skills/  # Tool implementation noise
+!.agents/rules/
+!.agents/workflows/
+!.gemini/agents/
 
 # Media and Heavy Assets (Excluded)
 *.mp3

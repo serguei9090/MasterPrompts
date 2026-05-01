@@ -12,16 +12,16 @@ BUNDLE_DIR = "bundle"
 MERGE_REPORT = "MERGE_REQUIRED.md"
 
 def print_step(msg):
-    print(f"\n  ▸ {msg}")
+    print(f"\n  [STEP] {msg}")
 
 def print_ok(msg):
-    print(f"    ✅  {msg}")
+    print(f"    [OK]  {msg}")
 
 def print_warn(msg):
-    print(f"    ⚠️  {msg}")
+    print(f"    [WARN]  {msg}")
 
 def print_fail(msg):
-    print(f"    ❌  {msg}")
+    print(f"    [FAIL]  {msg}")
 
 def check_command(cmd):
     if platform.system() == "Windows":
@@ -29,8 +29,15 @@ def check_command(cmd):
     else:
         return subprocess.call(f"command -v {cmd}", shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL) == 0
 
-def run_command(cmd):
-    return subprocess.run(cmd, shell=True, capture_output=True, text=True)
+def run_command(cmd, input_str=None):
+    print(f"    [EXEC] {cmd}")
+    return subprocess.run(cmd, shell=True, capture_output=True, text=True, input=input_str)
+
+def run_command_stream(cmd):
+    # Use os.system on Windows/Linux to more reliably pass the TTY/Console handle 
+    # to child processes so they can render interactive UIs like progress bars.
+    print(f"    [EXEC] {cmd}")
+    return os.system(cmd)
 
 def install():
     print(f"Morphic Framework {VERSION} Installer")
@@ -46,7 +53,7 @@ def install():
     bundle_path = os.path.abspath(BUNDLE_DIR)
     conflicts = []
 
-    print(f"📦 Phase 1: Deploying framework components to: {target_project_root}")
+    print(f"Phase 1: Deploying framework components to: {target_project_root}")
 
     for item in os.listdir(bundle_path):
         src_path = os.path.join(bundle_path, item)
@@ -63,9 +70,9 @@ def install():
     if conflicts:
         generate_report(conflicts)
     else:
-        print("\n✅ Phase 1 Complete: Framework files successfully deployed.")
+        print("\nPhase 1 Complete: Framework files successfully deployed.")
 
-    print(f"\n🚀 Phase 2: Bootstrapping Environment")
+    print(f"\nPhase 2: Bootstrapping Environment")
     bootstrap_environment(conflicts)
 
 def merge_directories(src_dir, dst_dir, conflicts):
@@ -102,17 +109,6 @@ def generate_report(conflicts):
         f.write("## Conflict List\n")
         for c in sorted(set(conflicts)):
             f.write(f"- [ ] `{c}`\n")
-
-def create_memory_dirs():
-    print_step("Scaffolding docs/memory directories...")
-    dirs = [
-        "docs/memory/specs",
-        "docs/memory/architecture",
-        "docs/memory/lessons"
-    ]
-    for d in dirs:
-        os.makedirs(d, exist_ok=True)
-    print_ok("Memory directories ready")
 
 def detect_stack_and_seed_beads():
     if not check_command("bd"):
@@ -267,27 +263,29 @@ def bootstrap_environment(conflicts):
 
     print_step("Initializing Intelligence Stack...")
     
-    create_memory_dirs()
-    
     if check_command("bd"):
-        run_command("bd init")
+        run_command("bd init", input_str="n\ny\n")
         detect_stack_and_seed_beads()
     
     if check_command("codanna"):
+        print_step("Initializing Codanna...")
         run_command("codanna init")
-        run_command("codanna index .")
+        print_step("Indexing Codebase with Codanna (This may take a moment)...")
+        run_command_stream("codanna index .")
+        print_step("Adding Docs collection...")
         run_command("codanna documents add-collection docs docs/")
-        run_command("codanna documents index")
+        print_step("Indexing Documents with Codanna (This may take a moment)...")
+        run_command_stream("codanna documents index")
 
     print_next_steps(conflicts)
 
 def print_next_steps(conflicts):
-    print("\n" + "─" * 50)
+    print("\n" + "-" * 50)
     if conflicts:
-        print(f"⚠️  Morphic Framework PARTIALLY Deployed ({len(conflicts)} conflicts)")
+        print(f"Morphic Framework PARTIALLY Deployed ({len(conflicts)} conflicts)")
     else:
-        print("✅  Morphic Framework Bootstrapped Successfully!")
-    print("─" * 50)
+        print("Morphic Framework Bootstrapped Successfully!")
+    print("-" * 50)
     print("Next steps:")
     print("  1. Configure your API keys in .env (Copy vars from .env.example for Beads, Codanna, Cognee)")
     
@@ -303,7 +301,7 @@ def print_next_steps(conflicts):
     if conflicts:
         print("\n[!] IMPORTANT: Do not run the /init workflow until conflicts are resolved.")
     
-    print("─" * 50)
+    print("-" * 50)
 
 if __name__ == "__main__":
     install()
