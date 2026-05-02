@@ -121,7 +121,10 @@ def _ignore_spec(root: Path) -> pathspec.PathSpec:
         fp = root / name
         if fp.exists():
             with open(fp, encoding="utf-8", errors="ignore") as f:
-                patterns += [l.strip() for l in f if l.strip() and not l.startswith("#")]
+                for line in f:
+                    line = line.split("#")[0].strip()
+                    if line:
+                        patterns.append(line)
     return pathspec.PathSpec.from_lines("gitwildmatch", patterns)
 
 def _collect_files(root: Path) -> list[str]:
@@ -135,10 +138,10 @@ def _collect_files(root: Path) -> list[str]:
             rel_walk_root = ""
         
         # Filter directories in-place
-        dirs[:] = [d for d in dirs if not spec.match_file(os.path.join(rel_walk_root, d) + "/")]
+        dirs[:] = [d for d in dirs if not spec.match_file(os.path.join(rel_walk_root, d).replace("\\", "/") + "/")]
         
         for fname in files:
-            rel_path = os.path.normpath(os.path.join(rel_walk_root, fname))
+            rel_path = os.path.normpath(os.path.join(rel_walk_root, fname)).replace("\\", "/")
             # Some pathspecs require a leading slash or specific formatting for root files
             if not spec.match_file(rel_path) and not spec.match_file("/" + rel_path):
                 results.append(os.path.join(walk_root, fname))
