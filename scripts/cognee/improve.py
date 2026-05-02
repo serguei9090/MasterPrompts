@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 import logging
 from pathlib import Path
 import cognee
@@ -66,4 +67,11 @@ async def main():
     await improve_memory(target_name)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\n  ⊘  Interrupted.", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)

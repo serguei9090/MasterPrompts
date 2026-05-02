@@ -205,8 +205,9 @@ def bootstrap_environment(conflicts):
         if os.path.exists("pyproject.toml"):
             run_command("uv add codanna cognee")
         else:
+            # If no pyproject.toml, we ensure they are in the venv
             run_command("uv pip install codanna cognee")
-        print_ok("Codanna and Cognee installed")
+        print_ok("Codanna and Cognee added to uv environment")
     else:
         print_warn("uv installation failed. Please install it manually.")
 
@@ -295,7 +296,7 @@ def print_next_steps(conflicts):
     else:
         step_idx = 2
 
-    print(f"  {step_idx}. Run: uv run python scripts/cognee/indexer.py --full")
+    print(f"  {step_idx}. Run: uv run scripts/cognee/indexer.py --full")
     print(f"  {step_idx+1}. Open your AI assistant and run the /init workflow")
     
     if conflicts:

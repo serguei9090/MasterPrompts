@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 import logging
 import argparse
 from pathlib import Path
@@ -71,4 +72,11 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    asyncio.run(manage_session(args.action, args.session_id, args.content))
+    try:
+        asyncio.run(manage_session(args.action, args.session_id, args.content))
+    except KeyboardInterrupt:
+        print("\n  ⊘  Interrupted.", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)

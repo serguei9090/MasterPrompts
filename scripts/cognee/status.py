@@ -1,5 +1,6 @@
 import asyncio
 import os
+import sys
 import logging
 import cognee
 
@@ -75,4 +76,11 @@ async def get_memory_status():
         return []
 
 if __name__ == "__main__":
-    asyncio.run(get_memory_status())
+    try:
+        asyncio.run(get_memory_status())
+    except KeyboardInterrupt:
+        print("\n  ⊘  Interrupted.", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)

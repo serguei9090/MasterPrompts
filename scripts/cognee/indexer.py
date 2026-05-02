@@ -244,3 +244,7 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         _print("\n  ⊘  Interrupted.")
         sys.exit(0)
+    except Exception as e:
+        import sys
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)

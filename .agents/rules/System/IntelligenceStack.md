@@ -31,21 +31,21 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 ### L1 — Codanna (Physical Truth)
 - **Purpose**: Map real, physical code dependencies, call graphs, and symbol locations.
 - **Commands** (always use proxy scripts — never raw `--args JSON` directly):
-  - Impact: `uv run python scripts/codanna/impact.py <SymbolName>`
-  - Search: `uv run python scripts/codanna/search.py "query" [--context] [--lang X]`
-  - Calls: `uv run python scripts/codanna/calls.py <SymbolName>`
-  - Callers: `uv run python scripts/codanna/callers.py <SymbolName>`
-  - Doc RAG: `uv run python scripts/codanna/docs_search.py "query"`
-  - Index: `uv run python scripts/codanna/index.py` (after structural changes)
+  - Impact: `uv run scripts/codanna/impact.py <SymbolName>`
+  - Search: `uv run scripts/codanna/search.py "query" [--context] [--lang X]`
+  - Calls: `uv run scripts/codanna/calls.py <SymbolName>`
+  - Callers: `uv run scripts/codanna/callers.py <SymbolName>`
+  - Doc RAG: `uv run scripts/codanna/docs_search.py "query"`
+  - Index: `uv run scripts/codanna/index.py` (after structural changes)
 - **Trigger**: Before changing any shared function, module, or API boundary.
 
 ### L2 — Cognee (Semantic Memory)
 - **Purpose**: Retrieve the "Why" — architectural rationale, historical decisions, lessons learned.
 - **Commands**:
-  - Recall: `uv run python scripts/cognee/recall.py "query here"`
-  - Store: `uv run python scripts/cognee/trace.py` (post-task distillation)
-  - Sync: `uv run python scripts/cognee/indexer.py` (after refactor)
-  - Improve: `uv run python scripts/cognee/improve.py` (graph optimization)
+  - Recall: `uv run scripts/cognee/recall.py "query here"`
+  - Store: `uv run scripts/cognee/trace.py` (post-task distillation)
+  - Sync: `uv run scripts/cognee/indexer.py` (after refactor)
+  - Improve: `uv run scripts/cognee/improve.py` (graph optimization)
 - **Dataset Isolation**: All operations are automatically scoped to the current project dataset.
 - **Trigger**: Before refactoring existing logic, after completing any `feat`/`fix` task.
 
@@ -56,6 +56,7 @@ L5: Beads (Operational)  →  Ground truth for task state and history
   - Install: `mcp_context_download_package(name="<library>", registry="<registry>", version="<ver>")`
   - Query: `mcp_context_get_docs(library="<name>@<version>", topic="<method/pattern>")`
 - **Trigger**: Before using any external library API. Do not rely on training data syntax.
+- **Note**: Ensure `cognee` is added to the `uv` environment via `uv add cognee` or `uv pip install cognee` to enable these tools.
 
 ### L4 — Context7 (External — Live)
 - **Purpose**: Fetch real-time, up-to-date library documentation when L3 is insufficient.
@@ -81,15 +82,15 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 
 ### Pre-Task Checklist (Run in order)
 1. `bd ready` — Load current task state.
-2. `uv run python scripts/cognee/recall.py "[task description]"` — Load semantic context.
+2. `uv run scripts/cognee/recall.py "[task description]"` — Load semantic context.
 3. `codanna mcp analyze_impact --args '{"name": "[affected symbol]"}' --json` — Map physical impact.
 4. `/DocsReview` — If external libraries are involved.
 5. Sequential Thinking — Synthesize findings into a plan.
 6. `bd create "<task>"` — Register the plan before touching code.
 
 ### Post-Task Checklist (Run in order)
-1. `uv run python scripts/cognee/trace.py` — Distill lessons.
-2. `uv run python scripts/cognee/indexer.py` — Sync codebase to graph.
+1. `uv run scripts/cognee/trace.py` — Distill lessons.
+2. `uv run scripts/cognee/indexer.py` — Sync codebase to graph.
 3. `bd update <id> --status completed` — Close the task.
 4. `bd dolt push` + `git push` — Sync state.
 

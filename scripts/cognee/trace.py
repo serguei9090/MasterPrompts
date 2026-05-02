@@ -57,4 +57,11 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    asyncio.run(record_trace(args.lesson, args.dataset, args.session, args.category))
+    try:
+        asyncio.run(record_trace(args.lesson, args.dataset, args.session, args.category))
+    except KeyboardInterrupt:
+        print("\n  ⊘  Interrupted.", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)

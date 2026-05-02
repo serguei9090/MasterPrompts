@@ -1,4 +1,5 @@
 import asyncio
+import sys
 import cognee
 from cognee.infrastructure.databases.relational import get_relational_engine
 
@@ -29,4 +30,11 @@ async def check_database():
             print(f" - {ds_name}: {count} files")
 
 if __name__ == "__main__":
-    asyncio.run(check_database())
+    try:
+        asyncio.run(check_database())
+    except KeyboardInterrupt:
+        print("\n  ⊘  Interrupted.", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)

@@ -17,7 +17,7 @@ The AI MUST NOT guess, infer, or assume facts about the codebase, libraries, or 
 | Unknown function signature | Guess from memory | `codanna mcp get_calls` / `grep_search` |
 | Unfamiliar library API | Assume syntax | `/DocsReview` → `context` → `context7` |
 | Unknown dependency of a module | Assume it's safe to change | `codanna mcp analyze_impact` |
-| Architectural rationale unknown | Assume the pattern | `uv run python scripts/cognee/recall.py` |
+| Architectural rationale unknown | Assume the pattern | `uv run scripts/cognee/recall.py` |
 | Task status unknown | Guess what's next | `bd ready` / `bd list --status open` |
 
 ## 2. The Allowed Inference Zone
@@ -51,5 +51,5 @@ When operating **without** an explicit workflow (e.g., SmithEngineAuto), the AI 
 1. **Read before writing**: Always `view_file` the target before editing. Never overwrite from memory.
 2. **Check before removing**: Use `grep_search` to verify a symbol is unused before deleting it.
 3. **Verify dependencies**: Use `codanna mcp analyze_impact` before changing a shared function.
-4. **Recall rationale**: Use `uv run python scripts/cognee/recall.py` before restructuring existing logic.
+4. **Recall rationale**: Use `uv run scripts/cognee/recall.py` before restructuring existing logic.
 5. **Register new work**: Any new feature or bug fix MUST get a `bd create` before implementation starts.

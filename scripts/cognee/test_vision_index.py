@@ -34,4 +34,11 @@ async def test_vision_ingestion():
     print(f"Check logs at scripts/cognee/logs/cognee.log for engine output.")
 
 if __name__ == "__main__":
-    asyncio.run(test_vision_ingestion())
+    try:
+        asyncio.run(test_vision_ingestion())
+    except KeyboardInterrupt:
+        print("\n  ⊘  Interrupted.", file=sys.stderr)
+        sys.exit(0)
+    except Exception as e:
+        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        sys.exit(1)
