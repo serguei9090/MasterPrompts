@@ -201,13 +201,13 @@ def bootstrap_environment(conflicts):
             run_command("uv venv")
             print_ok("Created .venv")
         
-        print_step("Installing Codanna and Cognee...")
+        print_step("Installing Core Intelligence Stack (Cognee, pathspec, tqdm)...")
         if os.path.exists("pyproject.toml"):
-            run_command("uv add codanna cognee")
+            run_command("uv add cognee pathspec tqdm")
         else:
             # If no pyproject.toml, we ensure they are in the venv
-            run_command("uv pip install codanna cognee")
-        print_ok("Codanna and Cognee added to uv environment")
+            run_command("uv pip install cognee pathspec tqdm")
+        print_ok("Intelligence Stack dependencies added to uv environment")
     else:
         print_warn("uv installation failed. Please install it manually.")
 
@@ -277,6 +277,20 @@ def bootstrap_environment(conflicts):
         run_command("codanna documents add-collection docs docs/")
         print_step("Indexing Documents with Codanna (This may take a moment)...")
         run_command_stream("codanna documents index")
+    else:
+        print_warn("Codanna CLI not found! It is required for physical code analysis.")
+        print("    [INFO] Install it manually: https://docs.codanna.sh/installation#native")
+        print("    [INFO] After installation, run: codanna init; codanna index .")
+
+    # Cleanup: Rename bundle to deleteBundle to signal it's safe to remove
+    if os.path.exists(BUNDLE_DIR):
+        try:
+            if os.path.exists("deleteBundle"):
+                shutil.rmtree("deleteBundle") # Clear old one if it exists
+            os.rename(BUNDLE_DIR, "deleteBundle")
+            print_ok("Renamed 'bundle' to 'deleteBundle' (deployment source ready for cleanup)")
+        except Exception as e:
+            print_warn(f"Could not rename 'bundle' to 'deleteBundle': {e}")
 
     print_next_steps(conflicts)
 

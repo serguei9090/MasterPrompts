@@ -19,7 +19,8 @@ EXCLUSION_LIST = [
     "dist",
     "temp_build",
     "**/.git",
-    "**/__pycache__"
+    "**/__pycache__",
+    "scripts/cognee/logs/*.log"
 ]
 
 # Files to be placed in the /bundle directory

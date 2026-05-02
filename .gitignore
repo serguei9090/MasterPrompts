@@ -17,6 +17,8 @@
 .cognee/
 .cognee_cache/
 .fastembed_cache/
+scripts/cognee/logs/*.log
+!scripts/cognee/logs/.gitkeep
 
 # Codanna
 .codanna/
@@ -51,6 +53,8 @@ Thumbs.db
 # Project
 *.fastembed_cache
 morphic_**.tar.gz
+bundle/
+deleteBundle/
 
 # Testing
 DeployTest/**

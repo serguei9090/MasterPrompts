@@ -6,9 +6,11 @@
 # Environments and Dependencies (Global)
 **/node_modules/
 .agents/skills/**/node_modules/
+**/.agents/skills/**/node_modules/
 **/.venv/
 **/__pycache__/
 **/.pytest_cache/
+**/.ruff_cache/
 
 # Tool Metadata
 .beads/
@@ -16,6 +18,11 @@
 .codanna/
 .codex/
 .vscode/
+**/.beads/
+**/.dolt/
+**/.codanna/
+**/.codex/
+**/.vscode/
 
 # Git
 .git/
@@ -28,6 +35,9 @@ morphic_**.tar.gz
 *.pyc
 .env
 .env.example
+bundle/
+deleteBundle/
+install.py
 
 # --- Morphic Framework Governance ---
 # Index the 'Laws' and 'Actors', but ignore volatile tracking and tool noise.
