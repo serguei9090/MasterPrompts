@@ -32,7 +32,7 @@ def _run(args_dict: dict) -> None:
 
     data = payload.get("data") or []
     items = data if isinstance(data, list) else [data]
-    target = args_dict.get("name") or args_dict.get("symbol_id")
+    target = args_dict.get("function_name") or args_dict.get("symbol_id")
     print(f"\n  Callers of '{target}':")
     for item in items:
         name = item.get("name") or str(item)
@@ -60,7 +60,7 @@ def main() -> None:
     if args.symbol_id:
         payload["symbol_id"] = args.symbol_id
     else:
-        payload["name"] = args.name
+        payload["function_name"] = args.name
     if args.lang:
         payload["lang"] = args.lang
 

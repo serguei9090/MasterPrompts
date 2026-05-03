@@ -18,7 +18,7 @@ Execute the software development cycle with explicit user gating at critical arc
 **Execution:**
 1. **Beads Sync**: Run `bd ready` to load active task state.
 2. **Semantic Recall**: Run `uv run python scripts/cognee/recall.py "[task description]"` to retrieve prior architectural context and lessons.
-3. **Physical Impact**: Run `codanna mcp analyze_impact --args '{"name": "[affected symbol]"}' --json` to map dependencies.
+3. **Physical Impact**: Run `uv run scripts/codanna/impact.py [affected symbol]` to map dependencies.
 4. **Docs Review**: If external libraries are involved, execute `/DocsReview` (L3 context → L4 context7 fallback).
 5. **Sequential Thinking**: Synthesize the above into a structured, multi-step plan with identified risks and ripple effects.
 6. **Handoff Summary**: Produce a concise brief for `@brain`.

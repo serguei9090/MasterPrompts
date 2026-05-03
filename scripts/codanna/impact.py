@@ -66,7 +66,7 @@ def main() -> None:
     if args.symbol_id:
         payload["symbol_id"] = args.symbol_id
     else:
-        payload["name"] = args.name
+        payload["symbol_name"] = args.name
     if args.depth is not None:
         payload["max_depth"] = args.depth
     if args.lang:

@@ -1,12 +1,12 @@
 ---
-description: "Smith Engine (Auto) - True Autonomous Software Factory. Executes the entire SDLC in a single uninterrupted turn using the Lead/Builder/Auditor triad."
+description: "Smith Engine (Auto) Mint - Simplified Autonomous Software Factory. Executes the entire SDLC using a leaner stack (Beads + Codanna) without Cognee overhead."
 ---
 
-# SmithOrchestra (Auto) - True Autonomous Software Factory
+# SmithOrchestra (Auto) Mint - Simplified Autonomous Software Factory
 // turbo-all
 
 ## Global Objective
-Execute a complete, end-to-end software development cycle autonomously. You will seamlessly transition between multiple highly specialized personas. Do not halt execution until Phase 7 is complete or a critical failure limit is reached. 
+Execute a complete, end-to-end software development cycle autonomously using a simplified, high-speed intelligence stack. You will seamlessly transition between multiple highly specialized personas. Do not halt execution until Phase 7 is complete or a critical failure limit is reached. 
 
 *Note for AI Models: Read the Mindset and Execution steps carefully. You must actively shift your reasoning to match the current Persona in each phase to ensure professional-grade output.*
 
@@ -15,8 +15,8 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 ### Phase 0: Memory Retrieval
 **Assume Role:** `@memory-manager`
 1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies and affected symbols.
-   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale and historical context.
+   - **Codanna (Physical & Semantic)**: Use `uv run scripts/codanna/impact.py <name>` to map physical dependencies. Use `uv run scripts/codanna/docs_search.py "<text>"` to retrieve rationale and documentation.
+   - **Beads (Operational)**: Use `bd search` or `bd recall` to retrieve persistent task context and memory.
    - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview` (use L3 `context` first for fast local docs → fallback to L4 `context7` for live web search).
    - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
 2. **Task Registration**:
@@ -35,10 +35,10 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
 4. **Graph Impact Analysis**: 
-   - `uv run python scripts/cognee/recall.py "What are the dependencies and call sites for [Function/Module X]?"`
+   - `uv run scripts/codanna/calls.py <name>` and `uv run scripts/codanna/callers.py <name>` to map dependencies and call sites.
    - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` to retrieve project-specific documentation and patterns.
 5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
-6. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
+6. **Grep Verification:** Complement index recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
 7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 
 8. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`, including the full dependency map and subtask list.
 
@@ -98,14 +98,12 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ### Phase 7: Memory Distillation & Handoff Preparation
 **Role:** `@memory-manager`
-**Objective:** Store technical decisions and lessons learned for future sessions using the Hybrid Memory Architecture.
+**Objective:** Store technical decisions and lessons learned for future sessions using the lean Memory Architecture.
 **Actions:**
-1.  **Cognify Lessons:** `uv run python scripts/cognee/trace.py` to distill atomic lessons into the graph.
-2.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered, run `bd remember "RULE [Feature]: [Fact]"`. Also, update `docs/track/LessonsLearned.md` with the detailed technical summary.
-3.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
-4.  **Index Specs:** Run `uv run python scripts/cognee/indexer.py` to index the new architectural decisions.
-5.  **Self-Improvement:** `uv run python scripts/cognee/improve.py` pass to refine graph structures.
-6.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
+1.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered, run `bd remember "RULE [Feature]: [Fact]"`. Also, update `docs/track/LessonsLearned.md` with the detailed technical summary.
+2.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
+3.  **Index Specs & Code:** Run `uv run scripts/codanna/index.py` and `codanna documents index` to embed the new code and architectural decisions.
+4.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
 
 ---
 
@@ -123,7 +121,7 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Mindset:** Conventional Commits, traceability.
 **Execution:**
 1. **Stage & Commit:** Run `git add .` and `git commit -m "feat/fix: <descriptive message>"` via `run_command`.
-2. **Re-Cognify Code:** The Lefthook pre-commit automatically triggers `cognee-index` for staged files. If bypassed, run `uv run python scripts/cognee/indexer.py` manually.
+2. **Re-Index Code:** The Lefthook pre-commit automatically triggers index updates for staged files. If bypassed, run `uv run scripts/codanna/index.py` manually.
 3. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
 4. **Remote Sync:** Run `git push` to deliver the code.
 5. **Final Report:** Halt tool-calling and print a professional success report to the user.
