@@ -125,6 +125,51 @@
 	align-items: center;
 }
 
+.level-counter-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.15rem;
+	position: relative;
+	margin: 0 1rem;
+}
+
+.level-circle {
+	width: 42px;
+	height: 42px;
+	transform: rotate(-90deg);
+}
+
+.circle-bg {
+	fill: none;
+	stroke: rgba(255, 255, 255, 0.05);
+	stroke-width: 3;
+}
+
+.circle {
+	fill: none;
+	stroke: var(--primary);
+	stroke-width: 3;
+	stroke-linecap: round;
+	transition: stroke-dasharray 0.5s ease-out;
+}
+
+.level-text {
+	fill: white;
+	font-family: var(--font-mono);
+	font-size: 10px;
+	font-weight: 700;
+	text-anchor: middle;
+	transform: rotate(90deg);
+	transform-origin: center;
+}
+
+.level-label {
+	font-size: 0.5rem;
+	color: var(--text-muted);
+	letter-spacing: 0.1em;
+}
+
 .title-group {
 	display: flex;
 	align-items: center;

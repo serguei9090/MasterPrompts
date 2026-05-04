@@ -12,46 +12,41 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 
 ---
 
-### Phase 0: Memory Retrieval (The Intelligence Lock)
+### Phase 0: The Intelligence Lock (Mandatory Entry)
 **Assume Role:** `@memory-manager`
-**Constraint**: The VERY FIRST tool call in any session MUST be `bd ready`. Bypassing this for manual discovery (list_dir) is a protocol violation.
+**Protocol**: This phase is an atomic "Lock". You CANNOT move to Phase 1 until all commands below are executed. Bypassing L1 for manual `list_dir` is a terminal protocol violation.
 
-1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **MANDATORY**: You MUST execute L1 (Codanna) checks before starting any development or reasoning.
-   - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Beads) for *initial* discovery is a protocol violation.
-   - **Refinement Discovery**: If L1/L5 results are incomplete or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial checks but *before* proceeding to Sequential Thinking or Docs Review.
-   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` to retrieve task-specific context.
-   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies.
-   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py "[query]" --json` to retrieve rationale.
-   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
-   - **Sequential Thinking**: Only trigger this AFTER L1 results are processed. Synthesize results into a multi-step plan.
-2. **Task Registration**:
-   - Create a technical specification in `docs/track/specs/task-<id>.md`.
-   - Use `bd create` for sub-tasks.
-3. **Context Load:** Read relevant ADRs and Lessons in `docs/memory/`.
-4. **Handoff:** Summarize findings for `@brain`.
+> **[DIRECTIVE 0.1]: OPERATIONAL SYNC**
+> 1. `bd ready` (Mandatory: Load task state)
+> 2. `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` (Mandatory: Load thought history)
 
+> **[DIRECTIVE 0.2]: INTELLIGENCE DISCOVERY**
+> *If the target symbol is unknown, use search.py first. Once identified:*
+> 1. `uv run scripts/codanna/impact.py <SymbolName>` (Mandatory: Map physical dependencies)
+> 2. `uv run python scripts/cognee/recall.py "[query]" --json` (Mandatory: Load architectural rationale)
+
+**[TRUTH AUDIT 0]**: Did I run all L1/L2/L5 commands? If NO, run them now. If YES, summarize findings for `@brain`.
 
 ---
 
-### Phase 1: Context Discovery & Product Management
-**Assume Role:** `@brain` (PM Smith - Senior Product Manager & Architect)
-**Mindset:** Meticulous, context-aware, spec-driven. Never guess; always verify the existing architecture.
-**Execution:**
-1. **Analyze Prompt:** Read the user's request.
-2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
-3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-4. **Impact Analysis (MANDATORY)**: 
-   - `uv run scripts/codanna/impact.py <name>` to map physical dependencies and impact.
-   - `uv run scripts/codanna/calls.py <name>` to map physical call sites.
-   - `uv run python scripts/cognee/recall.py "rationale for [X]" --json` to verify semantic intent.
-   - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` for project patterns.
-   - `uv run scripts/codanna/search.py "query" --context` to semantically search code for fuzzy concepts.
-5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
-   - *Note*: If more details are needed before planning, use manual tools (`grep_search`, `view_file`) now to ensure the plan is grounded in physical reality.
-6. **Grep Verification:** Complement index recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
-7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 
-8. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`, including the full dependency map and subtask list.
+### Phase 1: Context Discovery & Architecture Plan
+**Assume Role:** `@brain` (PM Smith)
+**Mindset:** Grounded in L1 data. Never plan from assumptions.
+
+> **[DIRECTIVE 1.1]: PHYSICAL VERIFICATION**
+> *Only if Phase 0 was incomplete or fuzzy:*
+> 1. `uv run scripts/codanna/calls.py <name>` (Mandatory: Map call sites)
+> 2. `uv run scripts/codanna/docs_search.py "pattern for [X]"` (Mandatory: Verify local patterns)
+
+> **[DIRECTIVE 1.2]: REFINEMENT (Optional)**
+> Now you MAY use `view_file` or `grep_search` to verify line ranges or specific logic found in the graph.
+
+> **[DIRECTIVE 1.3]: ARCHITECTURAL ANCHOR**
+> 1. `sequentialthinking` (Synthesize plan based on L1/Physical data)
+> 2. `bd create` (Anchor sub-tasks in the roadmap)
+> 3. Write implementation spec to `docs/track/specs/<bead_id>.md`.
+
+**[TRUTH AUDIT 1]**: Is the plan grounded in L1 physical reality? Does it follow `Architecture.md`? If YES, proceed to Phase 2.
 
 ---
 

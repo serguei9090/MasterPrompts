@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 class CalculatorRequest(BaseModel):
-    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin", "mul100"]
+    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin", "mul100", "div20"]
     num1: float
     num2: float
 
@@ -38,6 +38,9 @@ def divide(a: float, b: float) -> float:
     if b == 0:
         raise ValueError("Cannot divide by zero.")
     return a / b
+
+def divide_by_20(a: float) -> float:
+    return a / 20
 
 def modulo(a: float, b: float) -> float:
     if b == 0:
@@ -64,6 +67,8 @@ async def calculate(request: CalculatorRequest):
             result = multiply(request.num1, request.num2)
         elif request.operation == "div":
             result = divide(request.num1, request.num2)
+        elif request.operation == "div20":
+            result = divide_by_20(request.num1)
         elif request.operation == "mod":
             result = modulo(request.num1, request.num2)
         elif request.operation == "cos":

@@ -1,3 +1,9 @@
+## 2026-05-04 - Calculation Leveling & Advanced Operations
+- **Gamified Leveling Logic**: Implemented a "Calculation Level" system that tracks result counts. Using a scaling requirement (current * 1.5) creates a natural difficulty curve and encourages engagement. Pre-calculating these requirements or using a stable formula ensures consistency across sessions.
+- **Circular Progress Visualization**: Used SVG `<path>` with `strokeDasharray` bound to a React state (`progress`) to create a smooth, animated circular progress bar. Framer Motion's `animate` prop handles the transition between values elegantly.
+- **Unary Operation Pattern**: Operations like "÷20" and "×100" are treated as "Quick Operations" that apply to the current display value immediately. This maintains a clear distinction between standard binary operations (add, sub, etc.) and immediate transformations.
+- **Backend Model Sync**: Adding new operations to the Pydantic `Literal` in `api.py` and updating the frontend `Operation` type ensures full-stack type safety. Note: The sidecar process must be fully restarted to apply Pydantic model changes.
+
 ## 2026-05-04 - Calculator UI Refactor & Conversion Operations
 - **Single-Operand Ergonomics**: Conversion operations (like `×100`) should be handled as "Quick Operations" in the UI to prevent state collisions with dual-operand math flows. This allows for an "instant result" feel while keeping the backend logic centralized in the sidecar.
 - **Micro-Sizing Buttons**: When refactoring for a "tactical" or "compact" feel, reducing padding from `1rem` to `0.75rem` and font size to `0.875rem` provides a high-density UI without sacrificing touch/click target reliability.

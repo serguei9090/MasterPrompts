@@ -8,7 +8,8 @@ export type Operation =
 	| "mod"
 	| "cos"
 	| "sin"
-	| "mul100";
+	| "mul100"
+	| "div20";
 
 interface CalculatorRequest {
 	operation: Operation;

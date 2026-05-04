@@ -12,36 +12,40 @@ Execute the software development cycle with explicit user gating at critical arc
 
 ---
 
-### Phase 0: Intelligence Load & Research (The Intelligence Lock)
+### Phase 0: The Intelligence Lock (Mandatory Entry)
 **Assume Role:** `@memory-manager`
-**Constraint**: The VERY FIRST tool call in any session MUST be `bd ready`. Bypassing this for manual discovery (list_dir) is a protocol violation.
+**Protocol**: Even in manual mode, this phase is an atomic "Lock". Bypassing L1/L2 for manual discovery is a protocol violation.
 
-1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **MANDATORY**: You MUST execute L1 and L2 checks before starting any development or reasoning.
-   - **MANDATORY (Sequential Cognee)**: Cognee operations (recall, add, trace, index) MUST be executed sequentially. Only start the next recall or script after the previous one has fully finished. Parallel execution will cause database lock failures.
-   - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Cognee) for *initial* discovery is a protocol violation.
-   - **Refinement Discovery**: If L1/L2 data is insufficient or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial graph check but *before* proceeding to Sequential Thinking or Docs Review.
-   - **Beads Sync**: Run `bd ready` to load the active task state.
-   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` to retrieve task-specific context.
-   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies.
-   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py "[query]" --json` to retrieve rationale.
-   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
-   - **Sequential Thinking**: Only trigger this AFTER L1/L2 results are processed. Synthesize into a multi-step plan.
-2. **Handoff Summary**: Produce a brief for `@brain`.
+> **[DIRECTIVE 0.1]: OPERATIONAL SYNC**
+> 1. `bd ready` (Mandatory: Load task state)
+> 2. `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` (Mandatory: Load thought history)
 
+> **[DIRECTIVE 0.2]: INTELLIGENCE DISCOVERY**
+> *If the target symbol is unknown, use search.py first. Once identified:*
+> 1. `uv run scripts/codanna/impact.py <SymbolName>` (Mandatory: Map physical dependencies)
+> 2. `uv run python scripts/cognee/recall.py "[query]" --json` (Mandatory: Load architectural rationale)
+
+**[TRUTH AUDIT 0]**: Did I run all L1/L2/L5 commands? If NO, run them now. If YES, summarize findings for `@brain`.
 
 ---
 
-### Phase 1: Propose & Gate — Plan
-**Assume Role:** `@brain` (Lead Architect)
-**Mindset:** Meticulous, spec-driven. Present facts, not guesses.
-**Execution:**
-1. **Present the Plan**: State the proposed approach, referencing the `sequentialthinking` output from Phase 0.
-2. **Impact Map**: List ALL files that will be changed and WHY.
-3. **Risk Register**: Enumerate any breaking changes, DB migrations, or API contract shifts.
-   - *Note*: If more details are needed before planning, use manual tools (`grep_search`, `view_file`) now to ensure the plan is grounded in physical reality.
-4. **Task Registration**: Run `bd create "<main task>"` and `bd create "<subtask>" --parent <id>` for each identified sub-task.
-5. **Spec File**: Write the full plan to `docs/track/specs/<bead_id>.md`.
+### Phase 1: Context Discovery & Refinement
+**Assume Role:** `@brain` (PM Smith)
+**Mindset:** Grounded in L1/L2 data. Refine with manual tools.
+
+> **[DIRECTIVE 1.1]: PHYSICAL VERIFICATION**
+> 1. `uv run scripts/codanna/calls.py <name>` (Mandatory: Map call sites)
+> 2. `uv run scripts/codanna/docs_search.py "pattern for [X]"` (Mandatory: Verify local patterns)
+
+> **[DIRECTIVE 1.2]: MANUAL REFINEMENT**
+> Now you SHOULD use `view_file` or `grep_search` to verify line ranges or specific logic.
+
+> **[DIRECTIVE 1.3]: ARCHITECTURAL ANCHOR**
+> 1. `sequentialthinking` (Synthesize plan based on L1/L2/Physical data)
+> 2. `bd create` (Anchor sub-tasks in the roadmap)
+> 3. Write implementation spec to `docs/track/specs/<bead_id>.md`.
+
+**[TRUTH AUDIT 1]**: Is the plan grounded in L1/L2 physical reality? Does it follow `Architecture.md`? If YES, proceed to Phase 2.
 
 > **🚦 GATE 1**: Present the plan and spec file to the user. Ask: *"Does this plan look correct? Any constraints I should know before I touch code?"* Do NOT proceed until the user confirms.
 

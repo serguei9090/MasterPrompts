@@ -27,6 +27,46 @@ const App: React.FC = () => {
 	const [operation, setOperation] = useState<Operation | null>(null);
 	const [isNewEntry, setIsNewEntry] = useState(true);
 	const [history, setHistory] = useState<HistoryEntry[]>([]);
+	const [resultsCount, setResultsCount] = useState(0);
+
+	const LEVEL_REQUIREMENTS = [
+		4, 6, 9, 14, 21, 31, 47, 70, 105, 157, 236, 354, 531, 796, 1194, 1791, 2686,
+		4029, 6043, 9064,
+	];
+
+	const getCurrentLevel = () => {
+		let level = 1;
+		let cumulative = 0;
+		for (let i = 0; i < LEVEL_REQUIREMENTS.length; i++) {
+			if (resultsCount >= cumulative + LEVEL_REQUIREMENTS[i]) {
+				cumulative += LEVEL_REQUIREMENTS[i];
+				level++;
+			} else {
+				break;
+			}
+		}
+		return Math.min(level, 20);
+	};
+
+	const getLevelProgress = () => {
+		let cumulative = 0;
+		const level = getCurrentLevel();
+		if (level >= 20) return 100;
+
+		for (let i = 0; i < level - 1; i++) {
+			cumulative += LEVEL_REQUIREMENTS[i];
+		}
+
+		const resultsInCurrentLevel = resultsCount - cumulative;
+		const requiredForCurrentLevel = LEVEL_REQUIREMENTS[level - 1];
+		return Math.min(
+			(resultsInCurrentLevel / requiredForCurrentLevel) * 100,
+			100,
+		);
+	};
+
+	const currentLevel = getCurrentLevel();
+	const progress = getLevelProgress();
 
 	const { calculate, loading, error: apiError } = useSidecarBridge();
 
@@ -74,7 +114,13 @@ const App: React.FC = () => {
 				return "sin";
 			case "mul100":
 				return "×100";
+			case "div20":
+				return "÷20";
 		}
+	};
+
+	const incrementResults = () => {
+		setResultsCount((prev) => prev + 1);
 	};
 
 	const handleQuickOperation = async (op: Operation) => {
@@ -90,6 +136,7 @@ const App: React.FC = () => {
 			);
 			setDisplay(result.toString());
 			setIsNewEntry(true);
+			incrementResults();
 		}
 	};
 
@@ -109,6 +156,7 @@ const App: React.FC = () => {
 				setNum1(null);
 				setOperation(null);
 				setIsNewEntry(true);
+				incrementResults();
 			}
 		}
 	};
@@ -131,6 +179,8 @@ const App: React.FC = () => {
 				return <span className="text-xs font-bold">SIN</span>;
 			case "mul100":
 				return <span className="text-xs font-bold">×100</span>;
+			case "div20":
+				return <span className="text-xs font-bold">÷20</span>;
 		}
 	};
 
@@ -149,6 +199,33 @@ const App: React.FC = () => {
 								LOGIC ENGINE <span className="version">v1.0</span>
 							</h1>
 						</div>
+
+						<div className="level-counter-container">
+							<svg
+								className="level-circle"
+								viewBox="0 0 36 36"
+								role="img"
+								aria-labelledby="level-title"
+							>
+								<title id="level-title">Current Calculation Level</title>
+								<path
+									className="circle-bg"
+									d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+								/>
+								<motion.path
+									className="circle"
+									strokeDasharray={`${progress}, 100`}
+									d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+									initial={{ strokeDasharray: "0, 100" }}
+									animate={{ strokeDasharray: `${progress}, 100` }}
+								/>
+								<text x="18" y="20.35" className="level-text">
+									{currentLevel}
+								</text>
+							</svg>
+							<span className="level-label label-caps">LVL</span>
+						</div>
+
 						<div className="status-indicator">
 							<div
 								className={`status-dot ${loading ? "status-busy" : "status-ready"}`}
@@ -234,6 +311,14 @@ const App: React.FC = () => {
 								disabled={loading}
 							>
 								{getOpIcon("mul100")}
+							</button>
+							<button
+								type="button"
+								onClick={() => handleQuickOperation("div20")}
+								className="btn btn-op btn-quick glow-hover"
+								disabled={loading}
+							>
+								{getOpIcon("div20")}
 							</button>
 							<button
 								type="button"
