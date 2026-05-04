@@ -252,9 +252,9 @@
 	border: 1px solid var(--border-muted);
 	background: var(--bg-surface);
 	color: var(--text-primary);
-	padding: 1rem;
+	padding: 0.75rem;
 	border-radius: 0.5rem;
-	font-size: 1rem;
+	font-size: 0.875rem;
 	font-weight: 600;
 	cursor: pointer;
 	transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -265,6 +265,12 @@
 
 .btn:active {
 	transform: scale(0.95);
+}
+
+.btn-quick {
+	background: var(--primary-muted);
+	border-color: var(--primary);
+	color: var(--primary);
 }
 
 .btn-number {

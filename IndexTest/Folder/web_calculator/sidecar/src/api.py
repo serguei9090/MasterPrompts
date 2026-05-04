@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 class CalculatorRequest(BaseModel):
-    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin"]
+    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin", "mul100"]
     num1: float
     num2: float
 
@@ -50,6 +50,9 @@ def cosine(a: float) -> float:
 def sine(a: float) -> float:
     return math.sin(a)
 
+def multiply_by_100(a: float) -> float:
+    return a * 100
+
 @app.post("/calculate", response_model=CalculatorResponse)
 async def calculate(request: CalculatorRequest):
     try:
@@ -67,6 +70,8 @@ async def calculate(request: CalculatorRequest):
             result = cosine(request.num1)
         elif request.operation == "sin":
             result = sine(request.num1)
+        elif request.operation == "mul100":
+            result = multiply_by_100(request.num1)
         else:
             raise HTTPException(status_code=400, detail="Invalid operation")
         

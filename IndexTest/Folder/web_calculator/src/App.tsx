@@ -72,6 +72,24 @@ const App: React.FC = () => {
 				return "cos";
 			case "sin":
 				return "sin";
+			case "mul100":
+				return "×100";
+		}
+	};
+
+	const handleQuickOperation = async (op: Operation) => {
+		const currentNum = parseFloat(display);
+		const result = await calculate(op, currentNum, 0);
+		if (result !== null) {
+			const calculation = `${currentNum} ${getOpSymbol(op)} = ${result}`;
+			setHistory((prev) =>
+				[
+					{ id: Math.random().toString(36).substr(2, 9), text: calculation },
+					...prev,
+				].slice(0, 10),
+			);
+			setDisplay(result.toString());
+			setIsNewEntry(true);
 		}
 	};
 
@@ -111,6 +129,8 @@ const App: React.FC = () => {
 				return <span className="text-xs font-bold">COS</span>;
 			case "sin":
 				return <span className="text-xs font-bold">SIN</span>;
+			case "mul100":
+				return <span className="text-xs font-bold">×100</span>;
 		}
 	};
 
@@ -207,6 +227,14 @@ const App: React.FC = () => {
 									{getOpIcon(op)}
 								</button>
 							))}
+							<button
+								type="button"
+								onClick={() => handleQuickOperation("mul100")}
+								className="btn btn-op btn-quick glow-hover"
+								disabled={loading}
+							>
+								{getOpIcon("mul100")}
+							</button>
 							<button
 								type="button"
 								onClick={handleCalculate}
