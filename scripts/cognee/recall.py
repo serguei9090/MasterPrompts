@@ -1,15 +1,43 @@
-import asyncio
-import os
-import sys
 import logging
+import os
+import asyncio
+import sys
 import argparse
+import json
 from pathlib import Path
-import cognee
 
-# --- SILENCE NOISE ---
-logging.getLogger("cognee").setLevel(logging.ERROR)
+# Set environment variables for major libraries BEFORE any imports
 os.environ["LOG_LEVEL"] = "ERROR"
 os.environ["LITELLM_LOG"] = "ERROR"
+os.environ["HTTPCORE_LOG_LEVEL"] = "ERROR"
+os.environ["HTTPX_LOG_LEVEL"] = "ERROR"
+
+def _silence_everything():
+    """Nuclear silence for all system loggers."""
+    logging.root.setLevel(logging.ERROR)
+    # Silence all existing loggers
+    for name in logging.root.manager.loggerDict:
+        logging.getLogger(name).setLevel(logging.ERROR)
+    
+    # Specifically target common noisy libraries
+    for noisy in [
+        "cognee", 
+        "httpcore", 
+        "httpx", 
+        "sqlalchemy", 
+        "aiosqlite", 
+        "instructor", 
+        "openai", 
+        "litellm",
+        "urllib3",
+        "query_router",
+        "FSCacheAdapter",
+        "LiteLLMEmbeddingEngine",
+        "CogneeGraph",
+        "recall",
+        "cognee.api.v1.recall"
+    ]:
+        logging.getLogger(noisy).setLevel(logging.ERROR)
 
 def _find_project_root() -> Path:
     current = Path(__file__).resolve()
@@ -21,21 +49,9 @@ def _find_project_root() -> Path:
 PROJECT_ROOT = _find_project_root()
 
 async def recall_memory(query: str, dataset: str = None, session_id: str = None, context_only: bool = False):
-    """
-    Query Cognee memory using the v1.0 Recall pipeline.
-    
-    Args:
-        query (str): The natural language question to ask memory.
-        dataset (str, optional): Target a specific dataset. Defaults to COGNEE_DATASET env or current project name.
-        session_id (str, optional): Include session-aware memory for agentic context.
-        context_only (bool): If True, returns raw context. If False, returns synthesized AI answer.
-        
-    Returns:
-        The result of the recall operation.
-    """
+    import cognee
     target_dataset = dataset or os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
     
-    # Auto-routing is enabled by default to pick the best strategy (Summary, Graph, Code, etc.)
     result = await cognee.recall(
         query_text = query,
         datasets = [target_dataset],
@@ -50,34 +66,42 @@ async def main():
     parser.add_argument("--dataset", help="Optional: Specific dataset name")
     parser.add_argument("--session", help="Optional: Session ID for agentic context")
     parser.add_argument("--context", action="store_true", help="Return raw context only")
+    parser.add_argument("--json", action="store_true", help="Format output as JSON")
     
     args = parser.parse_args()
     
+    _silence_everything()
+    
     target_dataset = args.dataset or os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
     
-    # Header for CLI visibility
-    if not args.context:
+    if not args.context and not args.json:
         print(f"\n--- COGNEE RECALL: {target_dataset} ---")
     
     try:
         result = await recall_memory(args.query, args.dataset, args.session, args.context)
         
-        # If running as a tool, we might just want the raw output
-        if args.context:
+        if args.json:
+            print(json.dumps({"result": result}, default=str))
+        elif args.context:
             print(result)
         else:
             print("\n>>> ANSWER:")
             print(result)
             
     except Exception as e:
-        print(f"\n>>> ERROR DURING RECALL: {e}")
+        if args.json:
+            print(json.dumps({"error": str(e)}))
+        else:
+            print(f"\n>>> ERROR DURING RECALL: {e}")
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("\n  ⊘  Interrupted.", file=sys.stderr)
         sys.exit(0)
     except Exception as e:
-        print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        if "--json" not in sys.argv:
+            print(f"\n  [!] CRITICAL ERROR: {type(e).__name__} - {e}", file=sys.stderr)
+        else:
+            print(json.dumps({"error": str(e)}))
         sys.exit(1)
