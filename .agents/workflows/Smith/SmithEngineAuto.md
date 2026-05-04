@@ -15,7 +15,8 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 ### Phase 0: Memory Retrieval
 **Assume Role:** `@memory-manager`
 1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies and affected symbols.
+   - **Beads Sync**: Run `bd ready` to load the active task state and roadmap context.
+   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies and affected symbols. Use `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown.
    - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale and historical context.
    - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview` (use L3 `context` first for fast local docs → fallback to L4 `context7` for live web search).
    - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
@@ -35,8 +36,10 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
 4. **Graph Impact Analysis**: 
-   - `uv run python scripts/cognee/recall.py "What are the dependencies and call sites for [Function/Module X]?"`
+   - `uv run scripts/codanna/calls.py <name>` and `uv run scripts/codanna/callers.py <name>` to map physical dependencies and call sites.
+   - `uv run python scripts/cognee/recall.py "What is the architectural rationale and lessons learned for [Function/Module X]?"`
    - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` to retrieve project-specific documentation and patterns.
+   - `uv run scripts/codanna/search.py "query" --context` to semantically search code for fuzzy concepts.
 5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
 6. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
 7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 
