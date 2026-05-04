@@ -5,7 +5,7 @@ import shutil
 from datetime import datetime
 
 # Configuration
-VERSION = "0.10.7"
+VERSION = "0.11.0"
 DIST_DIR = "dist"
 MASTER_FOLDER = "Morphic-Framework"
 BUNDLE_SUBDIR = "bundle"

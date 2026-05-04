@@ -6,7 +6,7 @@ import sys
 import platform
 
 # Configuration
-VERSION = "0.10.7"
+VERSION = "0.11.0"
 MANIFEST_NAME = "morphic_manifest.json"
 BUNDLE_DIR = "bundle"
 MERGE_REPORT = "MERGE_REQUIRED.md"
@@ -271,6 +271,15 @@ def bootstrap_environment(conflicts):
     if check_command("codanna"):
         print_step("Initializing Codanna...")
         run_command("codanna init")
+        
+        # Guard: Hardening .codannaignore (Ignore skills, media, and logs)
+        if os.path.exists(".codannaignore"):
+            with open(".codannaignore", "a") as f:
+                f.write("\n# AI\n**/skills/**\n")
+                f.write("\n# Media\n*.png\n*.jpg\n*.jpeg\n*.gif\n*.svg\n*.ico\n*.webp\n")
+                f.write("\n# Logs\n*.log\n")
+            print_ok("Hardened .codannaignore with AI skills, media, and log patterns")
+
         print_step("Indexing Codebase with Codanna (This may take a moment)...")
         run_command_stream("codanna index .")
         print_step("Adding Docs collection...")
