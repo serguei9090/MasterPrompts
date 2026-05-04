@@ -104,4 +104,5 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 - **No skipping**: A layer can only be skipped if a tool is confirmed unavailable (MCP error).
 - **Silent Mode**: Use the `scripts/cognee/` proxy scripts — never call cognee CLI directly.
 - **No Autonomous Reset**: The `prune.py` (Nuclear Reset) script MUST NEVER be executed by an AI agent autonomously. It is a manual recovery tool only.
+- **Local Concurrency Law**: In local environments using file-based backends (Kůzu, SQLite), ALL Cognee operations (recall, index, trace) MUST be executed **sequentially**. Never attempt to run multiple Cognee CLI scripts in parallel, as the physical file lock will cause terminal IO exceptions.
 - **Local Isolation**: Cognee data lives in `.cognee/` (Git ignored). Never commit the graph.

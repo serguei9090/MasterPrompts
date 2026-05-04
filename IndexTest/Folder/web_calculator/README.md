@@ -6,6 +6,7 @@ A premium, tactical web calculator built with the Morphic "Engine Precision" phi
 - **Tactical UI**: Obsidian-based glassmorphic design with tactical green accents.
 - **Sidecar Logic**: Mathematical operations are processed via a FastAPI backend, ensuring precision and separation of concerns.
 - **Animated Interactions**: Smooth transitions using Framer Motion.
+- **Operation History**: Real-time tracking of previous calculations in a persistent sidebar.
 - **Standard Compliant**: Adheres to the Sidecar Standard and Morphic Architecture protocols.
 
 ## Tech Stack

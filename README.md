@@ -69,6 +69,20 @@ This framework employs a state-of-the-art 5-layer memory stack to provide agents
 *   **Function**: Authoritative source for issue tracking, session handoffs, and operational history using a graph-based versioned database (Dolt).
 *   **Tool**: `bd` (Beads).
 
+## ⚠️ Concurrency & Multi-Process Limits
+
+In local environments using the default file-based storage, the **Morphic Intelligence Stack** (specifically Cognee/KůzuDB) uses strict file-based locking. 
+
+### Local Concurrency Law
+*   **Sequential Access Only**: You MUST run Cognee operations (`recall`, `index`, `trace`) sequentially. Running multiple memory-related scripts in different terminal windows simultaneously will cause `IO exception: Could not set lock on file` errors.
+*   **The Rule**: This is enforced via the **Local Concurrency Law** in `.agents/rules/System/IntelligenceStack.md`.
+
+### Scaling for Multi-User/Multi-Agent Support
+If your use case requires multiple processes or agents to read/write memory simultaneously:
+1.  **Switch to Server-Based DBs**: Refer to the [Cognee Documentation](https://docs.cognee.ai) to configure **PostgreSQL** (Relational) and **Neo4j** or **Qdrant** (Graph/Vector) as your providers.
+2.  **Update Governance**: You must modify the **Local Concurrency Law** in `.agents/rules/System/IntelligenceStack.md` once your environment is upgraded to a server-based architecture.
+3.  **Alternative (Sidecar)**: Use a single "Sidecar" API process to act as the sole database owner, allowing other clients to connect via HTTP without hitting file-system locks.
+
 ## 📦 Installing the Framework into a Project
 
 When you download the Morphic Framework bundle (`morphic_v0.10.7.tar.gz`), extract it into your target project directory and run the single Python installer. 
