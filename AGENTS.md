@@ -1,4 +1,4 @@
-# Master AI Context: Morphic AI Engineering Framework (v0.10.7)
+# Master AI Context: Morphic AI Engineering Framework (v0.11.0)
 
 Welcome to the Morphic AI Engineering Framework. This workspace is governed by high-performance software engineering laws.
 

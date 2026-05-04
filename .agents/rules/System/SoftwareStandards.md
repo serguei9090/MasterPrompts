@@ -39,6 +39,9 @@ description: Senior-level software engineering philosophy and language-specific 
 - **Context Managers**: Always use `with` statements for resource management.
 - **Error Handling**: Use bare `raise` to preserve stack traces. Chain with `raise X from e`.
 - **Collections**: Use `Counter` for counting, `defaultdict` for initialization.
+- **ASCII-Only Terminal Output**: All terminal decorations (boxes, arrows, dividers) MUST use ASCII-only characters to ensure cross-platform compatibility (prevents CP1252 encoding errors on Windows).
+- **Ruff Pre-test Gate**: Proactively run `ruff check` before `pytest`. A single syntax/import error in a test file can block the entire collection process; Ruff catches these faster.
+- **Async Test Support**: Standardize on `pytest-asyncio` in `auto` mode for all asynchronous Python logic.
 - **Data Classes**: Use `pydantic` for API models, Python `dataclasses` for internal state.
 
 ### 3.2 JavaScript / TypeScript (bun / biome)
