@@ -147,10 +147,13 @@ def _collect_files(root: Path) -> list[str]:
                 results.append(os.path.join(walk_root, fname))
     return sorted(results)
 
-async def run_index(target_dir: Path, dataset_name: str, batch_size: int, script_log_level: str):
+async def run_index(target_dir: Path, dataset_name: str, batch_size: int, script_log_level: str, explicit_files: list[str] = None):
     import cognee # MUST be after bootstrap
 
-    files = _collect_files(target_dir)
+    if explicit_files:
+        files = [str(Path(f).resolve()) for f in explicit_files if Path(f).exists()]
+    else:
+        files = _collect_files(target_dir)
     total = len(files)
 
     if not files:
@@ -206,13 +209,17 @@ async def main():
     parser = argparse.ArgumentParser(prog="cognee-indexer", description="Cognee workspace indexer")
     parser.add_argument("--full", action="store_true")
     parser.add_argument("--dir", metavar="PATH", default=None)
+    parser.add_argument("files", nargs="*", help="Specific files to index")
     args = parser.parse_args()
 
     dataset = os.getenv("COGNEE_DATASET", PROJECT_ROOT.name)
     batch = int(os.getenv("COGNEE_BATCH_SIZE", "1"))
     script_ll = os.getenv("COGNEE_INDEX_LOG_LEVEL", "INFO").upper()
 
-    if args.dir:
+    if args.files:
+        mode_label = f"FILES · {len(args.files)} specified"
+        target = PROJECT_ROOT
+    elif args.dir:
         target = Path(args.dir).resolve()
         mode_label = f"DIR  · {target.relative_to(PROJECT_ROOT)}"
     else:
@@ -227,7 +234,7 @@ async def main():
     _print("-------------------------------------------")
 
     try:
-        result = await run_index(target, dataset, batch, script_ll)
+        result = await run_index(target, dataset, batch, script_ll, explicit_files=args.files)
     except (asyncio.CancelledError, KeyboardInterrupt):
         _print()
         _print("\n  [!]  ABORTED BY USER. Stopping gracefully...")

@@ -106,9 +106,7 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 1.  **Cognify Lessons:** `uv run python scripts/cognee/trace.py` to distill atomic lessons into the graph.
 2.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered, run `bd remember "RULE [Feature]: [Fact]"`. Also, update `docs/track/LessonsLearned.md` with the detailed technical summary.
 3.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
-4.  **Index Specs:** Run `uv run python scripts/cognee/indexer.py` to index the new architectural decisions.
-5.  **Self-Improvement:** `uv run python scripts/cognee/improve.py` pass to refine graph structures.
-6.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
+4.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
 
 ---
 

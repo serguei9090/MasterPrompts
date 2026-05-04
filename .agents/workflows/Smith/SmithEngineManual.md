@@ -82,10 +82,9 @@ Execute the software development cycle with explicit user gating at critical arc
 **Mindset:** Every task is a lesson. Distill it.
 **Execution:**
 1. **Cognify**: Run `uv run python scripts/cognee/trace.py` to distill architectural lessons into the graph.
-2. **Sync Code**: Run `uv run python scripts/cognee/indexer.py` to update the codebase Knowledge Graph.
-3. **Atomic Facts**: Run `bd remember "RULE [feature]: [fact]"` for any high-signal discoveries.
-4. **LessonsLearned**: Update `docs/track/LessonsLearned.md` with a brief entry.
-5. **Docs**: If new libraries were added or architecture changed, update `Architecture.md` or `README.md`.
+2. **Atomic Facts**: Run `bd remember "RULE [feature]: [fact]"` for any high-signal discoveries.
+3. **LessonsLearned**: Update `docs/track/LessonsLearned.md` with a brief entry.
+4. **Docs**: If new libraries were added or architecture changed, update `Architecture.md` or `README.md`.
 
 ---
 

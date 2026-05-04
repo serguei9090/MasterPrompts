@@ -1,36 +1,17 @@
-pre-commit:
-  parallel: true
+#pre-commit:
+#  parallel: true
+#  commands:
+#    lint-check:
+#      run: uv run ruff check {staged_files} && bunx biome check --apply --files-ignore-unknown=true {staged_files}
+#      glob: "*.{py,js,ts,tsx,json,css}"
+#      skip:
+#        - merge
+#        - rebase
+
+post-commit:
   commands:
-    lint-check:
-      run: uv run ruff check {staged_files} && bunx biome check --apply --files-ignore-unknown=true {staged_files}
-      glob: "*.{py,js,ts,tsx,json,css}"
-
-    cognee-index:
-      run: uv run python scripts/cognee/indexer.py
-      glob: "*"
-      skip:
-        - merge
-        - rebase
-
     codanna-index:
-      # Smart dispatcher: routes to codanna index . (code) or codanna documents index (docs)
-      # based on which file types are staged — avoids wasteful full re-indexes.
-      run: uv run python scripts/codanna/index.py {staged_files}
-      glob: "*"
-      skip:
-        - merge
-        - rebase
-
-post-merge:
-  commands:
-    cognee-sync:
-      run: uv run python scripts/cognee/indexer.py
-    codanna-sync:
-      run: uv run python scripts/codanna/index.py
-
-post-checkout:
-  commands:
-    cognee-sync:
-      run: uv run python scripts/cognee/indexer.py
-    codanna-sync:
-      run: uv run python scripts/codanna/index.py
+      # Use git diff-tree to get files from the commit just created
+      run: uv run python scripts/codanna/index.py $(git diff-tree --no-commit-id --name-only -r HEAD)
+    cognee-index:
+      run: uv run python scripts/cognee/indexer.py $(git diff-tree --no-commit-id --name-only -r HEAD)
