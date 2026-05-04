@@ -51,9 +51,9 @@ L0: Sequential Thinking  →  Final synthesis and ripple effect reasoning
 ### L2 — Cognee (Semantic Memory)
 - **Purpose**: Retrieve the "Why" — architectural rationale, historical decisions, lessons learned, and task-specific "Post-it" notes.
 - **Commands**:
-  - **Thought Memory (Task Context)**: `uv run python scripts/cognee/memory.py recall <BEAD_ID>` (Retrieve micro-decisions for current task)
+  - **Thought Memory (Task Context)**: `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` (Retrieve micro-decisions for current task)
   - **Checkpoint (Task Note)**: `uv run python scripts/cognee/memory.py add <BEAD_ID> --content "..."` (Save discovery/decision mid-task)
-  - **Semantic Recall (Rationale)**: `uv run python scripts/cognee/recall.py "query here"` (Retrieve permanent architectural rationale)
+  - **Semantic Recall (Rationale)**: `uv run python scripts/cognee/recall.py "query here" --json` (Retrieve permanent architectural rationale)
   - **Store (Distillation)**: `uv run python scripts/cognee/trace.py` (Save permanent lessons post-task)
   - **Sync (Ingestion)**: `uv run scripts/cognee/indexer.py` (Index codebase after structural changes)
   - **Prune (Reset)**: `uv run python scripts/cognee/prune.py` (MANUAL ONLY: Hard reset for corrupted ingestion queues. Destructive.)
@@ -93,9 +93,9 @@ L0: Sequential Thinking  →  Final synthesis and ripple effect reasoning
 
 ### Pre-Task Checklist (Run in order)
 1. `bd ready` — Load current task state and identify the active `BEAD_ID`.
-2. `uv run python scripts/cognee/memory.py recall <BEAD_ID>` — Retrieve any existing "Thought Memory" (short-term notes) for this task.
-3. `uv run scripts/cognee/recall.py "[task description]"` — Load broader semantic context and permanent architectural rationale.
-4. `codanna mcp analyze_impact --args '{"name": "[affected symbol]"}' --json` — Map physical impact.
+2. `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` — Retrieve any existing "Thought Memory" (short-term notes) for this task.
+3. `uv run scripts/cognee/recall.py "[task description]" --json` — Load broader semantic context and permanent architectural rationale.
+4. `uv run scripts/codanna/impact.py <SymbolName>` — MANDATORY: Map physical impact and call sites.
 5. `/DocsReview` — If external libraries are involved.
 6. Sequential Thinking — Synthesize findings into a plan.
 7. `bd create "<task>"` — Register the plan before touching code.

@@ -1,6 +1,11 @@
-﻿## 2026-05-04 - Advanced Calculator Functions
+## 2026-05-04 - Calculator UI Refactor & Conversion Operations
+- **Single-Operand Ergonomics**: Conversion operations (like `×100`) should be handled as "Quick Operations" in the UI to prevent state collisions with dual-operand math flows. This allows for an "instant result" feel while keeping the backend logic centralized in the sidecar.
+- **Micro-Sizing Buttons**: When refactoring for a "tactical" or "compact" feel, reducing padding from `1rem` to `0.75rem` and font size to `0.875rem` provides a high-density UI without sacrificing touch/click target reliability.
+- **Sidecar Schema Evolution**: Adding operations to a `Literal` in Pydantic models provides immediate type safety and documentation for the entire full-stack bridge.
+
+## 2026-05-04 - Advanced Calculator Functions
 - **Trigonometric Functions**: Successfully integrated math.cos and math.sin into the sidecar. Used 
-um1 as the single operand for these unary operations to fit the existing CalculatorRequest schema.
+num1 as the single operand for these unary operations to fit the existing CalculatorRequest schema.
 - **UI Consistency**: Maintained existing design patterns using lucide-react icons and glassmorphism.
 - **Testing**: Extended existing pytest suite to cover new operations, ensuring regression safety.
 

@@ -22,9 +22,9 @@ Execute the software development cycle with explicit user gating at critical arc
    - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Cognee) for *initial* discovery is a protocol violation.
    - **Refinement Discovery**: If L1/L2 data is insufficient or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial graph check but *before* proceeding to Sequential Thinking or Docs Review.
    - **Beads Sync**: Run `bd ready` to load the active task state.
-   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve task-specific context.
+   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` to retrieve task-specific context.
    - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies.
-   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale.
+   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py "[query]" --json` to retrieve rationale.
    - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
    - **Sequential Thinking**: Only trigger this AFTER L1/L2 results are processed. Synthesize into a multi-step plan.
 2. **Handoff Summary**: Produce a brief for `@brain`.
@@ -88,12 +88,13 @@ Execute the software development cycle with explicit user gating at critical arc
 
 ### Phase 5: Memory Distillation & Knowledge Sync
 **Assume Role:** `@scribe` + `@memory-manager`
-**Mindset:** Every task is a lesson. Distill it.
+**Mindset:** Every task is a lesson. Distill it across the full Intelligence Stack.
 **Execution:**
-1. **Cognify**: Run `uv run python scripts/cognee/trace.py` to distill architectural lessons into the graph.
-2. **Atomic Facts**: Run `bd remember "RULE [feature]: [fact]"` for any high-signal discoveries.
-3. **LessonsLearned**: Update `docs/track/LessonsLearned.md` with a brief entry.
-4. **Docs**: If new libraries were added or architecture changed, update `Architecture.md` or `README.md`.
+1.  **L2 Semantic Distillation (MANDATORY):** Run `uv run python scripts/cognee/trace.py` to distill architectural lessons into the graph.
+2.  **L5 Operational Facts (MANDATORY):** Run `bd remember "RULE [feature]: [fact]"` for any high-signal discoveries or new constraints.
+3.  **Audit Documentation (MANDATORY):** Update `docs/track/LessonsLearned.md` with a brief entry describing the changes and logic.
+4.  **Physical Documentation:** If new libraries were added or architecture changed, update `Architecture.md` or `README.md`.
+5.  **Long-Form Specs:** If a complex architecture or large API spec was created, write/update details in `docs/memory/specs/`.
 
 ---
 

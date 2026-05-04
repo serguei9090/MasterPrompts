@@ -20,8 +20,9 @@ Execute a complete, end-to-end software development cycle autonomously using a s
    - **MANDATORY**: You MUST execute L1 (Codanna) checks before starting any development or reasoning.
    - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Beads) for *initial* discovery is a protocol violation.
    - **Refinement Discovery**: If L1/L5 results are incomplete or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial checks but *before* proceeding to Sequential Thinking or Docs Review.
-   - **Beads Sync (L5)**: Run `bd ready` to load the active task state. Use `bd search` for persistent context.
-   - **Codanna (Physical & Semantic - L1)**: Use `uv run scripts/codanna/impact.py <name>` or `search.py` to map dependencies and locate code.
+   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` to retrieve task-specific context.
+   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies.
+   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py "[query]" --json` to retrieve rationale.
    - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
    - **Sequential Thinking**: Only trigger this AFTER L1 results are processed. Synthesize results into a multi-step plan.
 2. **Task Registration**:
@@ -40,9 +41,11 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
 3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-4. **Graph Impact Analysis**: 
-   - `uv run scripts/codanna/calls.py <name>` and `uv run scripts/codanna/callers.py <name>` to map dependencies and call sites.
-   - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` to retrieve project-specific documentation and patterns.
+4. **Impact Analysis (MANDATORY)**: 
+   - `uv run scripts/codanna/impact.py <name>` to map physical dependencies and impact.
+   - `uv run scripts/codanna/calls.py <name>` to map physical call sites.
+   - `uv run python scripts/cognee/recall.py "rationale for [X]" --json` to verify semantic intent.
+   - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` for project patterns.
    - `uv run scripts/codanna/search.py "query" --context` to semantically search code for fuzzy concepts.
 5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
    - *Note*: If more details are needed before planning, use manual tools (`grep_search`, `view_file`) now to ensure the plan is grounded in physical reality.
@@ -108,10 +111,11 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 **Role:** `@memory-manager`
 **Objective:** Store technical decisions and lessons learned for future sessions using the lean Memory Architecture.
 **Actions:**
-1.  **Atomic Facts (Beads):** If a new rule or brief fact was discovered, run `bd remember "RULE [Feature]: [Fact]"`. Also, update `docs/track/LessonsLearned.md` with the detailed technical summary.
-2.  **Long-Form Specs (Markdown):** If a complex architecture or large API spec was created, write the details to a file in `docs/memory/` (e.g., `docs/memory/specs/feature_x.md`).
-3.  **Index Specs & Code:** Run `uv run scripts/codanna/index.py` and `codanna documents index` to embed the new code and architectural decisions.
-4.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
+1.  **L5 Operational Facts (MANDATORY):** If a new rule, project constraint, or physical fact was discovered, run `bd remember "RULE [Feature]: [Fact]"`. This ensures future agents are governed by these constraints.
+2.  **Audit Documentation (MANDATORY):** Update `docs/track/LessonsLearned.md` with a detailed technical summary of the "Why" and the "How".
+3.  **L1 Physical Sync (MANDATORY):** Run `uv run scripts/codanna/index.py` and `codanna documents index` to embed the new code and architectural decisions.
+4.  **Long-Form Specs:** If a complex architecture or large API spec was created, write/update details in `docs/memory/specs/`.
+5.  **Handoff Manifest:** Generate/update `handoff.json` referencing the active `bd` issue ID and current branch state.
 
 ---
 
