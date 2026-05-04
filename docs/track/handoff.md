@@ -1,14 +1,19 @@
-# Handoff - 2026-05-04 17:08
+# Session Handoff Manifest
 
-## Status: Success
-Task MasterPrompts-mdm completed successfully. Integrated a circular level counter and "divide by 20" operation into the web_calculator.
+**Date:** 2026-05-04
+**Status:** Success
+**Active Issue:** MasterPrompts-qo0
+
+## Summary
+Successfully implemented the mass and distance conversion operations as distinct modes in the calculator, and refactored the history panel into a toggleable floating sidebar.
 
 ## Actionable Artifacts
-- [api.py](file:///i:/01-Master_Code/General/MasterPrompts/IndexTest/Folder/web_calculator/sidecar/src/api.py): Added `div20` support and `divide_by_20` function.
-- [App.tsx](file:///i:/01-Master_Code/General/MasterPrompts/IndexTest/Folder/web_calculator/src/App.tsx): Implemented leveling logic (20 levels, 1.5x scaling) and circular progress UI. Added `÷20` button.
-- [App.css](file:///i:/01-Master_Code/General/MasterPrompts/IndexTest/Folder/web_calculator/src/App.css): Added styles for the level counter and progress circle.
-- [useSidecarBridge.ts](file:///i:/01-Master_Code/General/MasterPrompts/IndexTest/Folder/web_calculator/src/hooks/useSidecarBridge.ts): Updated `Operation` type to include `div20`.
+- `IndexTest/Folder/web_calculator/sidecar/src/api.py`
+- `IndexTest/Folder/web_calculator/src/App.tsx`
+- `IndexTest/Folder/web_calculator/src/App.css`
+- `IndexTest/Folder/web_calculator/src/hooks/useSidecarBridge.ts`
+- `docs/track/LessonsLearned.md`
+- `docs/track/specs/MasterPrompts-qo0.md`
 
 ## Next Steps
-- Implement persistent storage for the level progress (results count) if requested.
-- Add sound effects or visual "Level Up" notifications for better user feedback.
+- Continue verifying other operations or begin next issue from the roadmap.

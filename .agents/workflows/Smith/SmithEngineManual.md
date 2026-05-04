@@ -22,7 +22,7 @@ Execute the software development cycle with explicit user gating at critical arc
 
 > **[DIRECTIVE 0.2]: INTELLIGENCE DISCOVERY**
 > *If the target symbol is unknown, use search.py first. Once identified:*
-> 1. `uv run scripts/codanna/impact.py <SymbolName>` (Mandatory: Map physical dependencies)
+> 1. `uv run scripts/codanna/impact.py <SymbolName>` (Mandatory: Map physical dependencies. *If 0 symbols are returned, you MUST try at least one alternative related symbol before proceeding.*)
 > 2. `uv run python scripts/cognee/recall.py "[query]" --json` (Mandatory: Load architectural rationale)
 
 **[TRUTH AUDIT 0]**: Did I run all L1/L2/L5 commands? If NO, run them now. If YES, summarize findings for `@brain`.
@@ -41,9 +41,9 @@ Execute the software development cycle with explicit user gating at critical arc
 > Now you SHOULD use `view_file` or `grep_search` to verify line ranges or specific logic.
 
 > **[DIRECTIVE 1.3]: ARCHITECTURAL ANCHOR**
-> 1. `sequentialthinking` (Synthesize plan based on L1/L2/Physical data)
+> 1. `sequentialthinking` (Synthesize plan based on L1/L2/Physical data. *You MUST physically invoke the tool; synthesizing only in your internal thought block is a violation.*)
 > 2. `bd create` (Anchor sub-tasks in the roadmap)
-> 3. Write implementation spec to `docs/track/specs/<bead_id>.md`.
+> 3. Write implementation spec to `docs/track/specs/<bead_id>.md`. (*You MUST physically create this file using write_to_file.*)
 
 **[TRUTH AUDIT 1]**: Is the plan grounded in L1/L2 physical reality? Does it follow `Architecture.md`? If YES, proceed to Phase 2.
 
@@ -81,7 +81,7 @@ Execute the software development cycle with explicit user gating at critical arc
 **Assume Role:** `@auditor` (`@lint` → `@test` → `@ui-auditor`)
 **Mindset:** Unforgiving. A single failing check blocks the release.
 **Execution:**
-1. **Lint**: Run `uv run ruff check --fix` (Python) and `bunx biome check --write` (JS/TS). Max 3 fix attempts.
+1. **Lint**: Run `uv run ruff check --fix` (Python) and `bunx biome check --write` (JS/TS). Max 3 fix attempts. *(Exception: If the binary is missing, document and proceed).*
 2. **Tests**: Run `uv run pytest` or `bun test`. Max 3 fix attempts. A failing test is a hard stop.
 3. **Visual Parity** (UI tasks): Compare implementation against `DESIGN.md`. Verify all states, focus rings, and motion timing.
 4. **Audit Report**: Generate a brief pass/fail summary.

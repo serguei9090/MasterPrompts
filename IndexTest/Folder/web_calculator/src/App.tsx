@@ -2,13 +2,17 @@ import { AnimatePresence, motion } from "framer-motion";
 import {
 	AlertCircle,
 	Calculator as CalcIcon,
+	ChevronLeft,
+	ChevronRight,
 	Divide,
 	History as HistoryIcon,
 	Minus,
 	Percent,
 	Plus,
 	RotateCcw,
+	Ruler,
 	Trash2,
+	Weight,
 	X,
 } from "lucide-react";
 import type React from "react";
@@ -28,6 +32,10 @@ const App: React.FC = () => {
 	const [isNewEntry, setIsNewEntry] = useState(true);
 	const [history, setHistory] = useState<HistoryEntry[]>([]);
 	const [resultsCount, setResultsCount] = useState(0);
+	const [calcMode, setCalcMode] = useState<"math" | "mass" | "distance">(
+		"math",
+	);
+	const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
 	const LEVEL_REQUIREMENTS = [
 		4, 6, 9, 14, 21, 31, 47, 70, 105, 157, 236, 354, 531, 796, 1194, 1791, 2686,
@@ -116,6 +124,14 @@ const App: React.FC = () => {
 				return "×100";
 			case "div20":
 				return "÷20";
+			case "mass_kg_lb":
+				return "kg→lb";
+			case "mass_lb_kg":
+				return "lb→kg";
+			case "dist_mm_cm":
+				return "mm→cm";
+			case "dist_cm_mm":
+				return "cm→mm";
 		}
 	};
 
@@ -181,6 +197,14 @@ const App: React.FC = () => {
 				return <span className="text-xs font-bold">×100</span>;
 			case "div20":
 				return <span className="text-xs font-bold">÷20</span>;
+			case "mass_kg_lb":
+				return <span className="text-xs font-bold">kg→lb</span>;
+			case "mass_lb_kg":
+				return <span className="text-xs font-bold">lb→kg</span>;
+			case "dist_mm_cm":
+				return <span className="text-xs font-bold">mm→cm</span>;
+			case "dist_cm_mm":
+				return <span className="text-xs font-bold">cm→mm</span>;
 		}
 	};
 
@@ -235,6 +259,39 @@ const App: React.FC = () => {
 							</span>
 						</div>
 					</header>
+
+					<div className="mode-selector">
+						<button
+							className={`mode-btn ${calcMode === "math" ? "active" : ""}`}
+							onClick={() => setCalcMode("math")}
+						>
+							<CalcIcon
+								size={12}
+								style={{ display: "inline", marginRight: "4px" }}
+							/>{" "}
+							Math
+						</button>
+						<button
+							className={`mode-btn ${calcMode === "mass" ? "active" : ""}`}
+							onClick={() => setCalcMode("mass")}
+						>
+							<Weight
+								size={12}
+								style={{ display: "inline", marginRight: "4px" }}
+							/>{" "}
+							Mass
+						</button>
+						<button
+							className={`mode-btn ${calcMode === "distance" ? "active" : ""}`}
+							onClick={() => setCalcMode("distance")}
+						>
+							<Ruler
+								size={12}
+								style={{ display: "inline", marginRight: "4px" }}
+							/>{" "}
+							Distance
+						</button>
+					</div>
 
 					<section className="display-area">
 						<AnimatePresence mode="wait">
@@ -292,51 +349,114 @@ const App: React.FC = () => {
 						</div>
 
 						<div className="grid-ops">
-							{(
-								["add", "sub", "mul", "div", "mod", "cos", "sin"] as Operation[]
-							).map((op) => (
-								<button
-									type="button"
-									key={op}
-									onClick={() => handleOperation(op)}
-									className={`btn btn-op glow-hover ${operation === op ? "btn-op-active" : ""}`}
-								>
-									{getOpIcon(op)}
-								</button>
-							))}
-							<button
-								type="button"
-								onClick={() => handleQuickOperation("mul100")}
-								className="btn btn-op btn-quick glow-hover"
-								disabled={loading}
-							>
-								{getOpIcon("mul100")}
-							</button>
-							<button
-								type="button"
-								onClick={() => handleQuickOperation("div20")}
-								className="btn btn-op btn-quick glow-hover"
-								disabled={loading}
-							>
-								{getOpIcon("div20")}
-							</button>
-							<button
-								type="button"
-								onClick={handleCalculate}
-								className="btn btn-equal glow-hover"
-								disabled={loading}
-							>
-								=
-							</button>
+							{calcMode === "math" && (
+								<>
+									{(
+										[
+											"add",
+											"sub",
+											"mul",
+											"div",
+											"mod",
+											"cos",
+											"sin",
+										] as Operation[]
+									).map((op) => (
+										<button
+											type="button"
+											key={op}
+											onClick={() => handleOperation(op)}
+											className={`btn btn-op glow-hover ${operation === op ? "btn-op-active" : ""}`}
+										>
+											{getOpIcon(op)}
+										</button>
+									))}
+									<button
+										type="button"
+										onClick={() => handleQuickOperation("mul100")}
+										className="btn btn-op btn-quick glow-hover"
+										disabled={loading}
+									>
+										{getOpIcon("mul100")}
+									</button>
+									<button
+										type="button"
+										onClick={() => handleQuickOperation("div20")}
+										className="btn btn-op btn-quick glow-hover"
+										disabled={loading}
+									>
+										{getOpIcon("div20")}
+									</button>
+									<button
+										type="button"
+										onClick={handleCalculate}
+										className="btn btn-equal glow-hover"
+										disabled={loading}
+									>
+										=
+									</button>
+								</>
+							)}
+
+							{calcMode === "mass" && (
+								<>
+									<button
+										type="button"
+										onClick={() => handleQuickOperation("mass_kg_lb")}
+										className="btn btn-op btn-quick glow-hover"
+										disabled={loading}
+									>
+										{getOpIcon("mass_kg_lb")}
+									</button>
+									<button
+										type="button"
+										onClick={() => handleQuickOperation("mass_lb_kg")}
+										className="btn btn-op btn-quick glow-hover"
+										disabled={loading}
+									>
+										{getOpIcon("mass_lb_kg")}
+									</button>
+								</>
+							)}
+
+							{calcMode === "distance" && (
+								<>
+									<button
+										type="button"
+										onClick={() => handleQuickOperation("dist_mm_cm")}
+										className="btn btn-op btn-quick glow-hover"
+										disabled={loading}
+									>
+										{getOpIcon("dist_mm_cm")}
+									</button>
+									<button
+										type="button"
+										onClick={() => handleQuickOperation("dist_cm_mm")}
+										className="btn btn-op btn-quick glow-hover"
+										disabled={loading}
+									>
+										{getOpIcon("dist_cm_mm")}
+									</button>
+								</>
+							)}
 						</div>
 					</div>
 				</motion.div>
 
-				<motion.div
-					initial={{ opacity: 0, x: 20 }}
-					animate={{ opacity: 1, x: 0 }}
-					transition={{ delay: 0.1 }}
-					className="history-panel glass-panel"
+				<button
+					className={`history-toggle-btn ${isHistoryOpen ? "open" : ""}`}
+					onClick={() => setIsHistoryOpen(!isHistoryOpen)}
+					title="Toggle History"
+				>
+					{isHistoryOpen ? (
+						<ChevronRight size={20} />
+					) : (
+						<ChevronLeft size={20} />
+					)}
+				</button>
+
+				<div
+					className={`history-panel glass-panel ${isHistoryOpen ? "open" : ""}`}
 				>
 					<header className="history-header">
 						<div className="title-group">
@@ -372,7 +492,7 @@ const App: React.FC = () => {
 							)}
 						</AnimatePresence>
 					</div>
-				</motion.div>
+				</div>
 			</div>
 
 			<footer className="footer label-caps">

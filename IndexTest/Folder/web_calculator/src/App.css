@@ -10,19 +10,10 @@
 
 .main-layout {
 	display: flex;
-	gap: 2rem;
-	align-items: flex-start;
+	flex-direction: column;
+	align-items: center;
 	width: 100%;
-	max-width: 800px;
-	justify-content: center;
-}
-
-@media (max-width: 768px) {
-	.main-layout {
-		flex-direction: column;
-		align-items: center;
-		max-width: 400px;
-	}
+	max-width: 400px;
 }
 
 .calculator-card {
@@ -36,14 +27,55 @@
 }
 
 .history-panel {
+	position: fixed;
+	right: -340px;
+	top: 50%;
+	transform: translateY(-50%);
 	width: 100%;
 	max-width: 320px;
 	height: 520px;
 	padding: 1.5rem;
-	border-radius: 1.5rem;
+	border-radius: 1.5rem 0 0 1.5rem;
 	display: flex;
 	flex-direction: column;
 	gap: 1.5rem;
+	z-index: 100;
+	transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+	box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.history-panel.open {
+	right: 0;
+}
+
+.history-toggle-btn {
+	position: fixed;
+	right: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	background: var(--bg-surface);
+	border: 1px solid var(--border);
+	border-right: none;
+	padding: 1rem 0.5rem;
+	border-radius: 0.5rem 0 0 0.5rem;
+	color: var(--primary);
+	cursor: pointer;
+	z-index: 101;
+	transition:
+		right 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+		background 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.history-toggle-btn:hover {
+	background: var(--bg-surface-bright);
+}
+
+.history-toggle-btn.open {
+	right: 320px;
 }
 
 .history-header {
@@ -197,6 +229,34 @@
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
+}
+
+.mode-selector {
+	display: flex;
+	gap: 0.25rem;
+	background: rgba(0, 0, 0, 0.2);
+	padding: 0.25rem;
+	border-radius: 0.5rem;
+	margin: 0.5rem 0;
+}
+
+.mode-btn {
+	background: transparent;
+	border: none;
+	color: var(--text-muted);
+	padding: 0.25rem 0.5rem;
+	border-radius: 0.25rem;
+	font-size: 0.625rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	cursor: pointer;
+	transition: all 0.2s;
+	text-transform: uppercase;
+}
+
+.mode-btn.active {
+	background: var(--primary-muted);
+	color: var(--primary);
 }
 
 .status-dot {

@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 class CalculatorRequest(BaseModel):
-    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin", "mul100", "div20"]
+    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin", "mul100", "div20", "mass_kg_lb", "mass_lb_kg", "dist_mm_cm", "dist_cm_mm"]
     num1: float
     num2: float
 
@@ -56,6 +56,18 @@ def sine(a: float) -> float:
 def multiply_by_100(a: float) -> float:
     return a * 100
 
+def mass_kg_to_lb(a: float) -> float:
+    return a * 2.20462
+
+def mass_lb_to_kg(a: float) -> float:
+    return a / 2.20462
+
+def dist_mm_to_cm(a: float) -> float:
+    return a / 10.0
+
+def dist_cm_to_mm(a: float) -> float:
+    return a * 10.0
+
 @app.post("/calculate", response_model=CalculatorResponse)
 async def calculate(request: CalculatorRequest):
     try:
@@ -77,6 +89,14 @@ async def calculate(request: CalculatorRequest):
             result = sine(request.num1)
         elif request.operation == "mul100":
             result = multiply_by_100(request.num1)
+        elif request.operation == "mass_kg_lb":
+            result = mass_kg_to_lb(request.num1)
+        elif request.operation == "mass_lb_kg":
+            result = mass_lb_to_kg(request.num1)
+        elif request.operation == "dist_mm_cm":
+            result = dist_mm_to_cm(request.num1)
+        elif request.operation == "dist_cm_mm":
+            result = dist_cm_to_mm(request.num1)
         else:
             raise HTTPException(status_code=400, detail="Invalid operation")
         

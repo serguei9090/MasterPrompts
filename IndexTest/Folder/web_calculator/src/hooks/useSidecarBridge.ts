@@ -9,7 +9,11 @@ export type Operation =
 	| "cos"
 	| "sin"
 	| "mul100"
-	| "div20";
+	| "div20"
+	| "mass_kg_lb"
+	| "mass_lb_kg"
+	| "dist_mm_cm"
+	| "dist_cm_mm";
 
 interface CalculatorRequest {
 	operation: Operation;

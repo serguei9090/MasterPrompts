@@ -22,7 +22,7 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 
 > **[DIRECTIVE 0.2]: INTELLIGENCE DISCOVERY**
 > *If the target symbol is unknown, use search.py first. Once identified:*
-> 1. `uv run scripts/codanna/impact.py <SymbolName>` (Mandatory: Map physical dependencies)
+> 1. `uv run scripts/codanna/impact.py <SymbolName>` (Mandatory: Map physical dependencies. *If 0 symbols are returned, you MUST try at least one alternative related symbol before proceeding.*)
 > 2. `uv run python scripts/cognee/recall.py "[query]" --json` (Mandatory: Load architectural rationale)
 
 **[TRUTH AUDIT 0]**: Did I run all L1/L2/L5 commands? If NO, run them now. If YES, summarize findings for `@brain`.
@@ -42,9 +42,9 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 > Now you MAY use `view_file` or `grep_search` to verify line ranges or specific logic found in the graph.
 
 > **[DIRECTIVE 1.3]: ARCHITECTURAL ANCHOR**
-> 1. `sequentialthinking` (Synthesize plan based on L1/Physical data)
+> 1. `sequentialthinking` (Synthesize plan based on L1/Physical data. *You MUST physically invoke the tool or explicitly write out the steps; synthesizing only in your internal thought block is a violation.*)
 > 2. `bd create` (Anchor sub-tasks in the roadmap)
-> 3. Write implementation spec to `docs/track/specs/<bead_id>.md`.
+> 3. Write implementation spec to `docs/track/specs/<bead_id>.md`. (*You MUST physically create this file using write_to_file.*)
 
 **[TRUTH AUDIT 1]**: Is the plan grounded in L1 physical reality? Does it follow `Architecture.md`? If YES, proceed to Phase 2.
 
@@ -67,7 +67,7 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 **Mindset:** Unforgiving, format-obsessed.
 **Execution:**
 1. **Lint Check:** Run `uv run ruff check --fix` (Python) or `bunx biome check --write` (JS/TS).
-2. **Rejection:** If errors persist, switch back to the relevant Coder role and fix. Limit: 3 attempts.
+2. **Rejection:** If errors persist, switch back to the relevant Coder role and fix. Limit: 3 attempts. *(Exception: If the binary like ruff is missing in the environment, document the omission and proceed, but do not ignore obvious syntax errors).*
 
 ---
 
@@ -87,7 +87,7 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 **Execution:**
 1. **Structural Audit:** Verify the new implementation against `.agents/rules/System/Architecture.md`.
 2. **AVAS Verification:** Ensure all visual/diagrammatic representations are correct and updated via `@diagram-agent`.
-3. **Health Audit:** Run `/project-audit` to generate a fresh `docs/track/audits/project-audit-<DATE>.md`.
+3. **Health Audit:** Run `/project-audit` to generate a fresh `docs/track/audits/project-audit-<DATE>.md`. *(Mandatory: Do NOT skip this step unless it is a documentation-only task).*
 4. **Logic Check:** Perform a final review of the data flow and state management integrity.
 
 ---
