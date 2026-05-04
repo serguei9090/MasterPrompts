@@ -1,4 +1,7 @@
-from src.api import add, subtract, multiply, divide
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
+from api import add, subtract, multiply, divide
 import pytest
 
 def test_add():

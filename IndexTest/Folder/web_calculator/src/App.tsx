@@ -130,6 +130,7 @@ const App: React.FC = () => {
 						{["7", "8", "9", "4", "5", "6", "1", "2", "3", "0", "."].map(
 							(n) => (
 								<button
+									type="button"
 									key={n}
 									onClick={() => handleNumber(n)}
 									className="btn btn-number glow-hover"
@@ -138,7 +139,11 @@ const App: React.FC = () => {
 								</button>
 							),
 						)}
-						<button onClick={handleClear} className="btn btn-clear glow-hover">
+						<button
+							type="button"
+							onClick={handleClear}
+							className="btn btn-clear glow-hover"
+						>
 							<RotateCcw size={18} />
 						</button>
 					</div>
@@ -146,6 +151,7 @@ const App: React.FC = () => {
 					<div className="grid-ops">
 						{(["add", "sub", "mul", "div"] as Operation[]).map((op) => (
 							<button
+								type="button"
 								key={op}
 								onClick={() => handleOperation(op)}
 								className={`btn btn-op glow-hover ${operation === op ? "btn-op-active" : ""}`}
@@ -154,6 +160,7 @@ const App: React.FC = () => {
 							</button>
 						))}
 						<button
+							type="button"
 							onClick={handleCalculate}
 							className="btn btn-equal glow-hover"
 							disabled={loading}
