@@ -15,7 +15,8 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 ### Phase 0: Memory Retrieval
 **Assume Role:** `@memory-manager`
 1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **Beads Sync**: Run `bd ready` to load the active task state and roadmap context.
+   - **Beads Sync**: Run `bd ready` to load the active task state and roadmap context to get the Bead ID.
+   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve any existing short-term context for this task.
    - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies and affected symbols. Use `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown.
    - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale and historical context.
    - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview` (use L3 `context` first for fast local docs → fallback to L4 `context7` for live web search).
@@ -55,7 +56,8 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 2. **Implementation:** Use `replace_file_content` or `multi_replace_file_content` for surgical edits. Avoid full-file rewrites.
 3. **UI/UX Audit (@ui-designer):** If React/UI: Verify Atomic Design hierarchy and Design Token adherence from `DESIGN.md`. Ensure animations/interactions are premium.
 4. **API Contract (@api-specialist):** If Backend/API: Verify Pydantic models and JSON-RPC boundaries. Ensure strict serialization.
-5. **Notes:** Document complex logic in `docs/WikiFlow/coder/notes.md`.
+5. **Context Checkpoints**: If you make a micro-decision or discovery mid-task, save it immediately: `uv run python scripts/cognee/memory.py add <BEAD_ID> --content "Decision: ..."`.
+6. **Notes:** Document complex logic in `docs/WikiFlow/coder/notes.md`.
 
 ---
 

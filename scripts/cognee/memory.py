@@ -20,16 +20,16 @@ def get_project_name():
 
 DATASET_NAME = os.getenv("COGNEE_DATASET", get_project_name())
 
-async def manage_session(action: str, session_id: str, content: str = None):
+async def manage_memory(action: str, session_id: str, content: str = None):
     """
-    Manages session-aware memory in Cognee.
+    Manages session-aware thought memory in Cognee.
     
     Args:
-        action (str): 'add' to store context, 'recall' to retrieve session context.
-        session_id (str): The unique identifier for the session (e.g. BEAD_ID).
+        action (str): 'add' to store context, 'recall' to retrieve memory context.
+        session_id (str): The unique identifier for the task/session (e.g. BEAD_ID).
         content (str): The context to store (only for 'add').
     """
-    print(f"\n--- COGNEE SESSION: {session_id} ---")
+    print(f"\n--- COGNEE THOUGHT MEMORY: {session_id} ---")
     
     try:
         if action == "add":
@@ -42,22 +42,22 @@ async def manage_session(action: str, session_id: str, content: str = None):
                 dataset_name = DATASET_NAME,
                 session_id = session_id
             )
-            print(f">>> CONTEXT ADDED TO SESSION")
+            print(f">>> CONTEXT ADDED TO MEMORY")
             return result
             
         elif action == "recall":
             # Recall with session_id will check session memory first
             results = await cognee.recall(
-                "Summarize the current session context and decisions.",
+                "Summarize the current thought memory context and decisions.",
                 session_id = session_id
             )
             
-            print(f">>> SESSION RECALL RESULTS:")
+            print(f"\n>>> THOUGHT MEMORY RECALL RESULTS:")
             if results:
                 for res in results:
                     print(f"\n- {res}")
             else:
-                print("No session context found.")
+                print("No contextual memory found for this session.")
             return results
 
     except Exception as e:
@@ -73,7 +73,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     try:
-        asyncio.run(manage_session(args.action, args.session_id, args.content))
+        asyncio.run(manage_memory(args.action, args.session_id, args.content))
     except KeyboardInterrupt:
         print("\n  ⊘  Interrupted.", file=sys.stderr)
         sys.exit(0)

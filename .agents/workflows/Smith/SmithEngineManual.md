@@ -16,9 +16,10 @@ Execute the software development cycle with explicit user gating at critical arc
 **Assume Role:** `@memory-manager`
 **Mindset:** Zero-guesswork. Use real data only.
 **Execution:**
-1. **Beads Sync**: Run `bd ready` to load active task state.
-2. **Semantic Recall**: Run `uv run python scripts/cognee/recall.py "[task description]"` to retrieve prior architectural context and lessons.
-3. **Physical Impact**: Run `uv run scripts/codanna/impact.py [affected symbol]` to map dependencies. Run `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown.
+1. **Beads Sync**: Run `bd ready` or `bd show <id>` to load active task state and get the Bead ID.
+2. **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve any existing short-term context for this specific task.
+3. **Semantic Recall**: Run `uv run python scripts/cognee/recall.py "[task description]"` to retrieve prior permanent architectural context and lessons.
+4. **Physical Impact**: Run `uv run scripts/codanna/impact.py [affected symbol]` to map dependencies. Run `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown.
 4. **Docs Review**: If external libraries are involved, execute `/DocsReview` (L3 context → L4 context7 fallback).
 5. **Sequential Thinking**: Synthesize the above into a structured, multi-step plan with identified risks and ripple effects.
 6. **Handoff Summary**: Produce a concise brief for `@brain`.
@@ -60,7 +61,8 @@ Execute the software development cycle with explicit user gating at critical arc
 2. **Surgical Edits**: Use `replace_file_content` or `multi_replace_file_content` for targeted changes.
 3. **API Contract** (`@api-specialist`): If crossing the React/Sidecar boundary, verify Pydantic models and `callSidecar` bridge compliance.
 4. **UI Hygiene** (`@frontend`): Strictly use tokens from `DESIGN.md`. No hardcoded hex/px.
-5. **Notes**: Log complex decisions in `docs/WikiFlow/coder/notes.md`.
+5. **Context Checkpoints**: If you make a micro-decision or discovery mid-task, save it immediately: `uv run python scripts/cognee/memory.py add <BEAD_ID> --content "Decision: ..."`.
+6. **Notes**: Log complex decisions in `docs/WikiFlow/coder/notes.md`.
 
 ---
 

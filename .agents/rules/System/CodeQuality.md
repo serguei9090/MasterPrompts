@@ -48,5 +48,6 @@ description: Mandatory standards for implementation hygiene, documentation, and 
 
 ## 6. Distillation & Intelligence Sync
 - **Intelligence Stack**: Utilize the 5-layer stack (Thinking, Codanna, Cognee, Context, Beads).
-- **Distillation Mandate**: Run the `/cognee:trace` workflow upon task completion to record lessons.
-- **Physical Sync**: Run `codanna index .` and the `/cognee:index` workflow after any structural refactor.
+- **Task Context**: Use `scripts/cognee/memory.py` to save and recall task-specific micro-decisions linked to Bead IDs.
+- **Distillation Mandate**: Run the `scripts/cognee/trace.py` script upon task completion to record permanent architectural lessons.
+- **Physical Sync**: Run `scripts/codanna/index.py` and `scripts/cognee/indexer.py` after any structural refactor.

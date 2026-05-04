@@ -40,14 +40,16 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 - **Trigger**: Before changing any shared function, module, or API boundary.
 
 ### L2 — Cognee (Semantic Memory)
-- **Purpose**: Retrieve the "Why" — architectural rationale, historical decisions, lessons learned.
+- **Purpose**: Retrieve the "Why" — architectural rationale, historical decisions, lessons learned, and task-specific "Post-it" notes.
 - **Commands**:
-  - Recall: `uv run scripts/cognee/recall.py "query here"`
-  - Store: `uv run scripts/cognee/trace.py` (post-task distillation)
-  - Sync: `uv run scripts/cognee/indexer.py` (after refactor)
-  - Improve: `uv run scripts/cognee/improve.py` (graph optimization)
+  - **Thought Memory (Task Context)**: `uv run python scripts/cognee/memory.py recall <BEAD_ID>` (Retrieve micro-decisions for current task)
+  - **Checkpoint (Task Note)**: `uv run python scripts/cognee/memory.py add <BEAD_ID> --content "..."` (Save discovery/decision mid-task)
+  - **Semantic Recall (Rationale)**: `uv run python scripts/cognee/recall.py "query here"` (Retrieve permanent architectural rationale)
+  - **Store (Distillation)**: `uv run python scripts/cognee/trace.py` (Save permanent lessons post-task)
+  - **Sync (Ingestion)**: `uv run scripts/cognee/indexer.py` (Index codebase after structural changes)
+  - **Prune (Reset)**: `uv run python scripts/cognee/prune.py` (MANUAL ONLY: Hard reset for corrupted ingestion queues. Destructive.)
 - **Dataset Isolation**: All operations are automatically scoped to the current project dataset.
-- **Trigger**: Before refactoring existing logic, after completing any `feat`/`fix` task.
+- **Trigger**: Before refactoring existing logic, during coding for micro-decisions, and after completing any `feat`/`fix` task.
 
 ### L3 — Context (Local Docs — Fast)
 - **Purpose**: Verify library API syntax using locally installed documentation packages.
@@ -81,12 +83,13 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 ## Mandatory Usage Protocol
 
 ### Pre-Task Checklist (Run in order)
-1. `bd ready` — Load current task state.
-2. `uv run scripts/cognee/recall.py "[task description]"` — Load semantic context.
-3. `codanna mcp analyze_impact --args '{"name": "[affected symbol]"}' --json` — Map physical impact.
-4. `/DocsReview` — If external libraries are involved.
-5. Sequential Thinking — Synthesize findings into a plan.
-6. `bd create "<task>"` — Register the plan before touching code.
+1. `bd ready` — Load current task state and identify the active `BEAD_ID`.
+2. `uv run python scripts/cognee/memory.py recall <BEAD_ID>` — Retrieve any existing "Thought Memory" (short-term notes) for this task.
+3. `uv run scripts/cognee/recall.py "[task description]"` — Load broader semantic context and permanent architectural rationale.
+4. `codanna mcp analyze_impact --args '{"name": "[affected symbol]"}' --json` — Map physical impact.
+5. `/DocsReview` — If external libraries are involved.
+6. Sequential Thinking — Synthesize findings into a plan.
+7. `bd create "<task>"` — Register the plan before touching code.
 
 ### Post-Task Checklist (Run in order)
 1. `uv run scripts/cognee/trace.py` — Distill lessons.
@@ -100,4 +103,5 @@ L5: Beads (Operational)  →  Ground truth for task state and history
 - **Never commit inferred code**: If a layer failed and you had to infer, label it `[INFERRED]` and create a verification task.
 - **No skipping**: A layer can only be skipped if a tool is confirmed unavailable (MCP error).
 - **Silent Mode**: Use the `scripts/cognee/` proxy scripts — never call cognee CLI directly.
+- **No Autonomous Reset**: The `prune.py` (Nuclear Reset) script MUST NEVER be executed by an AI agent autonomously. It is a manual recovery tool only.
 - **Local Isolation**: Cognee data lives in `.cognee/` (Git ignored). Never commit the graph.

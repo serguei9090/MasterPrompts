@@ -16,7 +16,7 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 **Assume Role:** `@memory-manager`
 1. **Deep Impact Analysis (The Intelligence Stack)**:
    - **Codanna (Physical & Semantic)**: Use `uv run scripts/codanna/impact.py <name>` to map physical dependencies. Use `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown. Use `uv run scripts/codanna/docs_search.py "<text>"` to retrieve rationale and documentation.
-   - **Beads (Operational)**: Use `bd search` or `bd recall` to retrieve persistent task context and memory.
+   - **Beads (Operational)**: Run `bd ready` to load the active task state and get the Bead ID. Use `bd search` to retrieve persistent task context and memory.
    - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview` (use L3 `context` first for fast local docs → fallback to L4 `context7` for live web search).
    - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
 2. **Task Registration**:

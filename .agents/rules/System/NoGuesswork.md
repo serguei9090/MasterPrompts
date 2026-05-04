@@ -17,7 +17,7 @@ The AI MUST NOT guess, infer, or assume facts about the codebase, libraries, or 
 | Unknown function signature | Guess from memory | `codanna mcp get_calls` / `grep_search` |
 | Unfamiliar library API | Assume syntax | `/DocsReview` → `context` → `context7` |
 | Unknown dependency of a module | Assume it's safe to change | `codanna mcp analyze_impact` |
-| Architectural rationale unknown | Assume the pattern | `uv run scripts/cognee/recall.py` |
+| Architectural rationale unknown | Assume the pattern | `uv run scripts/cognee/memory.py recall <ID>` + `scripts/cognee/recall.py` |
 | Task status unknown | Guess what's next | `bd ready` / `bd list --status open` |
 
 ## 2. The Allowed Inference Zone
