@@ -12,17 +12,23 @@ Execute the software development cycle with explicit user gating at critical arc
 
 ---
 
-### Phase 0: Intelligence Load & Research
+### Phase 0: Intelligence Load & Research (The Intelligence Lock)
 **Assume Role:** `@memory-manager`
-**Mindset:** Zero-guesswork. Use real data only.
-**Execution:**
-1. **Beads Sync**: Run `bd ready` or `bd show <id>` to load active task state and get the Bead ID.
-2. **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve any existing short-term context for this specific task.
-3. **Semantic Recall**: Run `uv run python scripts/cognee/recall.py "[task description]"` to retrieve prior permanent architectural context and lessons.
-4. **Physical Impact**: Run `uv run scripts/codanna/impact.py [affected symbol]` to map dependencies. Run `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown.
-4. **Docs Review**: If external libraries are involved, execute `/DocsReview` (L3 context → L4 context7 fallback).
-5. **Sequential Thinking**: Synthesize the above into a structured, multi-step plan with identified risks and ripple effects.
-6. **Handoff Summary**: Produce a concise brief for `@brain`.
+**Constraint**: The VERY FIRST tool call in any session MUST be `bd ready`. Bypassing this for manual discovery (list_dir) is a protocol violation.
+
+1. **Deep Impact Analysis (The Intelligence Stack)**:
+   - **MANDATORY**: You MUST execute L1 and L2 checks before starting any development or reasoning.
+   - **MANDATORY (Sequential Cognee)**: Cognee operations (recall, add, trace, index) MUST be executed sequentially. Only start the next recall or script after the previous one has fully finished. Parallel execution will cause database lock failures.
+   - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Cognee) for *initial* discovery is a protocol violation.
+   - **Refinement Discovery**: If L1/L2 data is insufficient or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial graph check but *before* proceeding to Sequential Thinking or Docs Review.
+   - **Beads Sync**: Run `bd ready` to load the active task state.
+   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve task-specific context.
+   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies.
+   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale.
+   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
+   - **Sequential Thinking**: Only trigger this AFTER L1/L2 results are processed. Synthesize into a multi-step plan.
+2. **Handoff Summary**: Produce a brief for `@brain`.
+
 
 ---
 
@@ -33,6 +39,7 @@ Execute the software development cycle with explicit user gating at critical arc
 1. **Present the Plan**: State the proposed approach, referencing the `sequentialthinking` output from Phase 0.
 2. **Impact Map**: List ALL files that will be changed and WHY.
 3. **Risk Register**: Enumerate any breaking changes, DB migrations, or API contract shifts.
+   - *Note*: If more details are needed before planning, use manual tools (`grep_search`, `view_file`) now to ensure the plan is grounded in physical reality.
 4. **Task Registration**: Run `bd create "<main task>"` and `bd create "<subtask>" --parent <id>` for each identified sub-task.
 5. **Spec File**: Write the full plan to `docs/track/specs/<bead_id>.md`.
 
@@ -96,7 +103,10 @@ Execute the software development cycle with explicit user gating at critical arc
 **Execution:**
 1. **Close Beads**: Run `bd update <id> --status completed` for all sub-tasks and the main bead.
 2. **Commit**: Run `git add .` and `git commit -m "feat/fix(<scope>): <description>"`.
-3. **Sync Beads**: Run `bd dolt push`.
-4. **Push**: Run `git push`.
-5. **Handoff**: Update `docs/track/handoff.md` with the current state, active bead ID, and next recommended task.
-6. **Final Report**: Print a professional success summary to the user.
+3. **Hook Verification**: Monitor output for errors from `lefthook` (e.g., `cognee-index` or `codanna-index` failures).
+4. **Failure Protocol**: If a hook fails (e.g., due to file locks or Os Error 5), **DO NOT** attempt a manual index run. Instead, immediately notify the user of the error and wait for further instructions.
+5. **Sync Beads**: Run `bd dolt push`.
+6. **Push**: Run `git push`.
+7. **Handoff**: Update `docs/track/handoff.md` with current state and active bead ID.
+8. **Final Report**: Print a professional success summary to the user.
+

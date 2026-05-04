@@ -1,3 +1,9 @@
+﻿## 2026-05-04 - Advanced Calculator Functions
+- **Trigonometric Functions**: Successfully integrated math.cos and math.sin into the sidecar. Used 
+um1 as the single operand for these unary operations to fit the existing CalculatorRequest schema.
+- **UI Consistency**: Maintained existing design patterns using lucide-react icons and glassmorphism.
+- **Testing**: Extended existing pytest suite to cover new operations, ensuring regression safety.
+
 # Lessons Learned
 
 ## 2026-04-30 - Cognee Indexer: "Nuclear Silence" & Terminal Stability
@@ -8,7 +14,7 @@
 - **Key Technique**: Preserve the original terminal streams as `TERM_OUT` and `TERM_ERR` to allow explicit, clean user feedback (progress bars, headers) while suppressing all background noise.
 
 ### 2. Windows Terminal Encoding (CP1252 vs. UTF-8)
-- **Problem**: Using Unicode box-drawing characters (`┌`, `─`, `·`, `→`) caused `UnicodeEncodeError: 'charmap' codec can't encode...` on default Windows terminal configurations (CP1252).
+- **Problem**: Using Unicode box-drawing characters (`â”Œ`, `â”€`, `Â·`, `â†’`) caused `UnicodeEncodeError: 'charmap' codec can't encode...` on default Windows terminal configurations (CP1252).
 - **Solution**: Strictly enforce **ASCII-Only Terminal Output** for all decorations (`-`, `|`, `*`, `->`). This ensures the tool is robust across all environments without requiring users to change system locales.
 
 ### 3. Graceful Asynchronous Teardown
@@ -61,3 +67,4 @@ The framework lacked a dedicated mechanism for long-term knowledge retention and
 
 ## 2026-04-26 - Project Documentation & Issue Architect Workflows
 ... (rest of previous content)
+

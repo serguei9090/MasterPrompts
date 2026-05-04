@@ -3,19 +3,28 @@ trigger: always_on
 description: "Governs the 5-layer Intelligence Stack: how and when to use Sequential Thinking, Codanna, Cognee, Context (local), and Context7 (external)."
 ---
 
-# Intelligence Stack Protocol (v0.11.0)
+# Intelligence Stack Protocol (v0.12.0)
 
-This rule defines the mandatory 5-layer Intelligence Stack. Every agent in the Morphic Framework MUST use this stack in order before making any significant implementation decision. Skipping a layer without a confirmed reason is a protocol violation.
+This rule defines the mandatory 5-layer Intelligence Stack. Every agent in the Morphic Framework MUST use this stack in order before making any significant implementation decision. Skipping a layer or reverting to manual discovery (list_dir/view_file) before intelligence retrieval is a protocol violation.
+
+## ⚖️ The Sequence Law (Priority Ordering)
+1.  **L5 (Beads) - MANDATORY ENTRY**: The VERY FIRST tool call in any new session or task MUST be `bd ready`.
+2.  **L1/L2 (Intelligence) - MANDATORY DISCOVERY**: You MUST use Codanna and Cognee to discover file locations and logic. 
+    - **FORBIDDEN**: Using `list_dir`, `view_file`, or `grep_search` to "find" where code lives.
+    - **REQUIRED**: Use `uv run scripts/codanna/search.py` or `impact.py` to identify targets.
+3.  **L0 (Thinking)**: Only after L1/L2 data is retrieved may you trigger `sequentialthinking` to plan.
+    - **Refinement Discovery**: If L1/L2 results are incomplete or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial graph check but *before* proceeding to Sequential Thinking or Docs Review.
+4.  **Fallback Exception**: Manual discovery tools are reserved ONLY for Phase 2 (Implementation) OR as an emergency fallback if L1/L2 explicitly return "No data found."
 
 ## The 5-Layer Stack (Ordered by Priority)
 
 ```
-L0: Sequential Thinking  →  Plan and reason through ripple effects
 L1: Codanna (Physical)   →  Verify real code structure and call sites  
 L2: Cognee (Semantic)    →  Retrieve architectural rationale and lessons
 L3: Context (Local)      →  Verify library API syntax (offline, fast)
 L4: Context7 (External)  →  Fetch latest live documentation
 L5: Beads (Operational)  →  Ground truth for task state and history
+L0: Sequential Thinking  →  Final synthesis and ripple effect reasoning
 ```
 
 ---

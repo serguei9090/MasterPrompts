@@ -1,3 +1,4 @@
+import math
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -16,7 +17,7 @@ app.add_middleware(
 )
 
 class CalculatorRequest(BaseModel):
-    operation: Literal["add", "sub", "mul", "div"]
+    operation: Literal["add", "sub", "mul", "div", "mod", "cos", "sin"]
     num1: float
     num2: float
 
@@ -38,6 +39,17 @@ def divide(a: float, b: float) -> float:
         raise ValueError("Cannot divide by zero.")
     return a / b
 
+def modulo(a: float, b: float) -> float:
+    if b == 0:
+        raise ValueError("Cannot modulo by zero.")
+    return a % b
+
+def cosine(a: float) -> float:
+    return math.cos(a)
+
+def sine(a: float) -> float:
+    return math.sin(a)
+
 @app.post("/calculate", response_model=CalculatorResponse)
 async def calculate(request: CalculatorRequest):
     try:
@@ -49,6 +61,12 @@ async def calculate(request: CalculatorRequest):
             result = multiply(request.num1, request.num2)
         elif request.operation == "div":
             result = divide(request.num1, request.num2)
+        elif request.operation == "mod":
+            result = modulo(request.num1, request.num2)
+        elif request.operation == "cos":
+            result = cosine(request.num1)
+        elif request.operation == "sin":
+            result = sine(request.num1)
         else:
             raise HTTPException(status_code=400, detail="Invalid operation")
         

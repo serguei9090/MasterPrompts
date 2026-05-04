@@ -5,6 +5,7 @@ import {
 	Divide,
 	History as HistoryIcon,
 	Minus,
+	Percent,
 	Plus,
 	RotateCcw,
 	Trash2,
@@ -65,6 +66,12 @@ const App: React.FC = () => {
 				return "×";
 			case "div":
 				return "÷";
+			case "mod":
+				return "%";
+			case "cos":
+				return "cos";
+			case "sin":
+				return "sin";
 		}
 	};
 
@@ -98,6 +105,12 @@ const App: React.FC = () => {
 				return <X size={18} />;
 			case "div":
 				return <Divide size={18} />;
+			case "mod":
+				return <Percent size={18} />;
+			case "cos":
+				return <span className="text-xs font-bold">COS</span>;
+			case "sin":
+				return <span className="text-xs font-bold">SIN</span>;
 		}
 	};
 
@@ -182,7 +195,9 @@ const App: React.FC = () => {
 						</div>
 
 						<div className="grid-ops">
-							{(["add", "sub", "mul", "div"] as Operation[]).map((op) => (
+							{(
+								["add", "sub", "mul", "div", "mod", "cos", "sin"] as Operation[]
+							).map((op) => (
 								<button
 									type="button"
 									key={op}

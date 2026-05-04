@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export type Operation = "add" | "sub" | "mul" | "div";
+export type Operation = "add" | "sub" | "mul" | "div" | "mod" | "cos" | "sin";
 
 interface CalculatorRequest {
 	operation: Operation;

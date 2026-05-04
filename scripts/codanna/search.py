@@ -13,6 +13,11 @@ import subprocess
 import sys
 
 
+if sys.platform == "win32":
+    sys.stdout.reconfigure(encoding="utf-8")
+    sys.stderr.reconfigure(encoding="utf-8")
+
+
 def _run(tool: str, args_dict: dict) -> None:
     """Execute a codanna mcp search command and print clean output."""
     cmd = [
@@ -20,7 +25,7 @@ def _run(tool: str, args_dict: dict) -> None:
         "--args", json.dumps(args_dict),
         "--json",
     ]
-    result = subprocess.run(cmd, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True, encoding="utf-8")
 
     if result.returncode != 0:
         print(f"[codanna:search] ERROR: {result.stderr.strip()}", file=sys.stderr)

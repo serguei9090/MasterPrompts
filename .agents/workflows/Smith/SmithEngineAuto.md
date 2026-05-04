@@ -12,39 +12,46 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 
 ---
 
-### Phase 0: Memory Retrieval
+### Phase 0: Memory Retrieval (The Intelligence Lock)
 **Assume Role:** `@memory-manager`
+**Constraint**: The VERY FIRST tool call in any session MUST be `bd ready`. Bypassing this for manual discovery (list_dir) is a protocol violation.
+
 1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **Beads Sync**: Run `bd ready` to load the active task state and roadmap context to get the Bead ID.
-   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve any existing short-term context for this task.
-   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies and affected symbols. Use `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown.
-   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale and historical context.
-   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview` (use L3 `context` first for fast local docs → fallback to L4 `context7` for live web search).
-   - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
+   - **MANDATORY**: You MUST execute L1 and L2 checks before starting any development or reasoning.
+   - **MANDATORY (Sequential Cognee)**: Cognee operations (recall, add, trace, index) MUST be executed sequentially. Only start the next recall or script after the previous one has fully finished. Parallel execution will cause database lock failures.
+   - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Cognee) for *initial* discovery is a protocol violation.
+   - **Refinement Discovery**: If L1/L2 results are incomplete or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial graph check but *before* proceeding to Sequential Thinking or Docs Review.
+   - **Beads Sync**: Run `bd ready` to load the active task state.
+   - **Thought Memory**: Run `uv run python scripts/cognee/memory.py recall <BEAD_ID>` to retrieve task-specific context.
+   - **Codanna (Physical)**: Use `uv run scripts/codanna/impact.py <SymbolName>` to map physical dependencies.
+   - **Cognee (Semantic)**: Use `uv run python scripts/cognee/recall.py` to retrieve rationale.
+   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
+   - **Sequential Thinking**: Only trigger this AFTER L1/L2 results are processed. Synthesize into a multi-step plan.
 2. **Task Registration**:
    - Create a technical specification in `docs/track/specs/task-<id>.md`.
-   - Use `bd create` to register the main task and `bd create --parent <id>` for granular sub-tasks identified in the thinking process.
-3. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`) in `docs/memory/`.
+   - Use `bd create` for sub-tasks.
+3. **Context Load:** Read relevant ADRs and Lessons in `docs/memory/`.
 4. **Handoff:** Summarize findings for `@brain`.
 
 ---
 
 ### Phase 1: Context Discovery & Product Management
 **Assume Role:** `@brain` (PM Smith - Senior Product Manager & Architect)
-**Mindset:** Meticulous, context-aware, spec-driven. Never guess; always verify the existing architecture.
+**Mindset:** Meticulous, context-aware, spec-driven. Never guess; always verify.
 **Execution:**
 1. **Analyze Prompt:** Read the user's request.
 2. **Context Discovery:** Read `AGENTS.md`, `SoftwareStandards.md`, and the summary from Phase 0.
-3. **Docs Sync:** If libraries/frameworks are involved, execute the `/DocsReview` workflow to verify API syntax.
-4. **Graph Impact Analysis**: 
-   - `uv run scripts/codanna/calls.py <name>` and `uv run scripts/codanna/callers.py <name>` to map physical dependencies and call sites.
-   - `uv run python scripts/cognee/recall.py "What is the architectural rationale and lessons learned for [Function/Module X]?"`
-   - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` to retrieve project-specific documentation and patterns.
-   - `uv run scripts/codanna/search.py "query" --context` to semantically search code for fuzzy concepts.
-5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
-6. **Grep Verification:** Complement graph recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
-7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 
-8. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`, including the full dependency map and subtask list.
+3. **Docs Sync:** Execute `/DocsReview` if needed.
+4. **Graph Impact Analysis (MANDATORY)**: 
+   - `uv run scripts/codanna/calls.py <name>` to map physical call sites.
+   - `uv run python scripts/cognee/recall.py "rationale for [X]"` to verify semantic intent.
+   - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` for project patterns.
+5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to map the dependency ripple effects.
+   - *Note*: If more details are needed before planning, use manual tools (`grep_search`, `view_file`) now to ensure the plan is grounded in physical reality.
+6. **Grep Verification:** Complement graph recall with `grep_search`.
+7. **Task Breakdown:** Create actionable sub-beads using `bd create`. 
+8. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`.
+
 
 ---
 
@@ -126,7 +133,9 @@ Execute a complete, end-to-end software development cycle autonomously. You will
 **Mindset:** Conventional Commits, traceability.
 **Execution:**
 1. **Stage & Commit:** Run `git add .` and `git commit -m "feat/fix: <descriptive message>"` via `run_command`.
-2. **Re-Cognify Code:** The Lefthook pre-commit automatically triggers `cognee-index` for staged files. If bypassed, run `uv run python scripts/cognee/indexer.py` manually.
-3. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
-4. **Remote Sync:** Run `git push` to deliver the code.
-5. **Final Report:** Halt tool-calling and print a professional success report to the user.
+2. **Hook Verification:** Monitor the `run_command` output for any errors triggered by `lefthook` (e.g., `cognee-index` or `codanna-index` failures).
+3. **Failure Protocol:** If a hook fails (e.g., due to file locks or Os Error 5), **DO NOT** attempt a manual index run. Instead, immediately notify the user of the error and wait for further instructions.
+4. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
+5. **Remote Sync:** Run `git push` to deliver the code.
+6. **Final Report:** Halt tool-calling and print a professional success report to the user.
+

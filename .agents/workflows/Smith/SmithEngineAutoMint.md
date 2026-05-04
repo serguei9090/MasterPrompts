@@ -12,18 +12,24 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 
 ---
 
-### Phase 0: Memory Retrieval
+### Phase 0: Memory Retrieval (The Intelligence Lock)
 **Assume Role:** `@memory-manager`
+**Constraint**: The VERY FIRST tool call in any session MUST be `bd ready`. Bypassing this for manual discovery (list_dir) is a protocol violation.
+
 1. **Deep Impact Analysis (The Intelligence Stack)**:
-   - **Codanna (Physical & Semantic)**: Use `uv run scripts/codanna/impact.py <name>` to map physical dependencies. Use `uv run scripts/codanna/search.py "query" --context` to find symbols by meaning when the exact name is unknown. Use `uv run scripts/codanna/docs_search.py "<text>"` to retrieve rationale and documentation.
-   - **Beads (Operational)**: Run `bd ready` to load the active task state and get the Bead ID. Use `bd search` to retrieve persistent task context and memory.
-   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview` (use L3 `context` first for fast local docs → fallback to L4 `context7` for live web search).
-   - **Sequential Thinking**: Synthesize the above results into a multi-step plan, identifying "ripple effects" and risks.
+   - **MANDATORY**: You MUST execute L1 (Codanna) checks before starting any development or reasoning.
+   - **FORBIDDEN (Initial Orientation)**: Bypassing the Intelligence Stack (Codanna/Beads) for *initial* discovery is a protocol violation.
+   - **Refinement Discovery**: If L1/L5 results are incomplete or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial checks but *before* proceeding to Sequential Thinking or Docs Review.
+   - **Beads Sync (L5)**: Run `bd ready` to load the active task state. Use `bd search` for persistent context.
+   - **Codanna (Physical & Semantic - L1)**: Use `uv run scripts/codanna/impact.py <name>` or `search.py` to map dependencies and locate code.
+   - **Docs Review (L3/L4)**: If external libraries are involved, execute `/DocsReview`.
+   - **Sequential Thinking**: Only trigger this AFTER L1 results are processed. Synthesize results into a multi-step plan.
 2. **Task Registration**:
    - Create a technical specification in `docs/track/specs/task-<id>.md`.
-   - Use `bd create` to register the main task and `bd create --parent <id>` for granular sub-tasks identified in the thinking process.
-3. **Context Load:** Read relevant ADRs (`decisions/`) and Lessons (`lessons/`) in `docs/memory/`.
+   - Use `bd create` for sub-tasks.
+3. **Context Load:** Read relevant ADRs and Lessons in `docs/memory/`.
 4. **Handoff:** Summarize findings for `@brain`.
+
 
 ---
 
@@ -39,6 +45,7 @@ Execute a complete, end-to-end software development cycle autonomously using a s
    - `uv run scripts/codanna/docs_search.py "architectural pattern for [X]"` to retrieve project-specific documentation and patterns.
    - `uv run scripts/codanna/search.py "query" --context` to semantically search code for fuzzy concepts.
 5. **Impact Analysis (Deep Thought):** Invoke `sequentialthinking` to analyze the recall results, identify all impacted files/functions, and map the dependency ripple effects.
+   - *Note*: If more details are needed before planning, use manual tools (`grep_search`, `view_file`) now to ensure the plan is grounded in physical reality.
 6. **Grep Verification:** Complement index recall with `grep_search` to verify physical call sites and physical dependencies. Map the dependency tree.
 7. **Task Breakdown:** Use the `sequentialthinking` output to break the work down into actionable **sub-beads** using `bd create "<subtask>" --parent <bead_id>`. 
 8. **Spec Creation:** Write a detailed architectural plan and implementation spec to `docs/track/specs/<bead_id>.md`, including the full dependency map and subtask list.
@@ -122,7 +129,9 @@ Execute a complete, end-to-end software development cycle autonomously using a s
 **Mindset:** Conventional Commits, traceability.
 **Execution:**
 1. **Stage & Commit:** Run `git add .` and `git commit -m "feat/fix: <descriptive message>"` via `run_command`.
-2. **Re-Index Code:** The Lefthook pre-commit automatically triggers index updates for staged files. If bypassed, run `uv run scripts/codanna/index.py` manually.
-3. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
-4. **Remote Sync:** Run `git push` to deliver the code.
-5. **Final Report:** Halt tool-calling and print a professional success report to the user.
+2. **Hook Verification:** Monitor the `run_command` output for any errors triggered by `lefthook` (e.g., `codanna-index` failures).
+3. **Failure Protocol:** If a hook fails (e.g., due to file locks or Os Error 5), **DO NOT** attempt a manual index run. Instead, immediately notify the user of the error and wait for further instructions.
+4. **Sync Beads:** Run `bd dolt push` to synchronize the roadmap.
+5. **Remote Sync:** Run `git push` to deliver the code.
+6. **Final Report:** Halt tool-calling and print a professional success report to the user.
+
