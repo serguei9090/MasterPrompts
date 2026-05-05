@@ -61,3 +61,12 @@ The framework lacked a dedicated mechanism for long-term knowledge retention and
 - **Memory Hierarchy**: `decisions/`, `entities/`, `patterns/`, `lessons/`, `sessions/`.
 - **Graceful Degradation Protocol**: Automatic pivot to backup workflows when specialized tools fail.
 - **Phase 0 Retrieval**: Starting every cycle with a memory search to load context before PM analysis.
+
+---
+
+## 2026-05-05 - Windows CLI: Quoting & Argument Splitting
+
+### 1. The `uv run` Quoting Trap
+- **Problem**: Passing complex JSON strings containing spaces and internal double-quotes via `uv run` in PowerShell results in `argparse` errors (Unrecognized arguments). The shell/wrapper fails to preserve the quoting boundary, causing the JSON to be shattered into multiple positional arguments.
+- **Solution**: Promote **Individual Flag Usage** for critical scripts like `intel_lock.py`. By using `--bead`, `--query`, and `--symbols` directly, the need for complex nested quoting is eliminated, ensuring robust execution across Windows, macOS, and Linux.
+- **Best Practice**: Update all "Auto" workflows (e.g., Smith V2) to prefer individual flags over the monolithic `--json` flag for Phase 0 discovery.

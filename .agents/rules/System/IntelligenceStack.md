@@ -11,7 +11,7 @@ This rule defines the mandatory 5-layer Intelligence Stack. Every agent in the M
 1.  **L5 (Beads) - MANDATORY ENTRY**: The VERY FIRST tool call in any new session or task MUST be `bd ready`.
 2.  **L1/L2 (Intelligence) - MANDATORY DISCOVERY**: You MUST use Codanna and Cognee to discover file locations and logic. 
     - **FORBIDDEN**: Using `list_dir`, `view_file`, or `grep_search` to "find" where code lives.
-    - **REQUIRED**: Use `uv run scripts/codanna/search.py` or `impact.py` to identify targets.
+    - **REQUIRED**: Use `uv run scripts/codanna/search.py`, `impact.py`, or `intel_lock.py` to identify targets.
 3.  **L0 (Thinking)**: Only after L1/L2 data is retrieved may you trigger `sequentialthinking` to plan.
     - **Refinement Discovery**: If L1/L2 results are incomplete or require physical verification, you MAY use `list_dir`, `view_file`, or `grep_search` to refine your context *after* the initial graph check but *before* proceeding to Sequential Thinking or Docs Review.
 4.  **Fallback Exception**: Manual discovery tools are reserved ONLY for Phase 2 (Implementation) OR as an emergency fallback if L1/L2 explicitly return "No data found."
@@ -93,12 +93,11 @@ L0: Sequential Thinking  →  Final synthesis and ripple effect reasoning
 
 ### Pre-Task Checklist (Run in order)
 1. `bd ready` — Load current task state and identify the active `BEAD_ID`.
-2. `uv run python scripts/cognee/memory.py recall <BEAD_ID> --json` — Retrieve any existing "Thought Memory" (short-term notes) for this task.
-3. `uv run scripts/cognee/recall.py "[task description]" --json` — Load broader semantic context and permanent architectural rationale.
-4. `uv run scripts/codanna/impact.py <SymbolName>` — MANDATORY: Map physical impact and call sites.
-5. `/DocsReview` — If external libraries are involved.
-6. Sequential Thinking — Synthesize findings into a plan.
-7. `bd create "<task>"` — Register the plan before touching code.
+2. **Unified Intelligence Lock (Phase 0)**:
+   `uv run python scripts/intel_lock.py --bead <ID> --query "<TASK_DESCRIPTION>" --symbols <SYM1> <SYM2>`
+   *Mandatory for Smith V2+ agents to consolidate L1/L2/L5 into a single pass.*
+3. Sequential Thinking — Synthesize findings into a plan.
+4. `bd create "<task>"` — Register the plan before touching code.
 
 ### Post-Task Checklist (Run in order)
 1. `uv run scripts/cognee/trace.py` — Distill lessons.

@@ -10,7 +10,8 @@ Mandatory Layers:
 - L5 (Operational): Beads task status.
 
 Usage for AI Agents:
-    uv run python scripts/intel_lock.py --json '{"bead_id": "...", "query": "...", "symbols": ["..."]}'
+    uv run python scripts/intel_lock.py --bead BEAD_ID --query "QUERY" --symbols SYM1 SYM2
+    uv run python scripts/intel_lock.py --json '{"bead_id": "...", "query": "..."}'
 
 AI Protocol:
     1. READ this output carefully before proceeding to Phase 1 (Planning).
@@ -110,34 +111,43 @@ def main():
     parser = argparse.ArgumentParser(
         description="IntelLock: Unified Intelligence Gathering for Phase 0."
     )
-    parser.add_argument("--json", help="JSON string with research intent keys: bead_id, query, symbols, force_search")
+    parser.add_argument("--json", help="JSON string with research intent keys: bead_id, query, symbols, force_search, deep")
     parser.add_argument("--bead", help="Specific Bead ID to research")
     parser.add_argument("--query", help="Research query for semantic recall and search")
-    parser.add_argument("--symbols", nargs="+", help="List of physical symbols to analyze")
+    parser.add_argument("--symbols", nargs="*", help="List of physical symbols to analyze")
     parser.add_argument("--verify", action="store_true", help="Include L1 Verification (calls/docs)")
+    parser.add_argument("--force-search", action="store_true", help="Force L1 semantic search even if symbols are present")
+    parser.add_argument("--deep", action="store_true", default=True, help="Enable deep L1 research (calls/docs). Default: True")
+    parser.add_argument("--no-deep", action="store_false", dest="deep", help="Disable deep L1 research")
 
     args = parser.parse_args()
 
-    # Parse Intent
-    intent: Dict[str, Any] = {}
+    # Parse Intent: Start with flags as baseline
+    intent: Dict[str, Any] = {
+        "bead_id": args.bead,
+        "query": args.query,
+        "symbols": args.symbols or [],
+        "verify": args.verify,
+        "force_search": args.force_search,
+        "deep": args.deep
+    }
+
+    # Override with JSON if provided (Merging Strategy)
     if args.json:
         try:
-            intent = json.loads(args.json)
-        except json.JSONDecodeError:
-            print(json.dumps({"error": "Invalid JSON input for --json argument"}, indent=2))
+            json_intent = json.loads(args.json)
+            if not isinstance(json_intent, dict):
+                raise ValueError("JSON input must be a dictionary")
+            intent.update(json_intent)
+        except (json.JSONDecodeError, ValueError) as e:
+            print(json.dumps({"error": f"Invalid JSON input for --json: {str(e)}"}, indent=2))
             sys.exit(1)
-    else:
-        intent = {
-            "bead_id": args.bead,
-            "query": args.query,
-            "symbols": args.symbols or [],
-            "verify": args.verify
-        }
 
     bead_id = intent.get("bead_id")
     query = intent.get("query")
     symbols = intent.get("symbols", [])
     force_search = intent.get("force_search", False)
+    deep_mode = intent.get("deep", True)  # Use merged intent value
 
     # 1. Operational Context (L5)
     beads_res = get_beads_info(bead_id)
@@ -148,7 +158,6 @@ def main():
 
     # 3. Physical Context (L1)
     physical_hits = []
-    deep_mode = intent.get("deep", True)  # Default to deep for maximum lock
 
     for sym in symbols:
         impact = get_codanna_impact(sym)

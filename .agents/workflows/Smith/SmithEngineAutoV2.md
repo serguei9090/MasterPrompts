@@ -16,7 +16,8 @@ Execute a complete, end-to-end software development cycle autonomously. This ver
 
 > **[DIRECTIVE 0.1]: CONSOLIDATED RESEARCH**
 > 1. Execute the unified research script:
->    `uv run python scripts/intel_lock.py --json '{"bead_id": "<ID>", "query": "<TASK_DESCRIPTION>", "symbols": ["<KNOWN_SYMBOLS>"]}'`
+>    `uv run python scripts/intel_lock.py --bead "<ID>" --query "<TASK_DESCRIPTION>" --symbols <SYM1> <SYM2>`
+>    *Tip: You can also use `--json` for complex payloads, or mix both (individual flags override JSON defaults).*
 > 2. **Process Output**: Read the `INTELLIGENCE LOCK REPORT`. 
 >    - Extract `operational_sync_l5` for task status.
 >    - Extract `semantic_memory_l2` for rationale and previous micro-decisions.
