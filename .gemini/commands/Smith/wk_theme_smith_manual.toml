@@ -1,9 +1,0 @@
-description = "Theme Expert (Theme Smith) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@theme-expert`
-
-Execute the wk_theme_smith_manual workflow:
-@.agents/workflows/Smith/wk_theme_smith_manual.md
-
-Additional context/instructions: {{args}}
-"""

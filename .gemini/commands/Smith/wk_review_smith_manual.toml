@@ -1,9 +1,0 @@
-description = "Lead Architect / QA (Review Smith) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@reviewer-agent`
-
-Execute the wk_review_smith_manual workflow:
-@.agents/workflows/Smith/wk_review_smith_manual.md
-
-Additional context/instructions: {{args}}
-"""

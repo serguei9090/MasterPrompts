@@ -1,0 +1,9 @@
+description = "Smith Engine (Manual) - Semi-autonomous protocol with user approval gates at critical decision points."
+prompt = """
+Assume Role: `@brain`
+
+Execute the Smith Engine (Manual) workflow:
+@.agents/workflows/Smith/SmithEngineManual.md
+
+Additional context/instructions: {{args}}
+"""

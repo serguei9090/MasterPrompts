@@ -1,0 +1,9 @@
+description = "Smith Engine (Auto) V2 - Optimized Intelligence Lock. Executes the entire SDLC using a unified Intelligence Lock (intel_lock.py)."
+prompt = """
+Assume Role: `@brain`
+
+Execute the Smith Engine (Auto) V2 workflow:
+@.agents/workflows/Smith/SmithEngineAutoV2.md
+
+Additional context/instructions: {{args}}
+"""

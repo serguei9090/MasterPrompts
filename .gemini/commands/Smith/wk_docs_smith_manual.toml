@@ -1,9 +1,0 @@
-description = "Technical Writer (Docs Smith) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@doc-agent`
-
-Execute the wk_docs_smith_manual workflow:
-@.agents/workflows/Smith/wk_docs_smith_manual.md
-
-Additional context/instructions: {{args}}
-"""

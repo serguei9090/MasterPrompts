@@ -1,9 +1,0 @@
-description = "Backend Engineer (Coder Smith) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@api-specialist`
-
-Execute the wk_coder_back_smith_manual workflow:
-@.agents/workflows/Smith/wk_coder_back_smith_manual.md
-
-Additional context/instructions: {{args}}
-"""

@@ -1,9 +1,0 @@
-description = "Orchestra Hub (State Manager) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@brain`
-
-Execute the smith_orchestra_manual workflow:
-@.agents/workflows/Smith/smith_orchestra_manual.md
-
-Additional context/instructions: {{args}}
-"""

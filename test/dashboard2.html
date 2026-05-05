@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Hub | Logic Dashboard</title>
+    <style>
+        :root {
+            --bg-color: #08090A;
+            --glass-bg: rgba(20, 25, 30, 0.75);
+            --glass-border: #303A45;
+            --border-glow: #8B5CF64D;
+            --accent-primary: #8B5CF6; /* Purple focus */
+            --accent-secondary: #3B82F6; /* Blue focus */
+            --text-primary: #F0F4F8;
+            --text-secondary: #94A3B8;
+            --font-family: 'Inter Variable', system-ui, -apple-system, sans-serif;
+            --radius: 320px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            font-family: var(--font-family);
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-image: radial-gradient(circle at center, #1E1B4B 0%, #08090A 100%);
+        }
+
+        /* Ambient Glows */
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            z-index: 0;
+        }
+        .glow-1 { top: 10%; left: 10%; width: 400px; height: 400px; background: rgba(139, 92, 246, 0.15); }
+        .glow-2 { bottom: 10%; right: 10%; width: 500px; height: 500px; background: rgba(59, 130, 246, 0.1); }
+
+        .orbit-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        header {
+            text-align: center;
+            z-index: 10;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5), inset 0 0 20px var(--border-glow);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        p.subtitle {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            line-height: 1.4;
+            max-width: 200px;
+        }
+
+        .card {
+            position: absolute;
+            width: 240px;
+            height: 240px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 50%;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: default;
+        }
+
+        .card:hover {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 30px var(--border-glow);
+            z-index: 20;
+            transform: scale(1.1) !important;
+        }
+
+        .card h2 {
+            font-size: 1rem;
+            margin-bottom: 12px;
+            color: var(--accent-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .input-group {
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        input {
+            width: 100%;
+            background: #111827;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 8px 12px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        button {
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            filter: brightness(1.2);
+            box-shadow: 0 0 15px var(--border-glow);
+        }
+
+        .result-area {
+            margin-top: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-secondary);
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .icon {
+            width: 32px;
+            height: 32px;
+            stroke: var(--accent-primary);
+            fill: none;
+            stroke-width: 2;
+            margin-bottom: 8px;
+        }
+
+        /* Distribution */
+        .card-1 { transform: rotate(0deg) translate(var(--radius)) rotate(0deg); }
+        .card-2 { transform: rotate(72deg) translate(var(--radius)) rotate(-72deg); }
+        .card-3 { transform: rotate(144deg) translate(var(--radius)) rotate(-144deg); }
+        .card-4 { transform: rotate(216deg) translate(var(--radius)) rotate(-216deg); }
+        .card-5 { transform: rotate(288deg) translate(var(--radius)) rotate(-288deg); }
+
+        @media (max-width: 900px) {
+            :root { --radius: 200px; }
+            .card { width: 180px; height: 180px; padding: 16px; }
+            header { width: 200px; height: 200px; }
+            h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow glow-1"></div>
+    <div class="glow glow-2"></div>
+
+    <div class="orbit-container">
+        <header>
+            <h1>Circle Hub</h1>
+            <p class="subtitle">A radial evolution of the Morphic dashboard logic.</p>
+        </header>
+
+        <!-- Randomizer -->
+        <div class="card card-1">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M19 11l-8-8-8 8m2 4l6 6 6-6"/></svg>
+            <h2>Randomizer</h2>
+            <div class="result-area" id="res-random">---</div>
+            <button type="button" onclick="runRandom()">Generate</button>
+        </div>
+
+        <!-- Greetings -->
+        <div class="card card-2">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            <h2>Greetings</h2>
+            <input type="text" id="input-name" placeholder="Name...">
+            <div class="result-area" id="res-greet">---</div>
+            <button type="button" onclick="runGreet()">Say Hello</button>
+        </div>
+
+        <!-- Sum Engine -->
+        <div class="card card-3">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            <h2>Sum Engine</h2>
+            <div style="display: flex; gap: 4px; width: 100%;">
+                <input type="number" id="add-a" value="0" style="width: 50%;">
+                <input type="number" id="add-b" value="0" style="width: 50%;">
+            </div>
+            <div class="result-area" id="res-add">---</div>
+            <button type="button" onclick="runAdd()">Sum</button>
+        </div>
+
+        <!-- Product Lab -->
+        <div class="card card-4">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            <h2>Product Lab</h2>
+            <div style="display: flex; gap: 4px; width: 100%;">
+                <input type="number" id="mul-a" value="1" style="width: 50%;">
+                <input type="number" id="mul-b" value="1" style="width: 50%;">
+            </div>
+            <div class="result-area" id="res-mul">---</div>
+            <button type="button" onclick="runMul()">Compute</button>
+        </div>
+
+        <!-- Square -->
+        <div class="card card-5">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM9 9l6 6M15 9l-6 6"/></svg>
+            <h2>Square It</h2>
+            <input type="number" id="square-n" value="2">
+            <div class="result-area" id="res-square">---</div>
+            <button type="button" onclick="runSquare()">Calculate</button>
+        </div>
+    </div>
+
+    <script>
+        const logic = {
+            getRandomNumber: () => Math.floor(Math.random() * 100) + 1,
+            getGreeting: (name) => `hello ${name || 'friend'}`,
+            add: (a, b) => Number(a) + Number(b),
+            multiply: (a, b) => Number(a) * Number(b),
+            square: (n) => Number(n) ** 2
+        };
+
+        function updateResult(id, text) {
+            const el = document.getElementById(id);
+            el.style.opacity = '0';
+            setTimeout(() => {
+                el.innerText = text;
+                el.style.opacity = '1';
+                el.style.transition = 'opacity 0.3s ease';
+            }, 100);
+        }
+
+        function runRandom() { updateResult('res-random', logic.getRandomNumber()); }
+        function runGreet() { updateResult('res-greet', logic.getGreeting(document.getElementById('input-name').value)); }
+        function runAdd() { updateResult('res-add', logic.add(document.getElementById('add-a').value, document.getElementById('add-b').value)); }
+        function runMul() { updateResult('res-mul', logic.multiply(document.getElementById('mul-a').value, document.getElementById('mul-b').value)); }
+        function runSquare() { updateResult('res-square', logic.square(document.getElementById('square-n').value)); }
+    </script>
+</body>
+</html>

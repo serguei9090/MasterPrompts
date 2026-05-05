@@ -1,9 +1,0 @@
-description = "SDET / Automation Engineer (Test Smith) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@qa`
-
-Execute the wk_test_smith_manual workflow:
-@.agents/workflows/Smith/wk_test_smith_manual.md
-
-Additional context/instructions: {{args}}
-"""

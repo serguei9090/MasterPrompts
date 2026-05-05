@@ -1,9 +1,0 @@
-description = "Lead Architect (Brainstorm Smith) (Manual) - WikiFlow sub-agent workflow."
-prompt = """
-Assume Role: `@brain`
-
-Execute the wk_brain_smith_manual workflow:
-@.agents/workflows/Smith/wk_brain_smith_manual.md
-
-Additional context/instructions: {{args}}
-"""
