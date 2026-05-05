@@ -20,6 +20,7 @@ import logging
 import os
 import signal
 import sys
+import subprocess
 import warnings
 from pathlib import Path
 
@@ -359,8 +360,25 @@ async def main():
     parser.add_argument("--dataset", help="Optional: Specific dataset name to target")
     parser.add_argument("--kill", action="store_true", help="Kill any running indexer processes and exit")
     parser.add_argument("--reset", action="store_true", help="Clear the current dataset and exit")
+    parser.add_argument("--latest", action="store_true", help="Index files from the latest git commit")
     parser.add_argument("files", nargs="*", help="Specific files to index")
     args = parser.parse_args()
+
+    # --- --latest mode: get files from the last commit ---
+    if args.latest:
+        try:
+            # Run git diff-tree to get filenames from HEAD
+            cmd = ["git", "diff-tree", "--no-commit-id", "--name-only", "-r", "HEAD"]
+            result = subprocess.check_output(cmd, encoding="utf-8")
+            commit_files = [f.strip() for f in result.splitlines() if f.strip()]
+            if commit_files:
+                args.files.extend(commit_files)
+            else:
+                _print("  [!] No files found in the latest commit.")
+                sys.exit(0)
+        except Exception as e:
+            _print(f"  [✗] Failed to get files from git: {e}")
+            sys.exit(1)
 
     # --- --kill mode: nuke all rogue indexers ---
     if args.kill:
